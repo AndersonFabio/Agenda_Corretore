@@ -1,0 +1,66 @@
+<persistence xmlns="http://java.sun.com/xml/ns/persistence"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/persistence
+     http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd"
+	version="2.0">
+
+	<persistence-unit name="pu-capteweb">
+
+		<!-- provedor/implementacao do JPA -->
+		<provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+
+		<!-- entidade mapeada -->
+		<class>br.com.capiteweb.model.Corretor </class>
+		<class>br.com.capiteweb.model.Contato</class>
+		<class>br.com.capiteweb.model.Empresa</class>
+		<class>br.com.capiteweb.model.Empreendimento</class>
+		<class>br.com.capiteweb.model.Cliente</class>
+		<class>br.com.capiteweb.model.Historico</class>
+		<class>br.com.capiteweb.model.Agenda</class>
+		<class>br.com.capiteweb.model.CheckoutPagamento</class>
+		<class>br.com.capiteweb.model.Captacao</class>
+
+		<properties>
+			<!-- dados da conexao -->
+			<property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver" />
+			<property name="javax.persistence.jdbc.url"
+				value="jdbc:mysql://200.98.133.26:3306/capiteweb?autoReconnect=true" />
+			<property name="javax.persistence.jdbc.user" value="capiteweb" />
+			<property name="javax.persistence.jdbc.password" value="gotoxy" />
+
+			<!-- <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/capiteweb?autoReconnect=true" 
+				/> <property name="javax.persistence.jdbc.user" value="root" /> <property 
+				name="javax.persistence.jdbc.password" value="P@c01701" /> -->
+
+			<!-- propriedades do hibernate -->
+			<property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5InnoDBDialect" />
+			<property name="hibernate.show_sql" value="true" />
+			<property name="hibernate.format_sql" value="true" />
+
+			<!-- atualiza o banco, gera as tabelas se for preciso -->
+			<property name="hibernate.hbm2ddl.auto" value="update" />
+
+			<property name="javax.persistence.query.timeout" value="10000" />
+			<property name="hibernate.query.plan_cache_max_size" value="512" />
+			<property name="hibernate.query.plan_parameter_metadata_max_size"
+				value="64" />
+			<property name="current_session_context_class" value="thread"/>
+
+			<property name="hibernate.archive.autodetection" value="" />
+			<property name="hibernate.c3p0.min_size" value="5" />
+			<property name="hibernate.c3p0.max_size" value="20" />
+			<property name="hibernate.c3p0.timeout" value="300" />
+			<property name="hibernate.c3p0.idle_test_period" value="60"/>
+			<property name="hibernate.c3p0.privilegeSpawnedThreads" value="true"/>
+			<property name="hibernate.c3p0.contextClassLoaderSource" value="library"/>
+			<!-- <property name="hibernate.connection.charSet" value="utf-8"/> <property 
+				name="hibernate.c3p0.idle_test_period" value="60"/> <property name="hibernate.c3p0.min_size" 
+				value="0"/> <property name="hibernate.c3p0.max_size" value="20"/> <property 
+				name="hibernate.c3p0.timeout" value="1800"/> <property name="hibernate.c3p0.max_statements" 
+				value="50"/> <property name="hibernate.hbm2ddl.auto" value="update"/> <property 
+				name="current_session_context_class" value="thread"/> <property name="hibernate.show_sql" 
+				value="true"/> -->
+
+		</properties>
+	</persistence-unit>
+</persistence>

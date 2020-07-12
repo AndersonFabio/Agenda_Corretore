@@ -1,0 +1,24 @@
+.rodape {
+ background-color : #2d3e50 !important;
+ color : white !important;
+ font-weight : bold;
+}
+
+.menuprincipal {
+	background-color : white !important;
+	color : #2d3e50;
+	font-weight : bold;
+	cursor: pointer;
+}
+
+.cabecalho {
+	background-color : #2d3e50 !important;
+	color : white;
+	font-weight : bold;
+	cursor: pointer;
+}
+
+.centralizar {
+	width: 100%;
+	text-align: center;
+}

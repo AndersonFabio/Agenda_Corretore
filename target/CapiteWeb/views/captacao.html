@@ -1,0 +1,147 @@
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport"
+	content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+</head>
+<div ng-constroller="captacaoCtrl" id="content-top">
+
+	<div class="container-web">
+		<h3 style="font-weight: bold;">CAPTAÇÂO DE LED - FACEBOOK</h3>
+		<br>
+		<div class="panel-group col-12 col-md-12">
+			<div class="panel panel-dark">
+				<div class="panel-heading">Campanha Nova</div>
+				<div class="panel-body">
+					<form novalidate="novalidate">
+						<div class="row">
+							<div class="col-12 col-md-6">
+								<label class="control-label" for="inputtitulo">Titulo</label> <input
+									maxlength="25" type="text" id="inputtitulo"
+									class="form-control linhaMobile" ng-model="captacao.titulo1" />
+								<p>{{captacao.titulo1.length}}/25 Caracteres</p>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-12 col-md-6">
+								<label class="control-label" for="inputAnuncio">Anúncio</label>
+								<textarea ng-model="captacao.anuncio1"
+									name="Anúncio" class="form-control" rows="3" cols="1000"></textarea>
+								<p>
+									<span>{{captacao.anuncio1.length}}</span> Caracteres
+								</p>
+							</div>
+							<div class="col-12 col-md-6">
+								<label class="control-label" for="inputPalavras1">Palavras
+									Chave</label>
+								<textarea ng-model="captacao.palavras1" name="Anúncio"
+									class="form-control" rows="3" cols="1000"></textarea>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-12 col-md-3">
+								<label class="control-label" for="inputInvestimento">Investimento</label>
+								<input type="text" id="inputInvestimento" ng-currency-mask
+									class="form-control linhaMobile"
+									ng-model="captacao.investimento1" />
+							</div>
+							<div class="col-6 col-md-3">
+								<label class="control-label" for="inputData">Data</label>
+								<input type="text" id="inputData" ui-mask="99/99/9999"
+									class="form-control linhaMobile" ng-model="captacao.data1" ng-disabled="true"/>
+							</div>
+							<div class="col-12 col-md-3">
+								<label class="control-label" for="inputTipo">Situação:</label> <select
+									class="form-control linhaMobile" class="selectpicker"
+									ng-disabled="true" title="Selecione..."
+									ng-model="captacao.situacao1">
+									<option>A Pagar</option>
+									<option>Pago</option>
+								</select>
+							</div>
+						</div>
+						<div class="row">&nbsp;</div>
+					</form>
+				</div>
+			</div>
+			
+		</div>
+
+		<div class="panel-group col-12 col-md-12">
+			<div class="panel panel-dark">
+				<div class="panel-heading">Campanha Anterior</div>
+				<div class="panel-body">
+					<form novalidate="novalidate">
+
+						<div class="row">
+							<div class="col-12 col-md-6">
+								<label class="control-label" for="inputTitulo">Titulo</label> <input
+									ng-maxlength="25" type="text" id="inputTitulo" ng-disabled="true"
+									class="form-control linhaMobile" ng-model="captacao.titulo2" />
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-12 col-md-6">
+								<label class="control-label" for="inputAnuncio">Anúncio</label>
+								<textarea ng-maxlength="90" ng-model="captacao.anuncio2" ng-disabled="true"
+									name="Anúncio" class="form-control" rows="3" cols="1000"></textarea>
+								<p>
+									<span>{{captacao.anuncio1.length}}</span>/90 Caracteres
+								</p>
+							</div>
+							<div class="col-12 col-md-6">
+								<label class="control-label" for="inputPalavras2">Palavras
+									Chave</label>
+								<textarea ng-model="captacao.palavras2" name="Anúncio" ng-disabled="true"
+									class="form-control" rows="3" cols="1000"></textarea>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-12 col-md-3">
+								<label class="control-label" for="inputInvestimento2">Investimento</label>
+								<input type="text" id="inputInvestimento2" ng-currency-mask ng-disabled="true"
+									class="form-control linhaMobile"
+									ng-model="captacao.investimento2" />
+							</div>
+							<div class="col-6 col-md-3">
+								<label class="control-label" for="inputData2">Data</label>
+								<input type="text" id="inputData2" ui-mask="99/99/9999"
+									class="form-control linhaMobile" ng-model="captacao.data2" ng-disabled="true"/>
+							</div>
+							<div class="col-12 col-md-3">
+								<label class="control-label" for="inputTipo">Situação:</label> <select
+									class="form-control linhaMobile" class="selectpicker"
+									ng-disabled="true" title="Selecione..."
+									ng-model="captacao.situacao2">
+									<option>A Pagar</option>
+									<option>Pago</option>
+								</select>
+							</div>
+						</div>
+					</form>
+
+					<div class="row">&nbsp;</div>
+
+				</div>
+			</div>
+		</div>
+		<br>
+		<div class="row">
+			<br>
+			<div class="centralizar">
+				<a ng-click="cancelar()" class="btn btn-dark "
+					style="color: white !important">Voltar</a> &nbsp;&nbsp; <a
+					ng-click="salvar(captacao)" class="btn btn-dark "
+					style="color: white !important">Salvar</a>
+			</div>
+		</div>
+	</div>
+	<fullscreen-dialog ng-show="isVisible.loading">
+	<div class="dialog">
+		<div class="content">
+			<i class="fa fa-cog fa-spin fa-3x fa-fw"></i>
+		</div>
+	</div>
+	</fullscreen-dialog>
+</div>
+

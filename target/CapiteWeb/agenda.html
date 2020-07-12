@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="pt" ng-app="ngAgendaApp">
+<!-- Basic -->
+
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+<!-- Mobile Metas -->
+<meta name="viewport"
+	content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+<!-- Site Metas -->
+<title>Capite Web - Agenda</title>
+<meta name="keywords" content="Sistema Para Corretor,crm, agenda de corretores, agenda, cadastro de clientes, cadastro de imóveis, agendamento de clientes, sistema para imobiliaria">
+<meta name="description" content="Sistema Para Corretores">
+<meta name="author" content="Anderson Fábio da Silva">
+
+<link rel="shortcut icon" href="resources/img/favicon.ico"
+	type="image/x-icon" />
+<link rel="apple-touch-icon" href="resources/img/favicon.ico" />
+<link rel="stylesheet" href="css/bootstrap.min.css">
+<link rel="stylesheet" href="css/pogo-slider.min.css">
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/responsive.css">
+<link rel="stylesheet" href="css/custom.css">
+<script src="js/jquery-1.11.1.min.js"></script>
+<script src="js/jquery.mobile.js"></script>
+<script src="js/angular.min.js"></script>
+<script src="js/angular-route.js"></script>
+
+<script src="js/popper.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/jquery.magnific-popup.min.js"></script>
+<script src="js/jquery.pogo-slider.min.js"></script>
+<script src="js/smoothscroll.js"></script>
+<script src="js/form-validator.min.js"></script>
+<script src="js/contact-form-script.js"></script>
+<script src="js/isotope.min.js"></script>
+<script src="js/images-loded.min.js"></script>
+<script src="js/custom.js"></script>
+<script src="resources/script/mask.min.js"></script>
+ <script src="js/ng-currency-mask.min.js"></script>
+ <script src="js/angular-ui-router.min.js"></script>
+
+<script>
+	var app = angular.module('ngdemoApp', [ 'ngRoute', 'ui.mask','ngCurrencyMask','ui.router' ]);
+	var appAgenda = angular.module('ngAgendaApp', [ 'ngRoute', 'ui.mask','ngCurrencyMask','ui.router' ]);
+	var URL = window.location.href.substring(0, window.location.href
+			.indexOf('CapiteWeb') + 10)
+			+ 'rest/';
+	var CONTEXTO = window.location.href.substring(0, window.location.href
+			.indexOf('CapiteWeb') + 10);
+</script>
+
+<script src="resources/script/app.js"></script>
+<script src="resources/script/appAgenda.js"></script>
+
+<script src="resources/script/service/usuarioService.js"></script>
+<script src="resources/script/service/usuarioServiceApp.js"></script>
+
+<script src="resources/script/controllers/agendaController.js"></script>
+<script src="resources/script/controllers/clienteController.js"></script>
+<script src="resources/script/controllers/empreendimentoController.js"></script>
+<script src="resources/script/controllers/loginController.js"></script>
+<script src="resources/script/controllers/planoController.js"></script>
+<script src="resources/script/controllers/ledController.js"></script>
+<script src="resources/script/controllers/homeController.js"></script>
+<script src="resources/script/controllers/contatoController.js"></script>
+<script src="resources/script/controllers/cadastrarController.js"></script>
+<script src="resources/script/controllers/corretorController.js"></script>
+<script src="resources/script/controllers/captacaoController.js"></script>
+<script src="resources/script/controllers/gestaoController.js"></script>
+
+
+
+
+</head>
+
+<body ng-controller='agendaCtrl' id="dialog" data-spy="scroll"
+	data-target="#navbar-wd" data-offset="98">
+
+	<!-- Start header -->
+	<header class="top-header" id="header-menu">
+		<nav class="navbar header-nav navbar-expand-lg" id="navbar">
+			<div class="container-fluid">
+				<a ng-click="agenda();" style="font-weight: bold; cursor: pointer;"><img
+					src="images/logo1.png" alt="image"></a>
+				<button class="navbar-toggler" style="color: black;" type="button"
+					data-toggle="collapse" data-target="#navbar-wd"
+					aria-controls="navbar-wd" aria-expanded="false"
+					aria-label="Toggle navigation">
+					<span></span> <span></span> <span></span>
+				</button>
+				<div class="collapse navbar-collapse justify-content-end"
+					id="navbar-wd">
+					<ul class="navbar-nav">
+						<li><a ng-class="{'active' : menuItem == 1}"
+							class="nav-link "
+							style="font-weight: bold; cursor: pointer !important;"
+							ng-click="agendamentos(); menuItem = 1">Agenda <span
+								class="sr-only">(current)</span></a></li>
+						<li><a ng-class="{'active' : menuItem == 2}"
+							class="nav-link "
+							style="font-weight: bold; cursor: pointer !important;"
+							ng-click="conta(); menuItem = 2">Conta<span class="sr-only">(current)</span></a></li>
+						<li><a ng-class="{'active' : menuItem == 3}"
+							class="nav-link "
+							style="font-weight: bold; cursor: pointer !important;"
+							ng-click="empreendimento(); menuItem = 3">Empreendimentos <span
+								class="sr-only">(current)</span></a></li>
+						<li><a ng-class="{'active' : menuItem == 4}"
+							class="nav-link "
+							style="font-weight: bold; cursor: pointer !important;"
+							ng-click="cliente(); menuItem = 4">Clientes <span
+								class="sr-only">(current)</span></a></li>
+						<li><a ng-class="{'active' : menuItem == 5}"
+							class="nav-link "
+							style="font-weight: bold; cursor: pointer !important;"
+							ng-click="captacao()">Led <span
+								class="sr-only">(current)</span></a></li>
+
+						<li><a ng-class="{'active' : menuItem == 6}"
+							class="nav-link "
+							style="font-weight: bold; cursor: pointer !important;"
+							ng-click="gestao()">Gestão <span
+								class="sr-only">(current)</span></a></li>
+
+						<li><a class="nav-link active"
+							style="background: #fff; color: #000; font-weight: bold; cursor: pointer !important;"
+							ng-click="logout(); menuItem = 4">Sair</a></li>
+					</ul>
+				</div>
+			</div>
+		</nav>
+		<div class="container">
+			<div class="direita" style="color: white;">{{login.cargo}}:{{login.nome}}</div>
+		</div>
+	</header>
+	<!-- End header -->
+
+	<div ng-view ng-init="agenda()"></div>
+	<br>
+	<!-- Start Footer -->
+	<footer class="footer-box">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-12">
+					<div class="logo">
+						<a href="index.html"><img src="images/logoRodape.png" alt="#" /></a>
+					</div>
+				</div>
+				<div class="col-lg-12 white_fonts">
+					<h4 class="text-align">Contate-nos</h4>
+				</div>
+				<div class="margin-top_30 col-md-8 offset-md-2 white_fonts">
+					<div class="row">
+						<div class="col-md-4">
+							<div class="full icon text_align_center">
+								<img src="images/social1.png">
+							</div>
+							<div class="full white_fonts text_align_center">
+								<p>
+									Av.Vila Ema, 5446 <br>São Paulo
+								</p>
+							</div>
+						</div>
+						<div class="col-md-4">
+							<div class="full icon text_align_center">
+								<img src="images/social2.png">
+							</div>
+							<div class="full white_fonts text_align_center">
+								<p>
+									<a
+										href="mailto:faleconosco@capiteweb.com.br?subject=Desejo Mais Informações"
+										style="color: white;">faleconosco@capiteweb.com.br</a>
+								</p>
+							</div>
+						</div>
+						<div class="col-md-4">
+							<div class="full icon text_align_center">
+								<img src="images/social3.png">
+							</div>
+							<div class="full white_fonts text_align_center">
+								<p>11-99369-8114</p>
+							</div>
+						</div>
+					</div>
+				</div>
+
+			</div>
+			<div class="row white_fonts margin-top_30">
+				<div class="col-lg-12">
+					<div class="full">
+						<div class="center">
+							<ul class="social_icon">
+								<li><a ng-click="home();" style="cursor: pointer;"><i
+										class="fa fa-facebook-f"></i></a></li>
+								<li><a ng-click="home();" style="cursor: pointer;"><i
+										class="fa fa-twitter"></i></a></li>
+								<li><a ng-click="home();" style="cursor: pointer;"><i
+										class="fa fa-linkedin"></i></a></li>
+								<li><a ng-click="home();" style="cursor: pointer;"><i
+										class="fa fa-google-plus"></i></a></li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</footer>
+	<!-- End Footer -->
+
+	<div class="footer_bottom">
+		<div class="container">
+			<div class="row">
+				<div class="col-12">
+					<p class="crp">© 2020 CW - CapiteWeb. All Rights Reserved.</p>
+					<ul class="bottom_menu">
+						<li><a ng-click="agendamentos()"
+							style="font-weight: bold; cursor: pointer;">Agenda</a></li>
+						<li><a ng-click="conta();"
+							style="font-weight: bold; cursor: pointer;">Conta</a></li>
+						<li><a ng-click="empreendimento();"
+							style="font-weight: bold; cursor: pointer;">Empreendimentos</a></li>
+						<li><a ng-click="cliente();"
+							style="font-weight: bold; cursor: pointer;">Clientes</a></li>
+						<li><a ng-click="captacao();"
+							style="font-weight: bold; cursor: pointer;">Led</a></li>
+						<li><a ng-click="gestao();"
+							style="font-weight: bold; cursor: pointer;">Gestão</a></li>
+						<li><a ng-click="logout();"
+							style="font-weight: bold; cursor: pointer;">Sair</a></li>
+
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<a id="scroll-to-top" class="hvr-radial-out"><i
+		class="fa fa-angle-up"></i></a>
+
+	<script src="js/script.js"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,278 @@
+var corretorCtrl = angular.module('corretorCtrl', []);
+appAgenda.controller(
+				'corretorCtrl',
+				[
+						'$scope',
+						'$http',
+						'$routeParams',
+						'$location','usuarioService','$rootScope',
+						function($scope, $http, $routeParams, $location, usuarioService,$rootScope) {
+							$scope.sistema = 'CapiteWeb';
+							$scope.corretor = {};
+							$scope.corretor.situacao = "Disponivel";
+							$scope.corretors = [];
+							$scope.index = false;
+							$scope.empresa = {};
+							$scope.login = usuarioService.popularLogin();
+							$scope.corretor.login = $scope.login;
+							$scope.parametro = usuarioService.popularParametro();
+							
+							$scope.alterar = function(corretor) {
+								$scope.corretor = corretor;
+								$scope.corretor.login = $scope.login;
+								$scope.index = false;
+							}
+							
+							$scope.novo = function() {
+								$scope.corretor = {};
+								$scope.corretor.login = $scope.login;
+								$scope.corretor.idEmpresa = $scope.empresa.id;
+								$scope.index = false;
+							}
+							
+							$scope.cancelar = function() {
+								$location.path("/agenda");
+							}
+
+							$scope.salvar = function(corretor,empresa) {
+								$rootScope.isVisible.loading = true;
+								var url = "";
+								var data = {};
+								if($scope.login.cargo == "Imobiliaria") {
+									url = URL+"empresa/salvar";
+									data = empresa;
+									$scope.login.email = empresa.email;
+									$scope.login.senha = empresa.senha;
+									usuarioService.salvarLogin($scope.login);
+								} else {
+									url = URL+"corretor/salvar";
+									data = corretor;
+									$scope.login.email = corretor.email;
+									$scope.login.senha = corretor.senha;
+									usuarioService.salvarLogin($scope.login);
+								}
+
+								setTimeout(function() {
+									setTimeout(
+									function() {
+										$http(
+										{
+											url : url,
+											method : "POST",
+											contentType : "application/json",
+											data : data
+										})
+										.success(
+											function(data) {
+												$rootScope.isVisible.loading = false;
+												$scope.index = true;
+												$location.path("/agenda");
+											})
+										.error(
+											function(erro) {
+												$rootScope.isVisible.loading = false;
+												alert("ERRO no envio dos dados ! "
+														+ erro == undefined ? ""
+														: erro);
+											})
+									}, 100);
+
+								})
+							};
+							
+							$scope.pagarAgenda = function() {
+								$rootScope.isVisible.loading = true;
+								setTimeout(function() {
+									setTimeout(
+									function() {
+										$http(
+										{
+											url : URL
+													+ "checkout/pagarAgenda",
+											method : "POST",
+											contentType : "application/json",
+											data : $scope.parametro
+										})
+										.success(
+											function(data) {
+												$rootScope.isVisible.loading = false;
+												window.location.href = data.url;
+											})
+										.error(
+											function(erro) {
+												$rootScope.isVisible.loading = false;
+												alert("ERRO no envio dos dados ! "
+														+ erro == undefined ? ""
+														: erro);
+											})
+									}, 100);
+
+								})
+							};
+							
+							$scope.pagarLed = function() {
+								$rootScope.isVisible.loading = true;
+								setTimeout(function() {
+									setTimeout(
+									function() {
+										$http(
+										{
+											url : URL
+													+ "checkout/pagarLed",
+											method : "POST",
+											contentType : "application/json",
+											data : $scope.parametro
+										})
+										.success(
+											function(data) {
+												$rootScope.isVisible.loading = false;
+												window.location.href = data.url;
+											})
+										.error(
+											function(erro) {
+												$rootScope.isVisible.loading = false;
+												alert("ERRO no envio dos dados ! "
+														+ erro == undefined ? ""
+														: erro);
+											})
+									}, 100);
+
+								})
+							};
+							
+							
+							$scope.carregarCorretor = function() {
+								$rootScope.isVisible.loading = true;
+								setTimeout(function() {
+									setTimeout(
+									function() {
+										$http(
+										{
+											url : URL
+													+ "corretor/get",
+											method : "GET",
+											contentType : "application/json",
+											params : {"id": $scope.parametro.login.idCorretor}
+										})
+										.success(
+											function(data) {
+												$rootScope.isVisible.loading = false;
+												$scope.corretor = data;
+											})
+										.error(
+											function(erro) {
+												$rootScope.isVisible.loading = false;
+												alert("ERRO no envio dos dados ! "
+														+ erro == undefined ? ""
+														: erro);
+											})
+									}, 100);
+
+								})
+							};
+							
+							$scope.carregarEmpresa = function() {
+								$rootScope.isVisible.loading = true;
+								setTimeout(function() {
+									setTimeout(
+									function() {
+										$http(
+										{
+											url : URL
+													+ "empresa/get",
+											method : "GET",
+											contentType : "application/json",
+											params : {"id": $scope.parametro.login.idEmpresa}
+										})
+										.success(
+											function(data) {
+												$rootScope.isVisible.loading = false;
+												$scope.empresa = data;
+											})
+										.error(
+											function(erro) {
+												$rootScope.isVisible.loading = false;
+												alert("ERRO no envio dos dados ! "
+														+ erro == undefined ? ""
+														: erro);
+											})
+									}, 100);
+
+								})
+							};
+
+
+							$scope.excluir = function(corretor) {
+								if(!confirm('Deseja Excluir o Corretor ?')) {
+									return;
+								}
+								corretor.login = $scope.login;
+								$scope.parametro.idCorretor = corretor.id; 
+								$rootScope.isVisible.loading = true;
+								setTimeout(function() {
+									setTimeout(
+									function() {
+										$http(
+										{
+											url : URL
+													+ "corretor/excluir",
+											method : "POST",
+											contentType : "application/json",
+											data : $scope.parametro
+										})
+										.success(
+											function(data) {
+												$rootScope.isVisible.loading = false;
+												$scope.pesquisar();
+													
+											})
+										.error(
+											function(erro) {
+												$rootScope.isVisible.loading = false;
+												alert("ERRO no envio dos dados ! "
+														+ erro == undefined ? ""
+														: erro);
+											})
+									}, 100);
+
+								})
+							};
+							
+							$scope.getEmpresaPorId = function() {
+								setTimeout(function() {
+									$rootScope.isVisible.loading = true;
+									setTimeout(
+									function() {
+										$http(
+										{
+											url : URL
+													+ "empresa/getEmpresaPorId",
+											method : "POST",
+											contentType : "application/json",
+											data : $scope.parametro
+										})
+										.success(
+											function(data) {
+												$rootScope.isVisible.loading = false;
+												$scope.empresa = data;
+											})
+										.error(
+											function(erro) {
+												$rootScope.isVisible.loading = false;
+												alert("ERRO no envio dos dados ! "
+														+ erro == undefined ? ""
+														: erro);
+											})
+									}, 100);
+
+								})
+							};
+
+
+
+							if($scope.login.cargo != "Imobiliaria") {
+								$scope.carregarCorretor();
+							}
+							$scope.carregarEmpresa();
+							$scope.getEmpresaPorId();
+						} ]);
