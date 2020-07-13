@@ -54,6 +54,7 @@ br\com\capiteweb\rest\Rest.class
 br\com\capiteweb\rest\RestBinder.class
 br\com\capiteweb\business\CheckoutPagamentoBusiness.class
 br\com\capiteweb\model\Items.class
+br\com\capiteweb\rest\FileUploadRest.class
 br\com\capiteweb\commons\Shipping.class
 br\com\capiteweb\business\AgendaBusiness.class
 br\com\capiteweb\commons\CheckoutRetorno.class

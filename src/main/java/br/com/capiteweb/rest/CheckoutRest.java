@@ -1,40 +1,37 @@
 package br.com.capiteweb.rest;
 
-import br.com.capiteweb.business.CaptacaoBusiness;
-import br.com.capiteweb.business.CheckoutPagamentoBusiness;
-import br.com.capiteweb.business.CorretorBusiness;
-import br.com.capiteweb.business.EmpresaBusiness;
-import br.com.capiteweb.business.LoginBusiness;
-import br.com.capiteweb.business.Ret;
-import br.com.capiteweb.commons.Address;
-import br.com.capiteweb.commons.Checkout;
-import br.com.capiteweb.commons.CheckoutRetorno;
-import br.com.capiteweb.commons.CheckoutSender;
-import br.com.capiteweb.commons.Document;
-import br.com.capiteweb.commons.HibernateUtil;
-import br.com.capiteweb.commons.Item;
-import br.com.capiteweb.commons.Phone;
-import br.com.capiteweb.commons.Receiver;
-import br.com.capiteweb.commons.Sender;
-import br.com.capiteweb.commons.Shipping;
-import br.com.capiteweb.model.Captacao;
-import br.com.capiteweb.model.CheckoutPagamento;
-import br.com.capiteweb.model.Corretor;
-import br.com.capiteweb.model.Empresa;
-import br.com.capiteweb.model.Parametro;
-
 import java.io.IOException;
 import java.net.ProtocolException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+
 import javax.persistence.EntityManager;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MultivaluedMap;
+
+import br.com.capiteweb.business.CaptacaoBusiness;
+import br.com.capiteweb.business.CheckoutPagamentoBusiness;
+import br.com.capiteweb.business.CorretorBusiness;
+import br.com.capiteweb.business.EmpresaBusiness;
+import br.com.capiteweb.business.LoginBusiness;
+import br.com.capiteweb.business.Ret;
+import br.com.capiteweb.commons.Checkout;
+import br.com.capiteweb.commons.CheckoutRetorno;
+import br.com.capiteweb.commons.CheckoutSender;
+import br.com.capiteweb.commons.HibernateUtil;
+import br.com.capiteweb.commons.Item;
+import br.com.capiteweb.commons.Receiver;
+import br.com.capiteweb.commons.Shipping;
+import br.com.capiteweb.model.Captacao;
+import br.com.capiteweb.model.CheckoutPagamento;
+import br.com.capiteweb.model.Corretor;
+import br.com.capiteweb.model.Empresa;
+import br.com.capiteweb.model.Parametro;
 
 @Path("/checkout")
 public class CheckoutRest {
@@ -62,7 +59,7 @@ public class CheckoutRest {
 	@Consumes({"application/json"})
 	@Produces({"application/json"})
 	public Ret pagarAgenda(Parametro parametro) throws IOException {
-		Ret ret = this.pagamento(parametro, "Agenda de Corretores", "70.00", "1");
+		Ret ret = this.pagamento(parametro, "Agenda de Corretores", "50.00", "1");
 		return ret;
 	}
 
@@ -168,64 +165,65 @@ public class CheckoutRest {
 		Checkout checkout = new Checkout();
 		Corretor corretor = null;
 		Empresa empresa = null;
-		String documentType = null;
+		//String documentType = null;
 		String cargo = parametro.getLogin().getCargo();
-		String documento = null;
+		//String documento = null;
 		String url = this.URL + "v2/checkout?email=" + this.EMAIL + "&token=" + this.TOKEN;
 		String urlParameters = "";
 		if (cargo.equals("Imobiliaria")) {
 			empresa = this.empresaBusiness.buscaPorId(parametro.getLogin().getIdEmpresa());
-			documento = empresa.getCnpj();
-			documentType = "CNPJ";
+			//documento = empresa.getCnpj();
+			//documentType = "CNPJ";
 		} else {
 			corretor = this.corretorBusiness.buscaPorId(parametro.getLogin().getIdCorretor());
-			documentType = "CPF";
-			documento = corretor.getCpf();
+			//documentType = "CPF";
+			//documento = corretor.getCpf();
 		}
 
-		Sender sender = new Sender();
+		//Sender sender = new Sender();
 		CheckoutPagamento checkoutPagamento = new CheckoutPagamento();
 		checkoutPagamento.setCargo(cargo.equals("Imobiliaria") ? empresa.getCargo() : corretor.getCargo());
 		checkoutPagamento.setData(new Date());
+		checkoutPagamento.setIdCaptacao(parametro.getIdCaptacao());
 		if (cargo.equals("Imobiliaria")) {
 			checkoutPagamento.setIdEmpresa(empresa.getId());
 		} else {
 			checkoutPagamento.setIdCorretor(corretor.getId());
 		}
 
-		Phone phone;
-		label93 : {
+		//Phone phone;
+		//label93 : {
 			checkoutPagamento.setIdProduto(idProduto);
 			checkoutPagamento.setProduto(produto);
 			checkoutPagamento.setPreco(preco);
 			checkoutPagamento = this.checkoutPagamentoBusiness.salvar(checkoutPagamento);
-			sender.setName(cargo.equals("Imobiliaria") ? empresa.getNome() : corretor.getNome());
-			sender.setEmail(cargo.equals("Imobiliaria") ? empresa.getEmail() : corretor.getEmail());
-			phone = new Phone();
-			if (cargo.equals("Imobiliaria")) {
-				if (empresa.getCelular() == null || empresa.getCelular().equals("")) {
-					break label93;
-				}
-			} else if (corretor.getCelular() == null || corretor.getCelular().equals("")) {
-				break label93;
-			}
+			//sender.setName(cargo.equals("Imobiliaria") ? empresa.getNome() : corretor.getNome());
+			//sender.setEmail(cargo.equals("Imobiliaria") ? empresa.getEmail() : corretor.getEmail());
+			//phone = new Phone();
+			//if (cargo.equals("Imobiliaria")) {
+			//	if (empresa.getCelular() == null || empresa.getCelular().equals("")) {
+			//		break label93;
+			//	}
+			//} else if (corretor.getCelular() == null || corretor.getCelular().equals("")) {
+			//	break label93;
+			//}
 
-			phone.setAreaCode(cargo.equals("Imobiliaria")
-					? empresa.getCelular().substring(0, 2)
-					: corretor.getCelular().substring(0, 2));
-			phone.setNumber(cargo.equals("Imobiliaria")
-					? empresa.getCelular().substring(2, empresa.getCelular().length() - 1)
-					: corretor.getCelular().substring(2, corretor.getCelular().length() - 1));
-		}
+			//phone.setAreaCode(cargo.equals("Imobiliaria")
+			//		? empresa.getCelular().substring(0, 2)
+			//		: corretor.getCelular().substring(0, 2));
+			//phone.setNumber(cargo.equals("Imobiliaria")
+			//		? empresa.getCelular().substring(2, empresa.getCelular().length() - 1)
+			//		: corretor.getCelular().substring(2, corretor.getCelular().length() - 1));
+		//}
 
-		sender.setPhone(phone);
-		Document document = new Document();
-		document.setType(documentType);
-		document.setValue(documento);
-		List<Document> documents = new ArrayList();
-		documents.add(document);
-		sender.setDocuments(documents);
-		checkout.setSender(sender);
+		//sender.setPhone(phone);
+		//Document document = new Document();
+		//document.setType(documentType);
+		//document.setValue(documento);
+		//List<Document> documents = new ArrayList();
+		//documents.add(document);
+		//sender.setDocuments(documents);
+		//checkout.setSender(sender);
 		checkout.setCurrency("BRL");
 		Item item = new Item();
 		item.setId(idProduto);
@@ -234,7 +232,7 @@ public class CheckoutRest {
 		item.setAmount(preco);
 		item.setShippingCost("0.00");
 		item.setWeight("0");
-		List<Item> items = new ArrayList();
+		List<Item> items = new ArrayList<Item>();
 		items.add(item);
 		checkout.setItems(items);
 		checkout.setRedirectURL("http://www.capiteweb.com.br");
@@ -244,17 +242,17 @@ public class CheckoutRest {
 		shipping.setAddressRequired("false");
 		shipping.setType("3");
 		shipping.setCost("0.00");
-		Address address = new Address();
-		address.setCity(cargo.equals("Imobiliaria") ? empresa.getCidade() : corretor.getCidade());
-		address.setComplement(cargo.equals("Imobiliaria") ? empresa.getComplemento() : corretor.getComplemento());
-		address.setCountry("Brasil");
-		address.setDistrict(cargo.equals("Imobiliaria") ? empresa.getEstado() : corretor.getEstado());
-		address.setNumber(cargo.equals("Imobiliaria") ? empresa.getNumero() : corretor.getNumero());
-		address.setPostalCode(cargo.equals("Imobiliaria") ? empresa.getCep() : corretor.getCep());
-		address.setState(cargo.equals("Imobiliaria") ? empresa.getEstado() : corretor.getEstado());
-		address.setStreet(cargo.equals("Imobiliaria") ? empresa.getEndereco() : corretor.getEndereco());
-		shipping.setAddress(address);
-		checkout.setShipping(shipping);
+		//Address address = new Address();
+		//address.setCity(cargo.equals("Imobiliaria") ? empresa.getCidade() : corretor.getCidade());
+		//address.setComplement(cargo.equals("Imobiliaria") ? empresa.getComplemento() : corretor.getComplemento());
+		//address.setCountry("Brasil");
+		//address.setDistrict(cargo.equals("Imobiliaria") ? empresa.getEstado() : corretor.getEstado());
+		//address.setNumber(cargo.equals("Imobiliaria") ? empresa.getNumero() : corretor.getNumero());
+		//address.setPostalCode(cargo.equals("Imobiliaria") ? empresa.getCep() : corretor.getCep());
+		//address.setState(cargo.equals("Imobiliaria") ? empresa.getEstado() : corretor.getEstado());
+		//address.setStreet(cargo.equals("Imobiliaria") ? empresa.getEndereco() : corretor.getEndereco());
+		//shipping.setAddress(address);
+		//checkout.setShipping(shipping);
 		checkout.setTimeout("25");
 		checkout.setMaxAge("30");
 		checkout.setMaxUses("1");

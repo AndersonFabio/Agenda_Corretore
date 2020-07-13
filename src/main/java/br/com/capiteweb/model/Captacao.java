@@ -36,6 +36,25 @@ public class Captacao implements Serializable {
 	private String palavras2;
 	private Float investimento1;
 	private Float investimento2;
+	private Long idEmpreendimento;
+	private String nomeCampanha;
+	
+
+	public Long getIdEmpreendimento() {
+		return idEmpreendimento;
+	}
+
+	public void setIdEmpreendimento(Long idEmpreendimento) {
+		this.idEmpreendimento = idEmpreendimento;
+	}
+
+	public String getNomeCampanha() {
+		return nomeCampanha;
+	}
+
+	public void setNomeCampanha(String nomeCampanha) {
+		this.nomeCampanha = nomeCampanha;
+	}
 
 	public Long getId() {
 		return this.id;

@@ -23,6 +23,15 @@ public class CheckoutPagamento implements Serializable {
 	private String idProduto;
 	private String produto;
 	private String preco;
+	private Long idCaptacao;
+
+	public Long getIdCaptacao() {
+		return idCaptacao;
+	}
+
+	public void setIdCaptacao(Long idCaptacao) {
+		this.idCaptacao = idCaptacao;
+	}
 
 	public Long getId() {
 		return this.id;

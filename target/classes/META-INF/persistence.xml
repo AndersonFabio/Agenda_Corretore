@@ -24,9 +24,9 @@
 			<!-- dados da conexao -->
 			<property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver" />
 			<property name="javax.persistence.jdbc.url"
-				value="jdbc:mysql://200.98.133.26:3306/capiteweb?autoReconnect=true" />
+				value="jdbc:mysql://mysql.capiteweb.com.br:3306/capiteweb?autoReconnect=true" />
 			<property name="javax.persistence.jdbc.user" value="capiteweb" />
-			<property name="javax.persistence.jdbc.password" value="gotoxy" />
+			<property name="javax.persistence.jdbc.password" value="Paco1701" />
 
 			<!-- <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/capiteweb?autoReconnect=true" 
 				/> <property name="javax.persistence.jdbc.user" value="root" /> <property 

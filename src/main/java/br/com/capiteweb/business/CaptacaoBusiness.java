@@ -3,6 +3,9 @@ package br.com.capiteweb.business;
 import br.com.capiteweb.DAO.CaptacaoDAO;
 import br.com.capiteweb.model.Captacao;
 import br.com.capiteweb.model.Parametro;
+
+import java.util.List;
+
 import javax.persistence.EntityManager;
 
 public class CaptacaoBusiness {
@@ -25,6 +28,15 @@ public class CaptacaoBusiness {
 	public Captacao buscaPorId(Parametro parametro) {
 		return this.captacaoDAO.buscarPorId(parametro);
 	}
+	
+	public List<Captacao> buscaPorNome(Parametro parametro) {
+		return this.captacaoDAO.buscarPorNome(parametro);
+	}
+	
+	public void excluir(Captacao captacao) {
+		this.captacaoDAO.excluir(captacao.getId());
+	}
+
 
 	public boolean excluir(long id) {
 		return this.captacaoDAO.excluir(id);

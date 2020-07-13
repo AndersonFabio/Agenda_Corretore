@@ -1,6 +1,7 @@
 package br.com.capiteweb.DAO;
 
 import br.com.capiteweb.model.Captacao;
+import br.com.capiteweb.model.Cliente;
 import br.com.capiteweb.model.Parametro;
 import java.util.Date;
 import java.util.List;
@@ -58,6 +59,42 @@ public class CaptacaoDAO {
 		}
 
 		return (Captacao) captacao.get(0);
+	}
+	
+	public List<Captacao> buscarPorNome(Parametro parametro) {
+		String sql = null;
+		if (parametro.getLogin().getCargo().equals("Imobiliaria")) {
+			sql = "select u from Captacao u where u.titulo1 like :nome and u.idEmpresa =:idEmpresa ";
+		}
+
+		if (parametro.getLogin().getCargo().equals("Supervisor")) {
+			sql = "select u from Captacao u left outer join Corretor corr on u.idCorretor = corr.id where (corr.idSupervisor=:idSupervisor or corr.id=:idSupervisor ) and u.titulo1 like :nome ";
+		}
+
+		if (parametro.getLogin().getCargo().equals("Corretor")) {
+			sql = "select u from Captacao u where u.titulo1 like :nome and u.idCorretor =:idCorretor ";
+		}
+
+		Query consulta = this.em.createQuery(sql, Captacao.class);
+		if (parametro.getPesquisar() == null) {
+			parametro.setPesquisar("");
+		}
+
+		consulta.setParameter("nome", "%" + parametro.getPesquisar() + "%");
+		if (parametro.getLogin().getCargo().equals("Imobiliaria")) {
+			consulta.setParameter("idEmpresa", parametro.getLogin().getIdEmpresa());
+		}
+
+		if (parametro.getLogin().getCargo().equals("Supervisor")) {
+			consulta.setParameter("idSupervisor", parametro.getLogin().getIdCorretor());
+		}
+
+		if (parametro.getLogin().getCargo().equals("Corretor")) {
+			consulta.setParameter("idCorretor", parametro.getLogin().getIdCorretor());
+		}
+
+		List<Captacao> lista = consulta.getResultList();
+		return lista;
 	}
 
 	public Captacao carregar(Long id) {

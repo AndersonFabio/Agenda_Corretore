@@ -12,12 +12,14 @@ appAgenda.controller(
 							$scope.captacao.situacao = "A Pagar";
 							$scope.captacao.titulo1 = "";
 							$scope.captacao.anuncio1 = "";
-							$scope.captacaos = [];
+							$scope.captacoes = [];
+							$scope.empreendimentos = [];
 							$scope.index = true;
 							$scope.empresa = {};
 							$scope.login = usuarioService.popularLogin();
 							$scope.captacao.login = $scope.login;
 							$scope.parametro = usuarioService.popularParametro();
+							$scope.imagens = 0;
 							
 							$scope.alterar = function(captacao) {
 								$scope.captacao = captacao;
@@ -27,13 +29,21 @@ appAgenda.controller(
 
 							$scope.novo = function() {
 								$scope.captacao = {};
-								$scope.captacao.situacao = "Disponivel";
+								$scope.captacao.situacao1 = "A Pagar";
 								$scope.captacao.login = $scope.login;
 								$scope.captacao.idEmpresa = $scope.empresa.id;
 								$scope.index = false;
 							}
+							
+							$scope.sendImagens = function() {
+								$scope.imagens = $scope.imagens+1;
+							}
 
 							$scope.salvar = function(captacao) {
+								if(captacao.idEmpreendimento == null || captacao.investimento1 == null || captacao.investimento1 == 0 || captacao.titulo1 == null) {
+									alert("Preencha as informações");
+									return false;
+								}
 								captacao.login = $scope.login;
 								if($scope.login.cargo != "Imobiliaria") {
 									captacao.idCorretor = $scope.corretor.id;
@@ -53,26 +63,47 @@ appAgenda.controller(
 										})
 										.success(
 											function(data) {
-												if($scope.login.cargo == "Imobiliaria") {
-													if($scope.vencido($scope.empresa.vencimentoLed)) {
-														alert("Favor renovar sua contratação de led, para isso acesse sua conta.");
-													} else {
-														$scope.pagarCaptacao();
-													}
-												} else {
-													if($scope.vencido($scope.corretor.vencimentoLed)) {
-														alert("Favor renovar sua contratação de led, para isso acesse sua conta.");
-													} else {
-														$scope.pagarCaptacao();
-													}
-												}
+												$scope.captacao = data;
+												$scope.pagarCaptacao();
 												$rootScope.isVisible.loading = false;
 												$scope.index = true;
-												$scope.pesquisar();
+												$scope.pesquisarPorNome();
 											})
 										.error(
 											function(erro) {
 												$rootScope.isVisible.loading = false;
+												alert("ERRO no envio dos dados ! "
+														+ erro == undefined ? ""
+														: erro);
+											})
+									}, 100);
+
+								})
+							};
+							
+							$scope.pesquisarPorNome = function() {
+								if($scope.parametro.login == undefined || $scope.parametro.login.email == undefined) {
+									alert("Sem Parametros");
+								}
+								$rootScope.isVisible.loading = true;
+								setTimeout(function() {
+									setTimeout(
+									function() {
+										$http(
+										{
+											url : URL
+													+ "captacao/listPorNome",
+											method : "POST",
+											contentType : "application/json",
+											data : $scope.parametro
+										})
+										.success(
+											function(data) {
+												$rootScope.isVisible.loading = false;
+												$scope.captacoes = data;
+											})
+										.error(
+											function(erro) {
 												alert("ERRO no envio dos dados ! "
 														+ erro == undefined ? ""
 														: erro);
@@ -146,6 +177,7 @@ appAgenda.controller(
 							};
 							
 							$scope.pagarCaptacao = function() {
+								$scope.parametro.idCaptacao = $scope.captacao.id;
 								$rootScope.isVisible.loading = true;
 								setTimeout(function() {
 									setTimeout(
@@ -232,8 +264,78 @@ appAgenda.controller(
 								}
 							};
 							
+							
+							$scope.pesquisarEmpreendimento = function() {
+								$rootScope.isVisible.loading = true;
+								setTimeout(function() {
+									setTimeout(
+									function() {
+										$http(
+										{
+											url : URL
+													+ "empreendimento/listPorEmpresa",
+											method : "POST",
+											contentType : "application/json",
+											data : $scope.parametro
+										})
+										.success(
+											function(data) {
+												$rootScope.isVisible.loading = false;
+												$scope.empreendimentos = data;
+												
+											})
+										.error(
+											function(erro) {
+												$rootScope.isVisible.loading = false;
+												alert("ERRO no envio dos dados ! "
+														+ erro == undefined ? ""
+														: erro);
+											})
+									}, 100);
+
+								})
+							};
+							
+							$scope.excluir = function(captacao) {
+								if(!confirm('Deseja Excluir a Campanha ?')) {
+									return;
+								}
+								captacao.login = $scope.login;
+								$rootScope.isVisible.loading = true;
+								setTimeout(function() {
+									setTimeout(
+									function() {
+										$http(
+										{
+											url : URL
+													+ "captacao/excluir",
+											method : "POST",
+											contentType : "application/json",
+											data : captacao
+										})
+										.success(
+											function(data) {
+												$rootScope.isVisible.loading = false;
+												$scope.pesquisarPorNome();
+												
+													
+											})
+										.error(
+											function(erro) {
+												alert("ERRO no envio dos dados ! "
+														+ erro == undefined ? ""
+														: erro);
+											})
+									}, 100);
+
+								})
+							};
+							
+							
 							$scope.carregar();
 							$scope.carregarEmpresa();
+							$scope.pesquisarPorNome();
+							$scope.pesquisarEmpreendimento();
 							if($scope.login.cargo != "Imobiliaria") {
 								$scope.carregarCorretor();
 							}

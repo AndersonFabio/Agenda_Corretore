@@ -41,9 +41,10 @@ public class ContatoRest {
 
 	@GET
 	@Path("/excluir")
-	public void remove(@QueryParam("id") Long id) {
+	public String remove(@QueryParam("id") Long id) {
 		this.contatoBusiness.excluir(id);
 		this.closeSessions();
+		return "Excluido";
 	}
 
 	public void closeSessions() {
