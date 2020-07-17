@@ -57,6 +57,11 @@ appAgenda.controller('agendaCtrl', [
 			$scope.detalhe = false;
 			
 			$scope.detalhar = function() {
+				if($scope.agenda.cliente == undefined) {
+					$scope.detalhe == false;
+					alert("Detalhes do Cliente não Disponível na Inclusão do Agendamento.");
+					return false;
+				}
 				if($scope.detalhe == true) {
 					$scope.detalhe = false;
 				} else {
@@ -65,6 +70,7 @@ appAgenda.controller('agendaCtrl', [
 			}
 
 			$scope.alterar = function(agenda) {
+				$scope.detalhe = false;
 				$scope.agenda = agenda;
 				$scope.agenda.login = $scope.login;
 				$scope.index = false;
@@ -75,6 +81,7 @@ appAgenda.controller('agendaCtrl', [
 				$scope.agenda.login = $scope.login;
 				$scope.index = false;
 				$scope.agenda.agendado = '0';
+				$scope.detalhe = false;
 			}
 
 			$scope.salvar = function(agenda) {

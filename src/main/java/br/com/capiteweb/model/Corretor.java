@@ -35,7 +35,7 @@ public class Corretor extends Usuario implements Serializable {
 	private String creci;
 	private String cargo;
 	@JsonFormat(pattern = "dd/MM/yyyy HH:mm")
-	private Date vencimentoLed;
+	private Date vencimentoLeads;
 	private String numero;
 	private String complemento;
 	private String cpf;
@@ -173,12 +173,12 @@ public class Corretor extends Usuario implements Serializable {
 		this.cargo = cargo;
 	}
 
-	public Date getVencimentoLed() {
-		return this.vencimentoLed;
+	public Date getVencimentoLeads() {
+		return this.vencimentoLeads;
 	}
 
-	public void setVencimentoLed(Date vencimentoLed) {
-		this.vencimentoLed = vencimentoLed;
+	public void setVencimentoLeads(Date vencimentoLeads) {
+		this.vencimentoLeads = vencimentoLeads;
 	}
 
 	public String getNumero() {

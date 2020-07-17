@@ -30,7 +30,7 @@ public class Empresa extends Usuario implements Serializable {
 	@JsonFormat(pattern = "dd/MM/yyyy HH:mm")
 	private Date vencimento;
 	@JsonFormat(pattern = "dd/MM/yyyy HH:mm")
-	private Date vencimentoLed;
+	private Date vencimentoLeads;
 	private String numero;
 	private String complemento;
 	private String cnpj;
@@ -149,12 +149,12 @@ public class Empresa extends Usuario implements Serializable {
 		this.vencimento = vencimento;
 	}
 
-	public Date getVencimentoLed() {
-		return this.vencimentoLed;
+	public Date getVencimentoLeads() {
+		return this.vencimentoLeads;
 	}
 
-	public void setVencimentoLed(Date vencimentoLed) {
-		this.vencimentoLed = vencimentoLed;
+	public void setVencimentoLeads(Date vencimentoLeads) {
+		this.vencimentoLeads = vencimentoLeads;
 	}
 
 	public String getNumero() {

@@ -46,7 +46,6 @@ app.run(function($rootScope, $timeout) {
 		.when('/contato', {templateUrl: 'views/contato.html', controller: 'contatoCtrl'})
 		.when('/login', {templateUrl: 'views/login.html', controller: 'loginCtrl'})
 		.when('/cadastrar', {templateUrl: 'views/cadastro.html', controller: 'cadastrarCtrl'})
-		.when('/template1', {templateUrl: 'views/template1.html', controller: 'template1Controller'})
 		.when('/template2', {templateUrl: 'views/template2.html', controller: 'template2Controller'})
       
 		.otherwise({redirectTo: '/', controller: 'homeCtrl'});

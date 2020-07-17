@@ -36,6 +36,11 @@ appAgenda.controller(
 
 							$scope.salvar = function(corretor,empresa) {
 								$rootScope.isVisible.loading = true;
+								if($scope.login.email == "contato@capiteweb.com.br") {
+									alert("Sistema Demonstração!");
+									$rootScope.isVisible.loading = false;
+									return false;
+								}
 								var url = "";
 								var data = {};
 								if($scope.login.cargo == "Imobiliaria") {
@@ -110,7 +115,7 @@ appAgenda.controller(
 								})
 							};
 							
-							$scope.pagarLed = function() {
+							$scope.pagarLeads = function() {
 								$rootScope.isVisible.loading = true;
 								setTimeout(function() {
 									setTimeout(
@@ -118,7 +123,7 @@ appAgenda.controller(
 										$http(
 										{
 											url : URL
-													+ "checkout/pagarLed",
+													+ "checkout/pagarLeads",
 											method : "POST",
 											contentType : "application/json",
 											data : $scope.parametro

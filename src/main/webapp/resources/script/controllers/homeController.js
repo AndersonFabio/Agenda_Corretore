@@ -1,6 +1,6 @@
 var homeCtrl = angular.module('homeCtrl', []);
-app.controller('homeCtrl', [ '$scope', '$location','$http','$rootScope',
-    function($scope, $location, $http, $rootScope ) {
+app.controller('homeCtrl', [ '$scope', '$location','$http','$rootScope','usuarioServiceApp',
+    function($scope, $location, $http, $rootScope,usuarioServiceApp ) {
 			$scope.sistema = 'CapiteWeb';
 
 			$location.path('/home');
@@ -16,6 +16,14 @@ app.controller('homeCtrl', [ '$scope', '$location','$http','$rootScope',
 			$scope.led = function() {
 				$location.path('/led');
 			};
+			
+			$scope.demo = function() {
+				$scope.login = {};
+				$scope.login.email = "contato@capiteweb.com.br";
+				$scope.login.senha = "demo";
+				$scope.login.cargo = "Imobiliaria";
+				$scope.logar($scope.login);
+			}
 			
 			$scope.template1 = function() {
 				$rootScope.isVisible.loading = true;
@@ -43,6 +51,30 @@ app.controller('homeCtrl', [ '$scope', '$location','$http','$rootScope',
 			$scope.cadastrar = function() {
 				$location.path('/cadastrar');
 			};
+			
+			$scope.logar = function (login) {
+				$rootScope.isVisible.loading = true;
+				setTimeout(function() {
+					$http({
+						url: URL+"login/validar",
+						method: "POST",
+						contentType: "application/json",
+						data : login
+					}).success(function (data) {
+						$rootScope.isVisible.loading = false;
+						if(data.acesso == 'S') {
+							usuarioServiceApp.salvarLogin(data);
+							window.location.href = CONTEXTO+"agenda.html";
+							
+						} else {
+							alert("Email ou Senha Incorreta.");
+						}
+						
+					}).error( function (erro) {
+						$rootScope.isVisible.loading = false;
+						alert("ERRO no envio dos dados ! "+erro == undefined ? "" : erro);
+					})},100);
+		    }; 
 }]
 );
 

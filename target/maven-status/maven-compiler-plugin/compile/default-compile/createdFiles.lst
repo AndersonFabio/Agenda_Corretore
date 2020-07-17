@@ -20,6 +20,7 @@ br\com\capiteweb\business\LoginBusiness.class
 br\com\capiteweb\rest\AgendaRest.class
 br\com\capiteweb\rest\EmpresaRest.class
 br\com\capiteweb\model\Usuario.class
+br\com\capiteweb\rest\Facebook.class
 br\com\capiteweb\business\ClienteBusiness.class
 br\com\capiteweb\commons\Phone.class
 br\com\capiteweb\rest\ContatoRest.class

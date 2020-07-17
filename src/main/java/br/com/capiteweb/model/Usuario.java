@@ -18,7 +18,7 @@ public class Usuario {
 	private String senha;
 	private String senha2;
 	private Date vencimento;
-	private Date vencimentoLed;
+	private Date vencimentoLeads;
 	private String numero;
 	private String complemento;
 	private String cnpj;
@@ -136,12 +136,12 @@ public class Usuario {
 		this.vencimento = vencimento;
 	}
 
-	public Date getVencimentoLed() {
-		return this.vencimentoLed;
+	public Date getVencimentoLeads() {
+		return this.vencimentoLeads;
 	}
 
-	public void setVencimentoLed(Date vencimentoLed) {
-		this.vencimentoLed = vencimentoLed;
+	public void setVencimentoLeads(Date vencimentoLeads) {
+		this.vencimentoLeads = vencimentoLeads;
 	}
 
 	public String getNumero() {

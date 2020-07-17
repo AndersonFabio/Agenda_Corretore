@@ -63,12 +63,12 @@ public class CheckoutRest {
 		return ret;
 	}
 
-	@Path("/pagarLed")
+	@Path("/pagarLeads")
 	@POST
 	@Consumes({"application/json"})
 	@Produces({"application/json"})
-	public Ret pagarLed(Parametro parametro) throws IOException {
-		Ret ret = this.pagamento(parametro, "Captação de Led", "200.00", "2");
+	public Ret pagarLeads(Parametro parametro) throws IOException {
+		Ret ret = this.pagamento(parametro, "Captação de Leads", "200.00", "2");
 		return ret;
 	}
 
@@ -78,7 +78,7 @@ public class CheckoutRest {
 	@Produces({"application/json"})
 	public Ret pagarCaptacao(Parametro parametro) throws IOException {
 		Captacao captacao = this.captacaoBusiness.buscaPorId(parametro);
-		Ret ret = this.pagamento(parametro, "Campanha de Captação de Led", captacao.getInvestimento1().toString(), "3");
+		Ret ret = this.pagamento(parametro, "Campanha de Captação de Leads", captacao.getInvestimento1().toString(), "3");
 		return ret;
 	}
 
@@ -107,7 +107,7 @@ public class CheckoutRest {
 				if (checkoutPagamento.getIdProduto().equals("1")) {
 					empresa.setVencimento(vencimento);
 				} else if (checkoutPagamento.getIdProduto().equals("2")) {
-					empresa.setVencimentoLed(vencimento);
+					empresa.setVencimentoLeads(vencimento);
 				} else if (checkoutPagamento.getIdProduto().equals("3")) {
 					parametro = new Parametro();
 					parametro.getLogin().setCargo(checkoutPagamento.getCargo());
@@ -134,7 +134,7 @@ public class CheckoutRest {
 				if (checkoutPagamento.getIdProduto().equals("1")) {
 					corretor.setVencimento(vencimento);
 				} else if (checkoutPagamento.getIdProduto().equals("2")) {
-					corretor.setVencimentoLed(vencimento);
+					corretor.setVencimentoLeads(vencimento);
 				} else if (checkoutPagamento.getIdProduto().equals("3")) {
 					parametro = new Parametro();
 					parametro.getLogin().setCargo(checkoutPagamento.getCargo());
