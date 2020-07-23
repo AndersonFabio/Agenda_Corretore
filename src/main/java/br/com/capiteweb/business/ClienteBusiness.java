@@ -38,6 +38,10 @@ public class ClienteBusiness {
 	public List<Cliente> buscaPorNome(Parametro parametro) {
 		return this.clienteDAO.buscarPorNome(parametro);
 	}
+	
+	public List<Cliente> buscaPorNomeSituacao(Parametro parametro) {
+		return this.clienteDAO.buscarPorNomeSituacao(parametro);
+	}
 
 	public List<Cliente> getListPorEmpresa(Long id) {
 		return this.clienteDAO.getListPorEmpresa(id);

@@ -107,6 +107,22 @@ public class EmpreendimentoRest {
 		this.closeSessions();
 		return (List) lista;
 	}
+	
+	@POST
+	@Consumes({"application/json"})
+	@Path("/listPorEmpresaDisponivel")
+	@Produces({"application/json"})
+	@JacksonFeatures(serializationDisable = {SerializationFeature.FAIL_ON_EMPTY_BEANS})
+	public List<Empreendimento> getListPorEmpresaDisponivel(Parametro parametro) {
+		Login login = this.loginBusiness.checkLogin(parametro);
+		List<Empreendimento> lista = new ArrayList();
+		if (login.getAcesso().equals("S")) {
+			lista = this.empreendimentoBusiness.getListPorEmpresaDisponivel(parametro.getLogin().getIdEmpresa());
+		}
+
+		this.closeSessions();
+		return (List) lista;
+	}
 
 	public void closeSessions() {
 		this.empreendimentoBusiness.getEm().close();

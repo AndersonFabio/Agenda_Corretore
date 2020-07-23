@@ -6,7 +6,14 @@
 </head>
 <div ng-constroller="corretorCtrl" id="content-top">
 	<div class="container-web">
-		<h3 style="font-weight: bold;">Conta do {{login.cargo}}</h3>
+		<div class="row container-web">
+		<div class="col-6 col-md-6 titulo">
+			<span>CONTA DO USUÀRIO</span>
+		</div>
+		<div class="col-6 col-md-6 user">
+		<img src="images/user.png" class="iconMobile"/>&nbsp;<span >{{usuario}}</span>
+		</div>
+	</div>
 		<br>
 		<form novalidate="novalidate">
 			<div

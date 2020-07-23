@@ -48,11 +48,11 @@ public class AgendaDAO {
 	public List<Agenda> buscarPorCorretor(Parametro parametro) {
 		String sql = null;
 		if (parametro.getLogin().getCargo().equals("Imobiliaria")) {
-			sql = "select u from Agenda u where u.idEmpresa=:idEmpresa and u.agendado =:agendado and u.cliente.nome like :nome order by data  ";
+			sql = "select u from Agenda u where u.idEmpresa=:idEmpresa and u.cliente.situacao <> 'Descartado' and u.cliente.nome like :nome order by data  ";
 		} else if (parametro.getLogin().getCargo().equals("Supervisor")) {
-			sql = "select u from Agenda u left outer join Corretor corr on u.idCorretor = corr.id where (corr.idSupervisor = :idCorretor or corr.id=:idCorretor) and u.agendado =:agendado and u.cliente.nome like :nome order by data  ";
+			sql = "select u from Agenda u left outer join Corretor corr on u.cliente.idCorretor = corr.id where (corr.idSupervisor = :idCorretor or corr.id=:idCorretor) and u.cliente.situacao <> 'Descartado' and u.cliente.nome like :nome order by data  ";
 		} else {
-			sql = "select u from Agenda u where u.idCorretor=:idCorretor and u.agendado =:agendado and u.cliente.nome like :nome order by data  ";
+			sql = "select u from Agenda u where u.cliente.idCorretor=:idCorretor and u.cliente.situacao <> 'Descartado' and u.cliente.nome like :nome order by data  ";
 		}
 
 		Query consulta = this.em.createQuery(sql);
@@ -67,7 +67,6 @@ public class AgendaDAO {
 		}
 
 		consulta.setParameter("nome", "%" + parametro.getPesquisar() + "%");
-		consulta.setParameter("agendado", true);
 		List<Agenda> lista = consulta.getResultList();
 		return lista;
 	}
@@ -78,6 +77,18 @@ public class AgendaDAO {
 		consulta.setParameter("id", id);
 		List<Agenda> agenda = consulta.getResultList();
 		return (Agenda) agenda.get(0);
+	}
+	
+	public Agenda carregarPorCliente(Long idCliente) {
+		String sql = "select u from Agenda u where u.idCliente = :idCliente";
+		Query consulta = this.em.createQuery(sql);
+		consulta.setParameter("idCliente", idCliente);
+		List<Agenda> agenda = consulta.getResultList();
+		if(agenda.size() == 0) {
+			return new Agenda();
+		} else {
+			return (Agenda) agenda.get(0);
+		}
 	}
 
 	public <T> T delete(T t) throws Exception {

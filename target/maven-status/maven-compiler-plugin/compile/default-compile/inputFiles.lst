@@ -13,6 +13,7 @@ D:\Desenvolvimento\CapiteWeb\CapiteWeb\src\main\java\br\com\capiteweb\commons\It
 D:\Desenvolvimento\CapiteWeb\CapiteWeb\src\main\java\br\com\capiteweb\model\Historico.java
 D:\Desenvolvimento\CapiteWeb\CapiteWeb\src\main\java\br\com\capiteweb\commons\Transaction.java
 D:\Desenvolvimento\CapiteWeb\CapiteWeb\src\main\java\br\com\capiteweb\model\Usuario.java
+D:\Desenvolvimento\CapiteWeb\CapiteWeb\src\main\java\br\com\capiteweb\rest\LigacoesRest.java
 D:\Desenvolvimento\CapiteWeb\CapiteWeb\src\main\java\br\com\capiteweb\commons\Phone.java
 D:\Desenvolvimento\CapiteWeb\CapiteWeb\src\main\java\br\com\capiteweb\rest\ContatoRest.java
 D:\Desenvolvimento\CapiteWeb\CapiteWeb\src\main\java\br\com\capiteweb\rest\EmpresaRest.java
@@ -36,6 +37,7 @@ D:\Desenvolvimento\CapiteWeb\CapiteWeb\src\main\java\br\com\capiteweb\model\Clie
 D:\Desenvolvimento\CapiteWeb\CapiteWeb\src\main\java\br\com\capiteweb\commons\CheckoutRetorno.java
 D:\Desenvolvimento\CapiteWeb\CapiteWeb\src\main\java\br\com\capiteweb\DAO\CheckoutPagamentoDAO.java
 D:\Desenvolvimento\CapiteWeb\CapiteWeb\src\main\java\br\com\capiteweb\DAO\CaptacaoDAO.java
+D:\Desenvolvimento\CapiteWeb\CapiteWeb\src\main\java\br\com\capiteweb\DAO\LigacoesDAO.java
 D:\Desenvolvimento\CapiteWeb\CapiteWeb\src\main\java\br\com\capiteweb\model\Empreendimento.java
 D:\Desenvolvimento\CapiteWeb\CapiteWeb\src\main\java\br\com\capiteweb\business\CorretorBusiness.java
 D:\Desenvolvimento\CapiteWeb\CapiteWeb\src\main\java\br\com\capiteweb\business\ClienteBusiness.java
@@ -45,6 +47,7 @@ D:\Desenvolvimento\CapiteWeb\CapiteWeb\src\main\java\br\com\capiteweb\commons\Pa
 D:\Desenvolvimento\CapiteWeb\CapiteWeb\src\main\java\br\com\capiteweb\model\Items.java
 D:\Desenvolvimento\CapiteWeb\CapiteWeb\src\main\java\br\com\capiteweb\business\Ret.java
 D:\Desenvolvimento\CapiteWeb\CapiteWeb\src\main\java\br\com\capiteweb\DAO\EmpresaDAO.java
+D:\Desenvolvimento\CapiteWeb\CapiteWeb\src\main\java\br\com\capiteweb\business\LigacoesBusiness.java
 D:\Desenvolvimento\CapiteWeb\CapiteWeb\src\main\java\br\com\capiteweb\model\Agenda.java
 D:\Desenvolvimento\CapiteWeb\CapiteWeb\src\main\java\br\com\capiteweb\business\LoginBusiness.java
 D:\Desenvolvimento\CapiteWeb\CapiteWeb\src\main\java\br\com\capiteweb\commons\Notification.java
@@ -56,6 +59,7 @@ D:\Desenvolvimento\CapiteWeb\CapiteWeb\src\main\java\br\com\capiteweb\commons\Do
 D:\Desenvolvimento\CapiteWeb\CapiteWeb\src\main\java\br\com\capiteweb\commons\Util.java
 D:\Desenvolvimento\CapiteWeb\CapiteWeb\src\main\java\br\com\capiteweb\commons\HibernateUtil.java
 D:\Desenvolvimento\CapiteWeb\CapiteWeb\src\main\java\br\com\capiteweb\commons\Items.java
+D:\Desenvolvimento\CapiteWeb\CapiteWeb\src\main\java\br\com\capiteweb\model\Ligacoes.java
 D:\Desenvolvimento\CapiteWeb\CapiteWeb\src\main\java\br\com\capiteweb\model\Email.java
 D:\Desenvolvimento\CapiteWeb\CapiteWeb\src\main\java\br\com\capiteweb\business\CheckoutPagamentoBusiness.java
 D:\Desenvolvimento\CapiteWeb\CapiteWeb\src\main\java\br\com\capiteweb\rest\AgendaRest.java

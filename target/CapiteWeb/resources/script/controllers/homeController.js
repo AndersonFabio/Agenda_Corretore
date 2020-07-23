@@ -19,7 +19,7 @@ app.controller('homeCtrl', [ '$scope', '$location','$http','$rootScope','usuario
 			
 			$scope.demo = function() {
 				$scope.login = {};
-				$scope.login.email = "contato@capiteweb.com.br";
+				$scope.login.email = "imobiliaria@imobiliaria.com.br";
 				$scope.login.senha = "demo";
 				$scope.login.cargo = "Imobiliaria";
 				$scope.logar($scope.login);

@@ -6,8 +6,14 @@
 </head>
 <div ng-constroller="gestaoCtrl" id="content-top">
 	<div class="container-web">
-		<h3 style="font-weight: bold;">Gestão da Equipe da
-			{{empresa.nome}}</h3>
+	<div class="row container-web">
+		<div class="col-6 col-md-6 titulo">
+			<span>GESTÂO DE EQUIPE</span>
+		</div>
+		<div class="col-6 col-md-6 user">
+		<img src="images/user.png" class="iconMobile"/>&nbsp;<span >{{usuario}}</span>
+		</div>
+	</div>
 		<br>
 		<form novalidate="novalidate">
 			<div class="panel-group col-12 col-md-6 offset-md-3">

@@ -89,6 +89,22 @@ public class ClienteRest {
 		this.closeSessions();
 		return (List) lista;
 	}
+	
+	@POST
+	@Consumes({"application/json"})
+	@Path("/listPorNomeSituacao")
+	@Produces({"application/json"})
+	@JacksonFeatures(serializationDisable = {SerializationFeature.FAIL_ON_EMPTY_BEANS})
+	public List<Cliente> getListPorNomeSituacao(Parametro parametro) {
+		Login login = this.loginBusiness.checkLogin(parametro);
+		List<Cliente> lista = new ArrayList();
+		if (login.getAcesso().equals("S")) {
+			lista = this.clienteBusiness.buscaPorNomeSituacao(parametro);
+		}
+
+		this.closeSessions();
+		return (List) lista;
+	}
 
 	@POST
 	@Consumes({"application/json"})

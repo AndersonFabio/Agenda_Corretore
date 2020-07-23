@@ -45,18 +45,18 @@ public class ClienteDAO {
 		return (Cliente) cliente.get(0);
 	}
 
-	public List<Cliente> buscarPorNome(Parametro parametro) {
+	public List<Cliente> buscarPorNomeSituacao(Parametro parametro) {
 		String sql = null;
 		if (parametro.getLogin().getCargo().equals("Imobiliaria")) {
-			sql = "select u from Cliente u where u.nome like :nome and u.idEmpresa =:idEmpresa ";
+			sql = "select u from Cliente u where u.nome like :nome and u.idEmpresa =:idEmpresa and u.situacao=:situacao order by u.nome";
 		}
 
 		if (parametro.getLogin().getCargo().equals("Supervisor")) {
-			sql = "select u from Cliente u left outer join Corretor corr on u.idCorretor = corr.id where (corr.idSupervisor=:idSupervisor or corr.id=:idSupervisor ) and u.nome like :nome ";
+			sql = "select u from Cliente u left outer join Corretor corr on u.idCorretor = corr.id where (corr.idSupervisor=:idSupervisor or corr.id=:idSupervisor ) and u.nome like :nome and u.situacao=:situacao order by u.nome ";
 		}
 
 		if (parametro.getLogin().getCargo().equals("Corretor")) {
-			sql = "select u from Cliente u where u.nome like :nome and u.idCorretor =:idCorretor ";
+			sql = "select u from Cliente u where u.nome like :nome and u.idCorretor =:idCorretor and u.situacao=:situacao order by u.nome";
 		}
 
 		Query consulta = this.em.createQuery(sql, Cliente.class);
@@ -76,10 +76,49 @@ public class ClienteDAO {
 		if (parametro.getLogin().getCargo().equals("Corretor")) {
 			consulta.setParameter("idCorretor", parametro.getLogin().getIdCorretor());
 		}
+		
+		consulta.setParameter("situacao", parametro.getSituacaoCliente());
 
 		List<Cliente> lista = consulta.getResultList();
 		return lista;
 	}
+	
+	public List<Cliente> buscarPorNome(Parametro parametro) {
+		String sql = null;
+		if (parametro.getLogin().getCargo().equals("Imobiliaria")) {
+			sql = "select u from Cliente u where u.nome like :nome and u.idEmpresa =:idEmpresa order by u.nome";
+		}
+
+		if (parametro.getLogin().getCargo().equals("Supervisor")) {
+			sql = "select u from Cliente u left outer join Corretor corr on u.idCorretor = corr.id where (corr.idSupervisor=:idSupervisor or corr.id=:idSupervisor ) and u.nome like :nome order by u.nome ";
+		}
+
+		if (parametro.getLogin().getCargo().equals("Corretor")) {
+			sql = "select u from Cliente u where u.nome like :nome and u.idCorretor =:idCorretor  order by u.nome";
+		}
+
+		Query consulta = this.em.createQuery(sql, Cliente.class);
+		if (parametro.getPesquisar() == null) {
+			parametro.setPesquisar("");
+		}
+
+		consulta.setParameter("nome", "%" + parametro.getPesquisar() + "%");
+		if (parametro.getLogin().getCargo().equals("Imobiliaria")) {
+			consulta.setParameter("idEmpresa", parametro.getLogin().getIdEmpresa());
+		}
+
+		if (parametro.getLogin().getCargo().equals("Supervisor")) {
+			consulta.setParameter("idSupervisor", parametro.getLogin().getIdCorretor());
+		}
+
+		if (parametro.getLogin().getCargo().equals("Corretor")) {
+			consulta.setParameter("idCorretor", parametro.getLogin().getIdCorretor());
+		}
+		
+		List<Cliente> lista = consulta.getResultList();
+		return lista;
+	}
+
 
 	public List<Cliente> getListPorEmpresa(Long id) {
 		String sql = "select u from Cliente u where u.idEmpresa = :id order by nome";

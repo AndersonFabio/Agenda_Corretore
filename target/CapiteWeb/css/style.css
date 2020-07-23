@@ -22,6 +22,32 @@
 @import url(flaticon.css);
 /*------------------------------------------------------------------ SKELETON -------------------------------------------------------------------*/
 
+.table-header {
+	background: #0e2346;
+	color : white;
+	font-weight: bold";
+}
+
+.user {
+	font-size:14px;
+	font-weight: bold;
+	text-align:right;
+	color:black;
+	padding-right: 15px !important;
+    padding-left: 2px !important;
+    line-height: 120% !important;
+}
+
+.titulo {
+	font-size:14px;
+	font-weight: bold;
+	text-align:left;
+	color:black;
+    padding-left: 18px !important;
+    line-height: 120% !important;
+}
+
+
 .noscroll {
   overflow: hidden;
 }
@@ -126,7 +152,7 @@ a {
 	outline: none;
 }
 
-a, .btn {
+.btn {
 	text-decoration: none !important;
 	outline: none !important;
 	-webkit-transition: all .3s ease-in-out;
@@ -134,6 +160,7 @@ a, .btn {
 	-ms-transition: all .3s ease-in-out;
 	-o-transition: all .3s ease-in-out;
 	transition: all .3s ease-in-out;
+	background: #0e2346;
 }
 
 .btn-custom {
@@ -465,17 +492,19 @@ px
 /* Style the navbar */
 #navbar {
 	overflow: hidden;
-	background-image: url("../images/header_img.png");
+	background-image: url("../images/header_img.png"); 
 	position: block !important;
 	top: 0px;
 	left: 0px;
 	width: 100%;
+	height:auto;
 	margin: 0 auto;
 	z-index: 20;
-	background-position: left;
+	background-size: auto 100%;
+/* 	background-position: left;
 	background-repeat: no-repeat;
 	background-color: #0892fd;
-	background-size: auto 100%;
+	background-size: auto 100%; */
 }
 
 /* Navbar links */
@@ -485,6 +514,7 @@ px
 	text-align: center;
 	padding: 14px;
 	text-decoration: none;
+	color : white !important;
 }
 
 /* The sticky class is added to the navbar with JS when it reaches its scroll position */
@@ -503,9 +533,7 @@ px
 	padding: 5px 0px;
 }
 
-#content-top {
-	padding-top: 120px;
-}
+
 
 .container-web {
 	padding-left : 5px;
@@ -513,7 +541,7 @@ px
 }
 
 .top-header {
-	background-image: url("../images/header_img.png");
+	/* background-image: url("../images/header_img.png") !important; */
 	position: fixed;
 	top: 0px;
 	left: 0px;
@@ -521,8 +549,8 @@ px
 	margin: 0 auto;
 	background-position: left;
 	background-repeat: no-repeat;
-	background-color: #0892fd;
-	background-size: auto 100%;
+	/* background-color: #0892fd; */
+	height:80px;
 	-webkit-box-sizing: border-box;
 	-moz-box-sizing: border-box;
 	-ms-box-sizing: border-box;
@@ -626,15 +654,7 @@ a.navbar-brand {
 	:blue !important;
 }
 
-.banner-home {
-	width: 100%;
-	background: url(../images/slider-01.jpg) repeat-x center center;
-	width: 100%;
-	background-size: cover;
-	overflow: hidden;
-	position: relative !important;
-	top: 92px !important;
-}
+
 
 .banner-led {
 	width: 100%;
@@ -668,6 +688,8 @@ a.navbar-brand {
 }
 
 .top-header .navbar .navbar-collapse ul li {
+	/* background: #0e2346; */
+	color : white !important;
 	margin: 0 2px;
 }
 
@@ -917,7 +939,7 @@ a.navbar-brand {
 
 .panel > .panel-heading {
     background-image: none;
-    background-color: black;
+    background-color: #0e2346;
     color: white;
 
 }
@@ -1014,6 +1036,61 @@ a.navbar-brand {
 	}
 }
 
+#content-top {
+	padding-top: 110px;
+}
+
+@media only screen and (max-width: 1500px) {
+	#content-top {
+		padding-top: 110px;
+	}
+}
+
+
+/* Smaller than standard 960 (devices and browsers) */
+@media only screen and (max-width: 959px) {
+	#content-top {
+		padding-top: 110px;
+	}
+}
+
+/* Tablet Portrait size to standard 960 (devices and browsers) */
+@media only screen and (min-width: 768px) and (max-width: 959px) {
+	#content-top {
+		padding-top: 110px;
+	}
+}
+
+/* All Mobile Sizes (devices and browser) */
+@media only screen and (max-width: 767px) {
+	#content-top {
+		padding-top: 110px;
+	}
+}
+
+/* Mobile Landscape Size to Tablet Portrait (devices and browsers) */
+@media only screen and (min-width: 480px) and (max-width: 767px) {
+	#content-top {
+		padding-top: 20px;
+	}
+}
+
+/* Mobile Portrait Size to Mobile Landscape Size (devices and browsers) */
+@media only screen and (max-width: 479px) {
+	#content-top {
+		padding-top: 20px;
+	}
+}
+/* ---------------------------------------------------- */
+
+@media only screen and (max-width: 1500px) {
+	.btnMobile {
+		height: 35px;
+		width: 35px;
+	}
+}
+
+
 /* Smaller than standard 960 (devices and browsers) */
 @media only screen and (max-width: 959px) {
 	.btnMobile {
@@ -1055,7 +1132,111 @@ a.navbar-brand {
 		padding: 0px 0px;
 	}
 }
+/* ------------------------------ */
+
+@media only screen and (max-width: 1500px) {
+	.iconMobile {
+		height: 20px;
+
+	}
+	.banner-home {
+	width: 100%;
+	background: url(../images/slider-01.jpg) repeat-x center center;
+	width: 100%;
+	background-size: cover;
+	overflow: hidden;
+	position: relative !important;
+	top: 92px;
+}
+}
+
+
+/* Smaller than standard 960 (devices and browsers)*/
+@media only screen and (max-width: 959px) {
+	.iconMobile {
+		height: 42px;
+		
+	}
+	.banner-home {
+	width: 100%;
+	background: url(../images/slider-01.jpg) repeat-x center center;
+	width: 100%;
+	background-size: cover;
+	overflow: hidden;
+	position: relative;
+	top: 92px;
+}
+}
+
+/* Tablet Portrait size to standard 960 (devices and browsers) */
+@media only screen and (min-width: 768px) and (max-width: 959px) {
+	.iconMobile {
+		height: 42px;
+		
+	}
+	.banner-home {
+	width: 100%;
+	background: url(../images/slider-01.jpg) repeat-x center center;
+	width: 100%;
+	background-size: cover;
+	overflow: hidden;
+	position: relative;
+	top: 92px;
+}
+}
+
+/* All Mobile Sizes (devices and browser) */
+@media only screen and (max-width: 767px) {
+	.iconMobile {
+		height: 42px;
+
+	}
+	.banner-home {
+	width: 100%;
+	background: url(../images/slider-01.jpg) repeat-x center center;
+	width: 100%;
+	background-size: cover;
+	overflow: hidden;
+	top:0px;
+}
+}
+
+/* Mobile Landscape Size to Tablet Portrait (devices and browsers) */
+@media only screen and (min-width: 480px) and (max-width: 767px) {
+	.iconMobile {
+		height: 18px;
+
+		padding: 0px 0px;
+	}
+	.banner-home {
+	width: 100%;
+	background: url(../images/slider-01.jpg) repeat-x center center;
+	width: 100%;
+	background-size: cover;
+	overflow: hidden;
+	position: relative !important;
+	top:0px;
+}
+}
+
+/* Mobile Portrait Size to Mobile Landscape Size (devices and browsers) */
+@media only screen and (max-width: 479px) {
+	.iconMobile {
+		height: 22px;
+		padding: 0px 0px;
+	}
+	.banner-home {
+	width: 100%;
+	background: url(../images/slider-01.jpg) repeat-x center center;
+	width: 100%;
+	background-size: cover;
+	overflow: hidden;
+	position: relative !important;
+	top:0px;
+}
+}
 /*------------------------------/*
+
 /* Smaller than standard 960 (devices and browsers) */
 @media only screen and (max-width: 959px) {
 	.linhaMobile {
@@ -1138,44 +1319,44 @@ a.navbar-brand {
 /* Smaller than standard 960 (devices and browsers) */
 
 .content-banner {
-		padding: 150px 0px 0px 0px;
+		padding: 120px 0px 0px 0px;
 	}
 	
 .content-banner2 {
-		padding: 150px 0px 0px 0px;
+		padding: 120px 0px 0px 0px;
 	}
 
 @media only screen and (max-width: 959px) {
 	.content-banner {
-			padding: 150px 0px 0px 0px;
+			padding: 120px 0px 0px 0px;
 	}
 }
 
 /* Tablet Portrait size to standard 960 (devices and browsers) */
 @media only screen and (min-width: 768px) and (max-width: 959px) {
 	.content-banner {
-		padding: 150px 0px 0px 0px;
+		padding: 120px 0px 0px 0px;
 	}
 }
 
 /* All Mobile Sizes (devices and browser) */
 @media only screen and (max-width: 767px) {
 	.content-banner {
-		padding: 150px 0px 0px 0px;
+		padding: 0px 0px 0px 0px;
 	}
 }
 
 /* Mobile Landscape Size to Tablet Portrait (devices and browsers) */
 @media only screen and (min-width: 480px) and (max-width: 767px) {
 	.content-banner {
-		padding: 140px 0px 0px 0px;
+		padding: 0px 0px 0px 0px;
 	}
 }
 
 /* Mobile Portrait Size to Mobile Landscape Size (devices and browsers) */
 @media only screen and (max-width: 479px) {
 	.content-banner {
-		padding: 140px 0px 0px 0px;
+		padding: 0px 0px 0px 0px;
 } }
 
 /* Mobile Landscape Size to Tablet Portrait (devices and browsers) */

@@ -5,216 +5,252 @@
 	content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
 </head>
 <div ng-constroller="agendaCtrl" id="content-top">
-
-	<div ng-show="index==false" class="container-web">
-		<h3 style="font-weight: bold;">AGENDAMENTOS</h3>
-		<br>
-		<div class="panel-group col-12 col-md-12">
-			<div class="panel panel-dark">
-				<div class="panel-heading">Agenda</div>
-				<div class="panel-body">
-					<form novalidate="novalidate">
-						<div class="row">
-							<div class="col-12 col-md-6">
-								<label class="control-label" for="cliente">Cliente</label> <select
-									class="form-control linhaMobile selectpicker"
-									ng-model="agenda.idCliente" id="cliente">
-									<option ng-repeat="option in clientes" value="{{option.id}}">{{option.nome}}</option>
-								</select>
-							</div>
-							<div class="col-12 col-md-6">
-								<label class="control-label" for="empreendimento">Empreendimento</label>
-								<select class="form-control linhaMobile selectpicker"
-									ng-model="agenda.idEmpreendimento" id="empreendimento">
-									<option ng-repeat="option in empreendimentos"
-										value="{{option.id}}">{{option.nome}}</option>
-								</select>
-							</div>
-						</div>
-						<div class="row">
-							<div class="col-6 col-md-3 esquerda">
-								<p>
-									<label class="control-label" for="inputAgendado">Agendar</label>
-								</p>
-								<p>
-									<input type="checkbox" id="inputAgendado"
-										class="form-control linhaMobile" ng-model="agenda.agendado"
-										style="width: 20px;" />
-								</p>
-							</div>
-							<div class="col-6 col-md-3">
-								<label class="control-label" for="data">Data</label> <input
-									type="text" id="data" class="form-control linhaMobile"
-									ng-model="agenda.data" ui-mask="99/99/9999 99:99" />
-							</div>
-						</div>
-						<div class="row">
-							<div class="col-12 col-md-12">
-								<label class="control-label" for="historico">Histórico</label>
-								<textarea name="historico" ng-model="agenda.historico"
-									class="form-control" rows="10" cols="1000"></textarea>
-							</div>
-						</div>
-						<div ng-show="detalhe == true">
-							<div class="row">
-								<div class="col-6 col-md-3">
-									<label class="control-label" for="inputProfissao">Profissão</label>
-									<input type="text" id="inputProfissao"
-										class="form-control linhaMobile"
-										ng-model="agenda.cliente.profissao" ng-disabled="true" />
-								</div>
-								<div class="col-6 col-md-3">
-									<label class="control-label" for="inputRenda">Renda</label> <input
-										type="text" id="inputRenda" class="form-control linhaMobile"
-										ng-model="agenda.cliente.renda" ng-disabled="true"
-										ng-currency-mask />
-								</div>
-								<div class="col-6 col-md-3">
-									<label class="control-label" for="inputEntrada">Entrada</label>
-									<input type="text" id="inputEntrada"
-										class="form-control linhaMobile"
-										ng-model="agenda.cliente.entrada" ng-disabled="true"
-										ng-currency-mask />
-								</div>
-								<div class="col-6 col-md-3">
-									<label class="control-label" for="inputFGTS">FGTS</label> <input
-										type="text" id="inputFGTS" class="form-control linhaMobile"
-										ng-model="agenda.cliente.fgts" ng-disabled="true" ng-currency-mask />
-								</div>
-							</div>
-
-							<div class="row">
-								<div class="col-12 col-md-6">
-									<label class="control-label" for="inputContato">Contato-1</label>
-									<input type="text" id="inputContato"
-										class="form-control linhaMobile"
-										ng-model="agenda.cliente.contato1" ng-disabled="true" />
-								</div>
-								<div class="col-10 col-md-3">
-									<label class="control-label" for="inputFone1">Telefone-1</label>
-									<input type="text" id="inputFone1"
-										class="form-control linhaMobile"
-										ng-model="agenda.cliente.fone1" ng-disabled="true"
-										ui-mask="(99)9?9999-9999" />
-								</div>
-
-								<div class="col-2 col-md-3 esquerda">
-									<p>
-										<label class="control-label" for="inputWhatsApp">Zap</label>
-									</p>
-									<p>
-										<input type="checkbox" id="inputWhatsApp" style="width: 20px;"
-											class="form-control linhaMobile"
-											ng-model="agenda.cliente.whatsapp1" ng-disabled="true" />
-									</p>
-								</div>
-							</div>
-
-							<div class="row">
-								<div class="col-12 col-md-6">
-									<label class="control-label" for="inputContato2">Contato-2</label>
-									<input type="text" id="inputContato2"
-										class="form-control linhaMobile"
-										ng-model="agenda.cliente.contato2" ng-disabled="true" />
-								</div>
-
-								<div class="col-10 col-md-3">
-									<label class="control-label" for="inputFone2">Telefone-2</label>
-									<input type="text" id="inputFone2"
-										class="form-control linhaMobile"
-										ng-model="agenda.cliente.fone2" ng-disabled="true"
-										ui-mask="(99)9?9999-9999" />
-								</div>
-								<div class="col-2 col-md-3 esquerda">
-									<p>
-										<label class="control-label" for="inputWhatsApp2">Zap</label>
-									</p>
-									<p>
-										<input type="checkbox" id="inputWhatsApp2"
-											class="form-control linhaMobile"
-											ng-model="agenda.cliente.whatsapp2" ng-disabled="true"
-											style="width: 20px;" />
-									</p>
-								</div>
-							</div>
-
-							<div class="row">
-								<div class="col-12 col-md-6">
-									<label class="control-label" for="inputContato3">Contato-3</label>
-									<input type="text" id="inputContato3"
-										class="form-control linhaMobile"
-										ng-model="agenda.cliente.contato3" ng-disabled="true" />
-								</div>
-
-								<div class="col-10 col-md-3">
-									<label class="control-label" for="inputFone3">Telefone-3</label>
-									<input type="text" id="inputFone3"
-										class="form-control linhaMobile"
-										ng-model="agenda.cliente.fone3" ng-disabled="true"
-										ui-mask="(99)9?9999-9999" />
-								</div>
-								<div class="col-2 col-md-3 esquerda">
-									<p>
-										<label class="control-label" for="inputWhatsApp3">Zap</label>
-									</p>
-									<p>
-										<input type="checkbox" id="inputWhatsApp3"
-											class="form-control linhaMobile"
-											ng-model="agenda.cliente.whatsapp3" ng-disabled="true"
-											style="width: 20px;" />
-									</p>
-								</div>
-							</div>
-							<div class="row">
-
-								<div class="col-6 col-md-3">
-									<label class="control-label" for="inputSituacao">Situação:</label>
-									<select class="form-control linhaMobile" class="selectpicker"
-										title="Selecione..." ng-model="agenda.cliente.situacao"
-										ng-disabled="true">
-										<option selected hidden>Selecione...</option>
-										<option>Contato</option>
-										<option>Em Negociacao</option>
-										<option>Fechado</option>
-										<option>Futuro</option>
-									</select>
-								</div>
-								<div class="col-6 col-md-6">
-									<label class="control-label" for="inputCaptação">Captação:</label>
-									<select class="form-control linhaMobile" class="selectpicker"
-										title="Selecione..." ng-model="agenda.cliente.captacao"
-										ng-disabled="true">
-										<option selected hidden>Selecione...</option>
-										<option>Facebook</option>
-										<option>Google</option>
-										<option>Panfleto</option>
-										<option>Feirao</option>
-										<option>Indicacao</option>
-									</select>
-								</div>
-							</div>
-						</div>
-
-						<br>
-						<div class="row">
-							<br>
-							<div class="centralizar">
-								<a ng-click="cancelar()" class="btn btn-dark "
-									style="color: white !important">Voltar</a> &nbsp;&nbsp; <a
-									ng-click="salvar(agenda)" class="btn btn-dark "
-									style="color: white !important">Salvar</a> <a
-									ng-click="detalhar()" class="btn btn-dark " ng-disabled="agenda.cliente == undefined"
-									style="color: white !important">Detalhes</a>
-							</div>
-						</div>
-						<div class="row">&nbsp;</div>
-					</form>
-				</div>
-			</div>
+	<div class="row container-web">
+		<div class="col-6 col-md-6 titulo">
+			<span style="font-weight: bold;">AGENDAMENTOS</span>
+		</div>
+		<div class="col-6 col-md-6 user">
+		<img src="images/user.png" class="iconMobile"/>&nbsp;<span >{{usuario}}</span>
 		</div>
 	</div>
+	<div ng-show="index==false" class="container-web">
+		<br>
+		<!-- <div class="panel-group col-12 col-md-12">
+			<div class="panel panel-dark">
+				<div class="panel-heading">Agenda</div>
+				<div class="panel-body"> -->
+		<form novalidate="novalidate">
+			<div class="row">
+				<div class="col-8 col-md-4">
+					<label class="control-label" for="cliente">Cliente</label> <select
+						class="form-control linhaMobile selectpicker"
+						ng-model="agenda.idCliente" ng-change="carregarPorCliente(agenda)">
+						<option ng-repeat="option in clientes" value="{{option.id}}">{{option.nome}}</option>
+					</select>
+				</div>
+				<div class="col-4 col-md-2">
+					<label class="control-label" for="clienteSituacao">Filtro</label> <select
+						class="form-control linhaMobile selectpicker" ng-model="situacao"
+						id="clienteSituacao" ng-change="pesquisarClientes()">
+						<option>Contato</option>
+						<option>Em Negociacao</option>
+						<option>Fechado</option>
+						<option>Futuro</option>
+						<option>Descartado</option>
+					</select>
+				</div>
+
+				<div class="col-12 col-md-3">
+					<label class="control-label" for="empreendimento">Empreendimento</label>
+					<select class="form-control linhaMobile selectpicker"
+						ng-model="agenda.idEmpreendimento" id="empreendimento">
+						<option ng-repeat="option in empreendimentos"
+							value="{{option.id}}">{{option.nome}}</option>
+					</select>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-8 col-md-4">
+					<label class="control-label" for="inputSituacao">Situação:</label>
+					<select class="form-control linhaMobile" class="selectpicker"
+						title="Selecione..." ng-model="agenda.cliente.situacao">
+						<option selected hidden>Selecione...</option>
+						<option>Contato</option>
+						<option>Em Negociacao</option>
+						<option>Fechado</option>
+						<option>Futuro</option>
+						<option>Descartado</option>
+					</select>
+				</div>
+				<div class="col-4 col-md-2">
+					<label class="control-label" for="data">Data</label> <input
+						type="text" id="data" class="form-control linhaMobile"
+						ng-model="agenda.data" ui-mask="99/99/9999 99:99" />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-12 col-md-12">
+					<label class="control-label" for="historico">Observação </label>
+					<textarea name="historico" ng-model="agenda.historico"
+						class="form-control" rows="3" cols="1000"></textarea>
+				</div>
+			</div>
+			<br>
+			<div class="row">
+				<br>
+				<div class="centralizar">
+					<a ng-click="cancelar()" class="btn btn-dark "
+						style="color: white !important">Voltar</a> &nbsp;&nbsp; <a
+						ng-click="salvar(agenda)" class="btn btn-dark "
+						style="color: white !important">Salvar</a>
+				</div>
+			</div>
+			<div>
+				<br>
+				<span class="titulo">DETALHES</span>
+				<div class="panel-body table-header">
+					<div class="row texto">
+
+						<div class="col-3 col-md-3">Profissão</div>
+						<div class="col-3 col-md-3">Renda</div>
+						<div class="col-3 col-md-3">Entrada</div>
+						<div class="col-3 col-md-3">FGTS</div>
+
+					</div>
+				</div>
+				<div class="panel-body">
+					<div class="row texto semMargem" style="color: black;">
+						<div class="col-3 col-md-3">{{ agenda.cliente.profissao}}</div>
+						<div class="col-3 col-md-3">{{ cliente.renda }}</div>
+						<div class="col-3 col-md-3">{{ cliente.entrada }}</div>
+						<div class="col-3 col-md-3">{{ cliente.fgts }}</div>
+
+					</div>
+				</div>
+				<div class="row table-header" style="height: 2px;"
+					ng-show="agenda.cliente.contato1 != null">
+					<div class="col-12 col-md-12">&nbsp;</div>
+				</div>
+				<div class="panel-body table-header"
+					ng-show="agenda.cliente.fone1 != null">
+					<div class="row texto">
+
+						<div class="col-5 col-md-6">Contato (1)</div>
+						<div class="col-5 col-md-3">Telefone</div>
+						<div class="col-2 col-md-3">&nbsp;</div>
+
+					</div>
+				</div>
+				<div class="panel-body">
+					<div class="row texto semMargem" style="color: black;">
+						<div class="col-5 col-md-6">{{ agenda.cliente.contato1}}</div>
+						<div class="col-5 col-md-3" style="pad-right: 0px;">{{
+							cliente.telefone1 }}</div>
+						<div class="col-2 col-md-3 btn-group "
+							ng-show="agenda.cliente.whatsapp1 == true">
+							<a href="https://wa.me/55{{agenda.cliente.fone1}}"
+								target="_blank"><img src="images/whatsapp.png"
+								class="btnMobile" /></a>
+						</div>
+					</div>
+				</div>
+				<div class="row" style="background: black; height: 2px;"
+					ng-show="agenda.cliente.contato2 != null">
+					<div class="col-12 col-md-12">&nbsp;</div>
+				</div>
+
+
+				<div class="panel-body table-header"
+					ng-show="agenda.cliente.fone2 != null">
+					<div class="row texto">
+
+						<div class="col-5 col-md-6">Contato (2)</div>
+						<div class="col-5 col-md-3">Telefone</div>
+						<div class="col-2 col-md-3">&nbsp;</div>
+
+					</div>
+				</div>
+				<div class="panel-body">
+					<div class="row texto semMargem" style="color: black;">
+						<div class="col-5 col-md-6">{{ agenda.cliente.contato2}}</div>
+						<div class="col-5 col-md-3" style="pad-right: 0px;">{{
+							cliente.telefone2 }}</div>
+						<div class="col-2 col-md-3 btn-group "
+							ng-show="agenda.cliente.whatsapp2 == true">
+							<a href="https://wa.me/55{{agenda.cliente.fone2}}"
+								target="_blank"><img src="images/whatsapp.png"
+								class="btnMobile" /></a>
+						</div>
+					</div>
+				</div>
+				<div class="row" style="background: black; height: 2px;"
+					ng-show="agenda.cliente.contato3 != null">
+					<div class="col-12 col-md-12">&nbsp;</div>
+				</div>
+
+				<div class="panel-body table-header"
+					ng-show="agenda.cliente.fone3 != null">
+					<div class="row texto">
+
+						<div class="col-5 col-md-6">Contato (3)</div>
+						<div class="col-5 col-md-3">Telefone</div>
+						<div class="col-2 col-md-3">&nbsp;</div>
+
+					</div>
+				</div>
+				<div class="panel-body">
+					<div class="row texto semMargem" style="color: black;">
+						<div class="col-5 col-md-6">{{ agenda.cliente.contato3}}</div>
+						<div class="col-5 col-md-3" style="pad-right: 0px;">{{
+							cliente.telefone3 }}</div>
+						<div class="col-2 col-md-3 btn-group"
+							ng-show="agenda.cliente.whatsapp3 == true">
+							<a href="https://wa.me/55{{agenda.cliente.fone3}}"
+								target="_blank"><img src="images/whatsapp.png"
+								class="btnMobile" /></a>
+						</div>
+					</div>
+				</div>
+				<div class="row" style="background: black; height: 2px;">
+					<div class="col-12 col-md-12">&nbsp;</div>
+				</div>
+
+
+				<div class="panel-body table-header">
+					<div class="row texto">
+
+						<div class="col-6 col-md-3">Situação</div>
+						<div class="col-6 col-md-6">Captação</div>
+
+
+					</div>
+				</div>
+				<div class="panel-body">
+					<div class="row texto semMargem" style="color: black;">
+						<div class="col-6 col-md-3">{{ agenda.cliente.situacao}}</div>
+						<div class="col-6 col-md-6">{{ agenda.cliente.captacao }}</div>
+
+					</div>
+				</div>
+				<div class="row" style="background: black; height: 2px;">
+					<div class="col-12 col-md-12">&nbsp;</div>
+				</div>
+
+			</div>
+			<br>
+			<span class="titulo">HISTÓRICO</span>
+			<br>
+			<div class="panel-body table-header">
+				<div class="row texto">
+					<div class="col-6 col-md-6">Data</div>
+					<div class="col-6 col-md-6">Agendamento</div>
+					<div class="col-6 col-md-8">Observação</div>
+				</div>
+			</div>
+
+			<div class="panel-body" ng-repeat="ligacao in ligacoes">
+				<div class="row texto semMargem" style="color: black;">
+					<div class="col-6 col-md-6">{{ ligacao.data}}</div>
+					<div class="col-6 col-md-6">{{ ligacao.dataAgendamento }}</div>
+				</div>
+				<div class="row texto semMargem" style="color: black;">
+					<div class="col-12 col-md-12">{{ ligacao.historico }}</div>
+				</div>
+
+				<div class="row" style="background: black; height: 2px;">
+					<div class="col-12 col-md-12">&nbsp;</div>
+				</div>
+			</div>
+
+			<br>
+		</form>
+	</div>
+
+	<!-- 				</div>
+			</div>
+		</div>
+	</div> -->
 	<div ng-show="index==true" class="container-web">
-		<h3 style="font-weight: bold;">AGENDAMENTOS</h3>
 		<br>
 		<div class="row" style="margin-left: 0px; margin-right: 0px;">
 			<div class='col-10 col-md-11 semMargem'>
@@ -237,20 +273,19 @@
 
 
 
-		<div class="panel-body"
-			style="background: black; color: white; font-weight: bold">
+		<div class="panel-body table-header">
 			<div class="row texto">
-				<div class="col-1 col-md-1">ID</div>
-				<div class="col-6 col-md-7">Cliente</div>
-				<div class="col-4 col-md-4">Data</div>
+				<div class="col-2 col-md-1">ID</div>
+				<div class="col-5 col-md-7">Cliente</div>
+				<div class="col-3 col-md-4">Data</div>
 				<div class="col-2 col-md-1"></div>
 			</div>
 		</div>
 
 		<div class="panel-body" ng-repeat="agenda in agendas">
 			<div class="row texto semMargem" style="color: black;">
-				<div class="col-1 col-md-1">{{ agenda.cliente.id}}</div>
-				<div class="col-6 col-md-7">{{ agenda.cliente.nome }}</div>
+				<div class="col-2 col-md-1">{{ agenda.cliente.id}}</div>
+				<div class="col-5 col-md-7">{{ agenda.cliente.nome }}</div>
 				<div class="col-3 col-md-3">{{ agenda.data }}</div>
 				<div class="col-2 col-md-1 btn-group semMargem float-right">
 					<button type="button" ng-click="alterar(agenda)"

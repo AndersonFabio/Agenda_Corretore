@@ -1,10 +1,12 @@
 package br.com.capiteweb.business;
 
+import java.util.List;
+
+import javax.persistence.EntityManager;
+
 import br.com.capiteweb.DAO.AgendaDAO;
 import br.com.capiteweb.model.Agenda;
 import br.com.capiteweb.model.Parametro;
-import java.util.List;
-import javax.persistence.EntityManager;
 
 public class AgendaBusiness {
 	private EntityManager em;
@@ -17,6 +19,10 @@ public class AgendaBusiness {
 
 	public Agenda carregar(Long idAgenda) {
 		return this.agendaDAO.carregar(idAgenda);
+	}
+	
+	public Agenda carregarPorCliente(Long idCliente) {
+		return this.agendaDAO.carregarPorCliente(idCliente);
 	}
 
 	public Agenda salvar(Agenda agenda) {

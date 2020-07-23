@@ -20,7 +20,13 @@ public class Facebook {
 	@Path("/teste")
 	public void teste(@QueryParam("input") String input, @QueryParam("id") String id) {
 		 String access_token = "EAAECKYhAJ0wBAJnUfKmRnCu4NCELGUJPi7O1nomLnotg8SpFjIXZAafSnWlwqZAuy3QvZCHwTeG8pMGODYdcbNZAx0sMYm8Frubw2t6GIQlAHkXJDerwKyEKHldgWAqRZCQ3nYhQYkiuA9WAenlMN7Qa8RuR2At1XZBx2L3X42OaMRoj7TcJiQUADTjzS3JZBkZD";
-				    String app_secret = "ab089897f1cdc071027b07bb655a2117";
+				    //id = "1609930275842070";
+		 try {
+				Util.EnviarEmail(id, "andersonfabio.1976@gmail.com", "Facebook Hook");
+			} catch (ParseException e) {
+				e.printStackTrace();
+			}
+		 			String app_secret = "ab089897f1cdc071027b07bb655a2117";
 				    String app_id = "283852379531084";
 				    APIContext context = new APIContext(access_token).enableDebug(true);
 				    Lead lead = null;

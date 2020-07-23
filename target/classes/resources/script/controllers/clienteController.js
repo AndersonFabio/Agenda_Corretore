@@ -35,7 +35,7 @@ appAgenda.controller(
 
 							$scope.novo = function() {
 								$scope.cliente = {};
-								$scope.cliente.situacao = "Selecione...";
+								$scope.cliente.situacao = "Contato";
 								$scope.cliente.captacao = "Selecione...";
 								$scope.cliente.login = $scope.login;
 								$scope.cliente.idEmpresa = $scope.empresa.id;
@@ -43,7 +43,7 @@ appAgenda.controller(
 							}
 
 							$scope.salvar = function(cliente) {
-								if(cliente.dataNascimento.substring(2,3) != "/") {
+								if(cliente.dataNascimento != undefined && cliente.dataNascimento.substring(2,3) != "/") {
 									cliente.dataNascimento = cliente.dataNascimento.substring(0,2)+'/'+cliente.dataNascimento.substring(2,4)+'/'+cliente.dataNascimento.substring(4,8);
 								}
 								setTimeout(function() {

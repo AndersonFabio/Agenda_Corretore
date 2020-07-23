@@ -65,6 +65,14 @@ public class EmpreendimentoDAO {
 		List<Empreendimento> empreendimentoList = consulta.getResultList();
 		return empreendimentoList;
 	}
+	
+	public List<Empreendimento> getListPorEmpresaDisponivel(Long id) {
+		String sql = "select u from Empreendimento u where u.idEmpresa = :id and u.situacao = 'Disponivel' order by nome";
+		Query consulta = this.em.createQuery(sql);
+		consulta.setParameter("id", id);
+		List<Empreendimento> empreendimentoList = consulta.getResultList();
+		return empreendimentoList;
+	}
 
 	public Empreendimento carregar(Long id) {
 		String sql = "select u from Empreendimento u where u.id = :id";

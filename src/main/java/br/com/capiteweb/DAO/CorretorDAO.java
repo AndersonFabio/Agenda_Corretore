@@ -141,7 +141,7 @@ public class CorretorDAO {
 		new ArrayList();
 		List<Corretor> corretor = this.getListCorretorPorIdCorretor(id);
 		String sql = null;
-		sql = "select u from Corretor u where u.idSupervisor = :id order by nome";
+		sql = "select u from Corretor u where u.id = :id order by nome";
 		Query consulta = this.em.createQuery(sql);
 		List<Corretor> supervisorList = new ArrayList();
 		if (((Corretor) corretor.get(0)).getIdSupervisor() != null) {

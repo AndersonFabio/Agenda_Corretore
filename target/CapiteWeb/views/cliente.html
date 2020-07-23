@@ -6,10 +6,16 @@
 </head>
 <div ng-constroller="clienteCtrl" id="content-top">
 
-
+<div class="row container-web">
+		<div class="col-6 col-md-6 titulo">
+			<span style="font-weight: bold;">CLIENTES</span>
+		</div>
+		<div class="col-6 col-md-6 user">
+		<img src="images/user.png" class="iconMobile"/>&nbsp;<span >{{usuario}}</span>
+		</div>
+	</div>
 
 	<div ng-show="index==false" class="container-web">
-		<h3 style="font-weight: bold;">CLIENTES</h3>
 		<br>
 		<div class="panel-group col-12 col-md-12">
 			<div class="panel panel-dark">
@@ -228,6 +234,7 @@
 									<option>Em Negociacao</option>
 									<option>Fechado</option>
 									<option>Futuro</option>
+									<option>Descartado</option>
 								</select>
 							</div>
 						</div>
@@ -249,7 +256,6 @@
 		</div>
 	</div>
 	<div ng-show="index==true" class="container-web">
-		<h3 style="font-weight: bold;">CLIENTES</h3>
 		<br>
 		<div class="row" style="margin-left: 0px; margin-right: 0px;">
 			<div class='col-10 col-md-11 semMargem'>
@@ -272,8 +278,7 @@
 
 
 
-		<div class="panel-body"
-			style="background: black; color: white; font-weight: bold">
+		<div class="panel-body table-header">
 			<div class="row texto">
 				<div class="col-2 col-md-1">ID</div>
 				<div class="col-5 col-md-6">Nome</div>

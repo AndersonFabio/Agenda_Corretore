@@ -83,9 +83,12 @@
 
 	<!-- Start header -->
 	<header class="top-header" id="header-menu">
+	
 		<nav class="navbar header-nav navbar-expand-lg" id="navbar">
+		
 			<div class="container-fluid">
-				<a ng-click="agenda();" style="font-weight: bold; cursor: pointer;"><img
+			
+				<a ng-click="agendamentos();" style="font-weight: bold; cursor: pointer;"><img
 					src="images/logo1.png" alt="image"></a>
 				<button class="navbar-toggler" style="color: black;" type="button"
 					data-toggle="collapse" data-target="#navbar-wd"
@@ -93,9 +96,14 @@
 					aria-label="Toggle navigation">
 					<span></span> <span></span> <span></span>
 				</button>
+				
+				
+				
 				<div class="collapse navbar-collapse justify-content-end"
 					id="navbar-wd">
+					
 					<ul class="navbar-nav">
+					
 						<li><a ng-class="{'active' : menuItem == 1}"
 							class="nav-link "
 							style="font-weight: bold; cursor: pointer !important;"
@@ -128,15 +136,14 @@
 								class="sr-only">(current)</span></a></li>
 
 						<li><a class="nav-link active"
-							style="background: #fff; color: #000; font-weight: bold; cursor: pointer !important;"
+							style="font-weight: bold; cursor: pointer !important;;padding-right:0px;"
 							ng-click="logout(); menuItem = 4">Sair</a></li>
 					</ul>
+		
 				</div>
 			</div>
 		</nav>
-		<div class="container">
-			<div class="direita" style="color: white;">{{login.cargo}}:{{login.nome}}</div>
-		</div>
+		
 	</header>
 	<!-- End header -->
 

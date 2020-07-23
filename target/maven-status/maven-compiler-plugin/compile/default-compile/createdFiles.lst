@@ -36,6 +36,8 @@ br\com\capiteweb\DAO\AgendaDAO.class
 br\com\capiteweb\DAO\CorretorDAO.class
 br\com\capiteweb\model\Historico.class
 br\com\capiteweb\business\EmpreendimentoBusiness.class
+br\com\capiteweb\business\LigacoesBusiness.class
+br\com\capiteweb\DAO\LigacoesDAO.class
 br\com\capiteweb\commons\Sender.class
 br\com\capiteweb\commons\HibernateUtil.class
 br\com\capiteweb\commons\Util.class
@@ -46,6 +48,7 @@ br\com\capiteweb\DAO\ClienteDAO.class
 br\com\capiteweb\business\EmpresaBusiness.class
 br\com\capiteweb\commons\Paymentmethod.class
 br\com\capiteweb\DAO\CaptacaoDAO.class
+br\com\capiteweb\model\Ligacoes.class
 br\com\capiteweb\model\Login.class
 br\com\capiteweb\rest\CorretorRest.class
 br\com\capiteweb\rest\CaptacaoRest.class
@@ -59,4 +62,5 @@ br\com\capiteweb\rest\FileUploadRest.class
 br\com\capiteweb\commons\Shipping.class
 br\com\capiteweb\business\AgendaBusiness.class
 br\com\capiteweb\commons\CheckoutRetorno.class
+br\com\capiteweb\rest\LigacoesRest.class
 br\com\capiteweb\business\CaptacaoBusiness.class

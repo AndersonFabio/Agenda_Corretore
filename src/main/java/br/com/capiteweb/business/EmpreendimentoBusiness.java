@@ -34,6 +34,10 @@ public class EmpreendimentoBusiness {
 	public List<Empreendimento> getListPorEmpresa(Long id) {
 		return this.empreendimentoDAO.getListPorEmpresa(id);
 	}
+	
+	public List<Empreendimento> getListPorEmpresaDisponivel(Long id) {
+		return this.empreendimentoDAO.getListPorEmpresaDisponivel(id);
+	}
 
 	public boolean excluir(long id) {
 		return this.empreendimentoDAO.excluir(id);

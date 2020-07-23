@@ -19,6 +19,8 @@
 		<class>br.com.capiteweb.model.Agenda</class>
 		<class>br.com.capiteweb.model.CheckoutPagamento</class>
 		<class>br.com.capiteweb.model.Captacao</class>
+		<class>br.com.capiteweb.model.Ligacoes</class>
+		
 
 		<properties>
 			<!-- dados da conexao -->
