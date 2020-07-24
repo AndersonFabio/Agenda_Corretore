@@ -6,95 +6,126 @@
 </head>
 <div ng-constroller="gestaoCtrl" id="content-top">
 	<div class="container-web">
-	<div class="row container-web">
-		<div class="col-6 col-md-6 titulo">
-			<span>GESTÂO DE EQUIPE</span>
+		<div class="row container-web">
+			<div class="col-6 col-md-6 titulo">
+				<span>GESTÂO DE EQUIPE</span>
+			</div>
+			<div class="col-6 col-md-6 user">
+				<img src="images/user.png" class="iconMobile" />&nbsp;<span>{{usuario}}</span>
+			</div>
 		</div>
-		<div class="col-6 col-md-6 user">
-		<img src="images/user.png" class="iconMobile"/>&nbsp;<span >{{usuario}}</span>
-		</div>
-	</div>
 		<br>
-		<form novalidate="novalidate">
-			<div class="panel-group col-12 col-md-6 offset-md-3">
-				<div class="panel panel-dark">
-					<div class="panel-heading">Inclusão de Corretor/Supervisor</div>
-					<div class="panel-body">
-						<div class="row">
-							<div class="col-12 col-md-12">
-								<label class="control-label" for="inputLogin">Login do
-									Corretor/Supervisor</label> <input type="text" id="inputNome"
-									ng-model="loginCorretor.email" class="form-control linhaMobile" />
+		<div ng-show="imobiliaria == true">
+			<form novalidate="novalidate">
+				<div class="panel-group col-12 col-md-6 offset-md-3">
+					<div class="panel panel-dark">
+						<div class="panel-heading">Inclusão de Corretor/Supervisor</div>
+						<div class="panel-body">
+							<div class="row">
+								<div class="col-12 col-md-12">
+									<label class="control-label" for="inputLogin">Login do
+										Corretor/Supervisor</label> <input type="text" id="inputNome"
+										ng-model="loginCorretor.email"
+										class="form-control linhaMobile" />
+								</div>
 							</div>
-						</div>
-						<div class="row">
-							<div class="col-12 col-md-12 ">
-								<label class="control-label" for="inputsenha">Senha</label> <input
-									type="password" id="inputSenha" ng-model="loginCorretor.senha"
-									class="form-control linhaMobile " />
+							<div class="row">
+								<div class="col-12 col-md-12 ">
+									<label class="control-label" for="inputsenha">Senha</label> <input
+										type="password" id="inputSenha" ng-model="loginCorretor.senha"
+										class="form-control linhaMobile " />
+								</div>
 							</div>
-						</div>
-						<br>
-						<div class="row">
-							<div class="centralizar">
-								<a ng-click="vincularCorretor()" class="btn btn-dark"
-									style="color: white !important; cursor: pointer;">Incluir</a>
-								&nbsp;&nbsp; <a ng-click="cancelar()" class="btn btn-dark"
-									style="color: white !important; cursor: pointer;">Voltar</a>
+							<br>
+							<div class="row">
+								<div class="centralizar">
+									<a ng-click="vincularCorretor()" class="btn btn-dark"
+										style="color: white !important; cursor: pointer;">Incluir</a>
+									&nbsp;&nbsp; <a ng-click="cancelar()" class="btn btn-dark"
+										style="color: white !important; cursor: pointer;">Voltar</a>
+								</div>
 							</div>
-						</div>
-						<div class="row">&nbsp;</div>
+							<div class="row">&nbsp;</div>
 
+						</div>
 					</div>
 				</div>
-			</div>
-			<div class="row">&nbsp;</div>
-			<div class="panel-group col-12 col-md-6 offset-md-3">
-				<div class="panel panel-dark">
-					<div class="panel-heading">Vincular Supervisor</div>
-					<div class="panel-body">
-						<div class="row">
-							<div class="col-12 col-md-12">
-								<label class="control-label" for="inputCorretor">Corretor</label>
-								<select name="mySelect" id="mySelect" class="form-control linhaMobile selectpicker"
-									ng-options="option.nome for option in corretores track by option.id"
-									ng-model="corretor"></select> 
+				<div class="row">&nbsp;</div>
+				<div class="panel-group col-12 col-md-6 offset-md-3">
+					<div class="panel panel-dark">
+						<div class="panel-heading">Vincular Supervisor</div>
+						<div class="panel-body">
+							<div class="row">
+								<div class="col-12 col-md-12">
+									<label class="control-label" for="inputCorretor">Corretor</label>
+									<select name="mySelect" id="mySelect"
+										class="form-control linhaMobile selectpicker"
+										ng-options="option.nome for option in corretores track by option.id"
+										ng-model="corretor"></select>
+								</div>
 							</div>
-						</div>
-						<div class="row">
-							<div class="col-12 col-md-12">
-								<label class="control-label" for="inputCorretor">Supervisor</label>
-								<select class="form-control linhaMobile selectpicker"
-									ng-model="corretor.idSupervisor" name="jobTitle" required>
-									<option ng-repeat="option in supervisores"
-										value="{{option.id}}">{{option.nome}}</option>
-								</select>
+							<div class="row">
+								<div class="col-12 col-md-12">
+									<label class="control-label" for="inputCorretor">Supervisor</label>
+									<select class="form-control linhaMobile selectpicker"
+										ng-model="corretor.idSupervisor" name="jobTitle" required>
+										<option ng-repeat="option in supervisores"
+											value="{{option.id}}">{{option.nome}}</option>
+									</select>
+								</div>
 							</div>
-						</div>
-						<br>
-						<div class="row">
-							<div class="centralizar">
-								<a ng-click="salvarCorretor()" class="btn btn-dark"
-									style="color: white !important; cursor: pointer;">Salvar</a>
+							<br>
+							<div class="row">
+								<div class="centralizar">
+									<a ng-click="salvarCorretor()" class="btn btn-dark"
+										style="color: white !important; cursor: pointer;">Salvar</a>
+								</div>
 							</div>
-						</div>
-						<div class="row">&nbsp;</div>
+							<div class="row">&nbsp;</div>
 
+						</div>
 					</div>
 				</div>
-			</div>
-		</form>
-	</div>
-	-->
-	<!-- end section -->
+			</form>
+		</div>
+		<br>
+		<div class="panel-group col-12 col-md-6 offset-md-3">
+			<div class="panel panel-dark">
+				<div class="panel-heading">RELATÓRIO RESUMO DE CONTATOS</div>
+				<div class="panel-body">
+					<div class="row">
 
-	<fullscreen-dialog ng-show="isVisible.loading">
-	<div class="dialog">
-		<div class="content">
-			<i class="fa fa-cog fa-spin fa-3x fa-fw"></i>
+						<div class="col-12 col-md-12">
+							<label class="control-label" for="inputCorretor">Corretor</label>
+							<select class="form-control linhaMobile selectpicker"
+								ng-model="idCorretor" name="jobTitle" required>
+								<option ng-repeat="option in corretores" value="{{option.id}}">{{option.nome}}</option>
+							</select>
+						</div>
+					</div>
+					<br>
+					<div class="row">
+						<br>
+						<div class="centralizar">
+							<a ng-click="imprimirResumo(idCorretor)"
+								class="btn btn-dark " style="color: white !important">Gerar
+								PDF</a>
+						</div>
+
+					</div>
+					<br>
+				</div>
+			</div>
 		</div>
 	</div>
-	</fullscreen-dialog>
-</div>
 
+		<!-- end section -->
 
+		<fullscreen-dialog ng-show="isVisible.loading">
+		<div class="dialog">
+			<div class="content">
+				<i class="fa fa-cog fa-spin fa-3x fa-fw"></i>
+			</div>
+		</div>
+		</fullscreen-dialog>
+	</div>

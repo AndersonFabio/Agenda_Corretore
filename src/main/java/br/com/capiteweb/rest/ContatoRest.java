@@ -38,6 +38,16 @@ public class ContatoRest {
 		this.closeSessions();
 		return contato;
 	}
+	
+	@POST
+	@Path("/enviar")
+	@Consumes({"application/json"})
+	@Produces({"application/json"})
+	public Contato enviar(Contato contato) {
+		this.contatoBusiness.enviar(contato);
+		this.closeSessions();
+		return contato;
+	}
 
 	@GET
 	@Path("/excluir")

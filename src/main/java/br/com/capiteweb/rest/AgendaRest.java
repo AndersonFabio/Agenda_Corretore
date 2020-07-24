@@ -91,6 +91,7 @@ public class AgendaRest {
 		if (login.getAcesso().equals("S")) {
 			Cliente cliente = agenda.getCliente();
 			clienteBusiness.salvar(cliente);
+			agenda = this.agendaBusiness.salvar(agenda);
 			Ligacoes ligacoes = new Ligacoes();
 			ligacoes.setData(new Date());
 			ligacoes.setDataAgendamento(agenda.getData());
@@ -98,7 +99,7 @@ public class AgendaRest {
 			ligacoes.setIdAgenda(agenda.getId());
 			this.ligacoesBusiness.salvar(ligacoes);
 			agenda.setHistorico("");
-			this.agendaBusiness.salvar(agenda);
+			
 		}
 
 		this.closeSessions();

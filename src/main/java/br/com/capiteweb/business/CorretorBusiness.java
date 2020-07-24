@@ -88,8 +88,8 @@ public class CorretorBusiness {
 		return this.corretorDAO.excluir(id);
 	}
 
-	public List<Corretor> getListCorretorPorIdEmpresa(Long id) {
-		return this.corretorDAO.getListCorretorPorIdEmpresa(id);
+	public List<Corretor> getListCorretorPorIdEmpresa(Parametro parametro) {
+		return this.corretorDAO.getListCorretorPorIdEmpresa(parametro);
 	}
 
 	public List<Corretor> getListSupervisorPorIdEmpresa(Long id) {

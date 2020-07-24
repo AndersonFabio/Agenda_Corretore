@@ -103,7 +103,7 @@ public class CorretorRest {
 		Login login = this.loginBusiness.checkLogin(parametro);
 		List<Corretor> lista = new ArrayList();
 		if (login.getAcesso().equals("S")) {
-			lista = this.corretorBusiness.getListCorretorPorIdEmpresa(parametro.getLogin().getIdEmpresa());
+			lista = this.corretorBusiness.getListCorretorPorIdEmpresa(parametro);
 		}
 
 		this.closeSessions();

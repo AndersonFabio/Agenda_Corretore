@@ -7,12 +7,15 @@ br\com\capiteweb\model\Empreendimento.class
 br\com\capiteweb\model\Corretor.class
 br\com\capiteweb\model\Contato.class
 br\com\capiteweb\commons\CheckoutSender.class
+br\com\capiteweb\rest\RelatoriosRest.class
 br\com\capiteweb\model\CheckoutPagamento.class
 br\com\capiteweb\business\Ret.class
 br\com\capiteweb\rest\ClienteRest.class
 br\com\capiteweb\DAO\CheckoutPagamentoDAO.class
+br\com\capiteweb\rest\Value.class
 br\com\capiteweb\commons\Address.class
 br\com\capiteweb\commons\Document.class
+br\com\capiteweb\rest\Entry.class
 br\com\capiteweb\model\Captacao.class
 br\com\capiteweb\DAO\ContatoDAO.class
 br\com\capiteweb\business\CorretorBusiness.class
@@ -22,6 +25,7 @@ br\com\capiteweb\rest\EmpresaRest.class
 br\com\capiteweb\model\Usuario.class
 br\com\capiteweb\rest\Facebook.class
 br\com\capiteweb\business\ClienteBusiness.class
+br\com\capiteweb\rest\Changes.class
 br\com\capiteweb\commons\Phone.class
 br\com\capiteweb\rest\ContatoRest.class
 br\com\capiteweb\commons\Item.class
@@ -54,8 +58,7 @@ br\com\capiteweb\rest\CorretorRest.class
 br\com\capiteweb\rest\CaptacaoRest.class
 br\com\capiteweb\commons\Checkout.class
 br\com\capiteweb\model\Email.class
-br\com\capiteweb\rest\Rest.class
-br\com\capiteweb\rest\RestBinder.class
+br\com\capiteweb\rest\Leadgen.class
 br\com\capiteweb\business\CheckoutPagamentoBusiness.class
 br\com\capiteweb\model\Items.class
 br\com\capiteweb\rest\FileUploadRest.class

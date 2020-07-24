@@ -32,6 +32,7 @@
 					<label class="control-label" for="clienteSituacao">Filtro</label> <select
 						class="form-control linhaMobile selectpicker" ng-model="situacao"
 						id="clienteSituacao" ng-change="pesquisarClientes()">
+						<option>Agendado</option>
 						<option>Contato</option>
 						<option>Em Negociacao</option>
 						<option>Fechado</option>
@@ -55,6 +56,7 @@
 					<select class="form-control linhaMobile" class="selectpicker"
 						title="Selecione..." ng-model="agenda.cliente.situacao">
 						<option selected hidden>Selecione...</option>
+						<option>Agendado</option>
 						<option>Contato</option>
 						<option>Em Negociacao</option>
 						<option>Fechado</option>

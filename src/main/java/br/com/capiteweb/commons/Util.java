@@ -1,7 +1,13 @@
 package br.com.capiteweb.commons;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+
 import javax.mail.internet.ParseException;
 import org.apache.commons.mail.SimpleEmail;
+
+
 
 public class Util {
 	@SuppressWarnings("deprecation")
@@ -27,4 +33,13 @@ public class Util {
 		}
 
 	}
+	
+	public static Connection getConexao()throws ClassNotFoundException, SQLException{
+		final String url = "jdbc:mysql://mysql.capiteweb.com.br/capiteweb";
+		final String username = "capiteweb";
+		final String password = "Paco1701";
+		Class.forName("com.mysql.jdbc.Driver");
+		Connection conn = DriverManager.getConnection(url, username, password);
+		return conn;
+		}
 }

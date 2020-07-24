@@ -4,8 +4,6 @@ D:\Desenvolvimento\CapiteWeb\CapiteWeb\src\main\java\br\com\capiteweb\model\Logi
 D:\Desenvolvimento\CapiteWeb\CapiteWeb\src\main\java\br\com\capiteweb\rest\CaptacaoRest.java
 D:\Desenvolvimento\CapiteWeb\CapiteWeb\src\main\java\br\com\capiteweb\business\ContatoBusiness.java
 D:\Desenvolvimento\CapiteWeb\CapiteWeb\src\main\java\br\com\capiteweb\model\Contato.java
-D:\Desenvolvimento\CapiteWeb\CapiteWeb\src\main\java\br\com\capiteweb\rest\Rest.java
-D:\Desenvolvimento\CapiteWeb\CapiteWeb\src\main\java\br\com\capiteweb\rest\RestBinder.java
 D:\Desenvolvimento\CapiteWeb\CapiteWeb\src\main\java\br\com\capiteweb\business\AgendaBusiness.java
 D:\Desenvolvimento\CapiteWeb\CapiteWeb\src\main\java\br\com\capiteweb\model\CheckoutPagamento.java
 D:\Desenvolvimento\CapiteWeb\CapiteWeb\src\main\java\br\com\capiteweb\commons\Address.java
@@ -27,6 +25,7 @@ D:\Desenvolvimento\CapiteWeb\CapiteWeb\src\main\java\br\com\capiteweb\business\E
 D:\Desenvolvimento\CapiteWeb\CapiteWeb\src\main\java\br\com\capiteweb\model\Empresa.java
 D:\Desenvolvimento\CapiteWeb\CapiteWeb\src\main\java\br\com\capiteweb\DAO\ContatoDAO.java
 D:\Desenvolvimento\CapiteWeb\CapiteWeb\src\main\java\br\com\capiteweb\DAO\EmpreendimentoDAO.java
+D:\Desenvolvimento\CapiteWeb\CapiteWeb\src\main\java\br\com\capiteweb\rest\RelatoriosRest.java
 D:\Desenvolvimento\CapiteWeb\CapiteWeb\src\main\java\br\com\capiteweb\business\EmpresaBusiness.java
 D:\Desenvolvimento\CapiteWeb\CapiteWeb\src\main\java\br\com\capiteweb\commons\Document.java
 D:\Desenvolvimento\CapiteWeb\CapiteWeb\src\main\java\br\com\capiteweb\commons\CheckoutSender.java

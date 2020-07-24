@@ -2,6 +2,8 @@ package br.com.capiteweb.DAO;
 
 import br.com.capiteweb.model.Corretor;
 import br.com.capiteweb.model.Login;
+import br.com.capiteweb.model.Parametro;
+
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -72,10 +74,20 @@ public class CorretorDAO {
 		return Corretor;
 	}
 
-	public List<Corretor> getListCorretorPorIdEmpresa(Long id) {
-		String sql = "select u from Corretor u where u.idEmpresa = :id order by nome";
+	public List<Corretor> getListCorretorPorIdEmpresa(Parametro parametro) {
+		String sql = null;
+		if(parametro.getLogin().getCargo().equals("Imobiliaria")) {
+			sql = "select u from Corretor u where u.idEmpresa = :id order by nome";
+		} else {
+			sql = "select u from Corretor u where u.id = :id order by nome";
+		}
 		Query consulta = this.em.createQuery(sql);
-		consulta.setParameter("id", id);
+		if(parametro.getLogin().getCargo().equals("Imobiliaria")) {
+			consulta.setParameter("id", parametro.getLogin().getIdEmpresa());
+		} else {
+			consulta.setParameter("id", parametro.getLogin().getIdCorretor());
+		}
+		
 		List<Corretor> corretorList = consulta.getResultList();
 		return corretorList;
 	}

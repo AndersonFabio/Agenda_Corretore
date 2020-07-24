@@ -41,6 +41,20 @@ public class ContatoBusiness {
 		}
 
 	}
+	
+	public void enviar(Contato contato) {
+		String mensagem = "Contato\n\nNome: " + contato.getNome() + "\n\n" + "Telefone: "
+				+ contato.getCelular() + "\n\n" + "Email: " + contato.getEmail() + "\n\n" + "Mensagem: "
+				+ contato.getObservacao();
+
+		try {
+			Util.EnviarEmail(mensagem, "andersonfabio.1976@gmail.com", "Contato Simples Nacional Web");
+			Util.EnviarEmail(mensagem, "contato@simplesnacionalweb.com.br", "Contato Simples Nacional Web");
+			
+		} catch (ParseException var4) {
+			var4.printStackTrace();
+		}
+	}
 
 	public Contato buscaPorEmail(String email) {
 		return this.contatoDAO.buscarPorEmail(email);

@@ -30,12 +30,7 @@ appAgenda.controller('agendaCtrl', [
 			}
 			
 			$scope.gestao = function() {
-				if($scope.login.cargo != "Imobiliaria") {
-					alert("Acesso somente para Imobiliárias!");
-					$location.path('/agenda');
-				} else {
-					$location.path('/gestao');
-				}
+				$location.path('/gestao');
 			}
 			
 			$scope.logout = function() {

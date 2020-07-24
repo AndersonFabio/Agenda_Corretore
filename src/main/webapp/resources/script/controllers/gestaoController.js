@@ -13,14 +13,30 @@ appAgenda.controller(
 							$scope.index = false;
 							$scope.empresa = {};
 							$scope.loginCorretor = {};
+							$scope.idCorretor = 0;
 							$scope.login = usuarioService.popularLogin();
 							$scope.corretor.login = $scope.login;
+							if($scope.login.cargo == "Imobiliaria") {
+								$scope.imobiliaria = true;
+							} else {
+								$scope.imobiliaria = false;
+							}
 							$scope.parametro = usuarioService.popularParametro();
 							
 							$scope.alterar = function(corretor) {
 								$scope.corretor = corretor;
 								$scope.corretor.login = $scope.login;
 								$scope.index = false;
+							}
+							
+							$scope.imprimirResumo = function(idCorretor) {
+								if(idCorretor == undefined || idCorretor == null || idCorretor == "") {
+									alert("Selecione um Corretor");
+									return;
+								}
+								$scope.url = URL+"relatorio/resumoPorCorretor?idCorretor="+idCorretor;
+								window.open($scope.url,'_blank');
+								
 							}
 							
 							$scope.novo = function() {

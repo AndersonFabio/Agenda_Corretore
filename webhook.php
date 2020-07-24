@@ -5,7 +5,7 @@ $verify_token = $_REQUEST['hub_verify_token'];
 define('VERIFY_TOKEN', '4840b6bee2d0aaf7df664bf772ec4fa2');
 
 if ($verify_token === VERIFY_TOKEN) {
-	echo $challenge;
+	echo strip_tags($challenge);
 }
 	//header('Location: );
 	//$client = new HttpClient('https://www.capiteweb.com.br/CapiteWeb/rest/facebook/teste?input='.$input.'&token='.$verify_token.'&challenge='.$challenge);
@@ -25,7 +25,7 @@ if ($verify_token === VERIFY_TOKEN) {
     'input'      => $input,
     'challenge'    => $challenge	
 	);
-
+19
 	//open connection
 	$ch = curl_init();
 

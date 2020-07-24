@@ -9,17 +9,16 @@ import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
 
-import org.glassfish.jersey.media.multipart.FormDataContentDisposition;
-import org.glassfish.jersey.media.multipart.FormDataParam;
+import com.sun.jersey.core.header.FormDataContentDisposition;
+import com.sun.jersey.multipart.FormDataParam;
 
 
 
 @Path("/arquivo")
 public class FileUploadRest {
 
-	@POST
+/*	@POST
 	@Path("/upload")
 	 @Consumes(MediaType.MULTIPART_FORM_DATA)
 	public void uploadFile(@FormDataParam("file") InputStream uploadedInputStream,
@@ -38,7 +37,7 @@ public class FileUploadRest {
 		// save it
 		writeToFile(uploadedInputStream, uploadedFileLocation);
 
-	}
+	}*/
 
 	// save uploaded file to new location
 	private void writeToFile(InputStream uploadedInputStream, String uploadedFileLocation) {
