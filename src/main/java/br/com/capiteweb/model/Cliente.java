@@ -4,8 +4,11 @@ import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
@@ -23,7 +26,8 @@ public class Cliente implements Serializable {
 	@Transient
 	@JsonProperty
 	private Login login;
-	private String situacao;
+	private Long idSituacao;
+	private Long idMidia;
 	private Long idEmpresa;
 	private Long idCorretor;
 	private Long idCaptador;
@@ -51,6 +55,12 @@ public class Cliente implements Serializable {
 	private String estado;
 	private String cpf;
 	private String rg;
+	@ManyToOne(optional=true, fetch = FetchType.EAGER)
+	@JoinColumn(name = "idSituacao", nullable = true, insertable = false, updatable = false)
+	private Situacao situacao;
+	@ManyToOne(optional=true , fetch = FetchType.EAGER)
+	@JoinColumn(name = "idMidia", nullable = true, insertable = false, updatable = false)
+	private Midia midia;
 	@JsonFormat(pattern = "dd/MM/yyyy")
 	private Date dataNascimento;
 
@@ -156,14 +166,6 @@ public class Cliente implements Serializable {
 
 	public void setLogin(Login login) {
 		this.login = login;
-	}
-
-	public String getSituacao() {
-		return this.situacao;
-	}
-
-	public void setSituacao(String situacao) {
-		this.situacao = situacao;
 	}
 
 	public String getCaptacao() {
@@ -309,4 +311,40 @@ public class Cliente implements Serializable {
 	public void setIdCaptador(Long idCaptador) {
 		this.idCaptador = idCaptador;
 	}
+
+	public Long getIdSituacao() {
+		return idSituacao;
+	}
+
+	public void setIdSituacao(Long idSituacao) {
+		this.idSituacao = idSituacao;
+	}
+
+	public Situacao getSituacao() {
+		return situacao;
+	}
+
+	public void setSituacao(Situacao situacao) {
+		this.situacao = situacao;
+	}
+
+	public Long getIdMidia() {
+		return idMidia;
+	}
+
+	public void setIdMidia(Long idMidia) {
+		this.idMidia = idMidia;
+	}
+
+	public Midia getMidia() {
+		return midia;
+	}
+
+	public void setMidia(Midia midia) {
+		this.midia = midia;
+	}
+
+
+
+
 }

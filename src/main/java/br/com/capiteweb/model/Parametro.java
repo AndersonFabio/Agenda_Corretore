@@ -8,6 +8,8 @@ public class Parametro {
 	private Login login;
 	private Long idCaptacao;
 	private String situacaoCliente;
+	private Long idSituacao;
+	private Long idMidia;
 
 	public Long getIdCorretor() {
 		return this.idCorretor;
@@ -63,5 +65,21 @@ public class Parametro {
 
 	public void setSituacaoCliente(String situacaoCliente) {
 		this.situacaoCliente = situacaoCliente;
+	}
+
+	public Long getIdSituacao() {
+		return idSituacao;
+	}
+
+	public void setIdSituacao(Long idSituacao) {
+		this.idSituacao = idSituacao;
+	}
+
+	public Long getIdMidia() {
+		return idMidia;
+	}
+
+	public void setIdMidia(Long idMidia) {
+		this.idMidia = idMidia;
 	}
 }

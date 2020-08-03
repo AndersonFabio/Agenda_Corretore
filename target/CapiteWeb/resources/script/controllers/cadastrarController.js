@@ -23,6 +23,8 @@ app.controller('cadastrarCtrl', ['$scope', '$http','$routeParams', '$location','
 					}
 				}
 				
+				
+				
 				$scope.novo = function() {
 					$scope.corretor = {};
 					$scope.editar(true);
@@ -84,7 +86,8 @@ app.controller('cadastrarCtrl', ['$scope', '$http','$routeParams', '$location','
 									}).success(function (data) {
 										alert("Corretor cadastrado com Sucesso!")
 										
-										$location.path('/home');
+										
+										$location.path('/login');
 									}).error( function (erro) {
 										$rootScope.isVisible.loading = false;
 										alert("ERRO no envio dos dados ! "+erro == undefined ? "" : erro);
@@ -96,6 +99,68 @@ app.controller('cadastrarCtrl', ['$scope', '$http','$routeParams', '$location','
 							alert("ERRO no envio dos dados ! "+erro == undefined ? "" : erro);
 								})},100);
 			    }
+			    
+			    
+			    
+			    $scope.getCep1 = function(cep) {
+			    	if(cep.length < 8) {
+			    		return;
+			    	}
+			    	if(cep.length == 8) {
+			    		cep = cep.substring(0,5)+"-"+cep.substring(5,9);
+			    	}
+			    	setTimeout(function() {
+						$http({
+							url: URL+"cep",
+							method: "GET",
+							contentType: "application/json",
+							params : {"cep":cep}
+						}).success(function (data) {
+			    			$("#Endereco").val(unescape(data.endereco));
+			            	//$("#Endereco").change();
+			                $("#Bairro").val(unescape(data.bairro));
+			                //$("#Bairro").change();
+			                $("#Cidade").val(unescape(data.cidade));
+			                $("#Estado").val(unescape(data.uf));
+			                $("#Numero").focus();
+							
+							
+						}).error( function (erro) {
+							$rootScope.isVisible.loading = false;
+							alert("ERRO no envio dos dados ! "+erro == undefined ? "" : erro);
+								})},100);
+					
+				}
+			    
+			    $scope.getCep2 = function(cep) {
+			    	if(cep.length < 8) {
+			    		return;
+			    	}
+			    	if(cep.length == 8) {
+			    		cep = cep.substring(0,5)+"-"+cep.substring(5,9);
+			    	}
+			    	setTimeout(function() {
+						$http({
+							url: URL+"cep",
+							method: "GET",
+							contentType: "application/json",
+							params : {"cep":cep}
+						}).success(function (data) {
+			    			$("#Endereco2").val(unescape(data.endereco));
+			            	//$("#Endereco").change();
+			                $("#Bairro2").val(unescape(data.bairro));
+			                //$("#Bairro").change();
+			                $("#Cidade2").val(unescape(data.cidade));
+			                $("#Estado2").val(unescape(data.uf));
+			                $("#Numero2").focus();
+							
+							
+						}).error( function (erro) {
+							$rootScope.isVisible.loading = false;
+							alert("ERRO no envio dos dados ! "+erro == undefined ? "" : erro);
+								})},100);
+					
+				}
 			    
 			    $scope.buscarporemailempresa = function(empresa) {
 			    	$rootScope.isVisible.loading = true;
@@ -119,7 +184,7 @@ app.controller('cadastrarCtrl', ['$scope', '$http','$routeParams', '$location','
 										data : empresa
 									}).success(function (data) {
 										alert("Imobiliária cadastrada com Sucesso!")
-										$location.path('/home');
+										$location.path('/login');
 									}).error( function (erro) {
 										alert("ERRO no envio dos dados ! "+erro == undefined ? "" : erro);
 											})},100);

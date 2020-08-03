@@ -48,15 +48,15 @@ public class ClienteDAO {
 	public List<Cliente> buscarPorNomeSituacao(Parametro parametro) {
 		String sql = null;
 		if (parametro.getLogin().getCargo().equals("Imobiliaria")) {
-			sql = "select u from Cliente u where u.nome like :nome and u.idEmpresa =:idEmpresa and u.situacao=:situacao order by u.nome";
+			sql = "select u from Cliente u where u.nome like :nome and u.idEmpresa =:idEmpresa and u.idSituacao=:idSituacao order by u.nome";
 		}
 
 		if (parametro.getLogin().getCargo().equals("Supervisor")) {
-			sql = "select u from Cliente u left outer join Corretor corr on u.idCorretor = corr.id where (corr.idSupervisor=:idSupervisor or corr.id=:idSupervisor ) and u.nome like :nome and u.situacao=:situacao order by u.nome ";
+			sql = "select u from Cliente u left outer join Corretor corr on u.idCorretor = corr.id where (corr.idSupervisor=:idSupervisor or corr.id=:idSupervisor ) and u.nome like :nome and u.idSituacao=:idSituacao order by u.nome ";
 		}
 
 		if (parametro.getLogin().getCargo().equals("Corretor")) {
-			sql = "select u from Cliente u where u.nome like :nome and u.idCorretor =:idCorretor and u.situacao=:situacao order by u.nome";
+			sql = "select u from Cliente u where u.nome like :nome and u.idCorretor =:idCorretor and u.idSituacao=:idSituacao order by u.nome";
 		}
 
 		Query consulta = this.em.createQuery(sql, Cliente.class);
@@ -77,7 +77,7 @@ public class ClienteDAO {
 			consulta.setParameter("idCorretor", parametro.getLogin().getIdCorretor());
 		}
 		
-		consulta.setParameter("situacao", parametro.getSituacaoCliente());
+		consulta.setParameter("idSituacao", parametro.getIdSituacao());
 
 		List<Cliente> lista = consulta.getResultList();
 		return lista;
@@ -86,15 +86,15 @@ public class ClienteDAO {
 	public List<Cliente> buscarPorNome(Parametro parametro) {
 		String sql = null;
 		if (parametro.getLogin().getCargo().equals("Imobiliaria")) {
-			sql = "select u from Cliente u where u.nome like :nome and u.idEmpresa =:idEmpresa order by u.nome";
+			sql = "select u from Cliente u where u.nome like :nome and u.idEmpresa =:idEmpresa and u.idSituacao =:idSituacao order by u.nome";
 		}
 
 		if (parametro.getLogin().getCargo().equals("Supervisor")) {
-			sql = "select u from Cliente u left outer join Corretor corr on u.idCorretor = corr.id where (corr.idSupervisor=:idSupervisor or corr.id=:idSupervisor ) and u.nome like :nome order by u.nome ";
+			sql = "select u from Cliente u left outer join Corretor corr on u.idCorretor = corr.id where (corr.idSupervisor=:idSupervisor or corr.id=:idSupervisor ) and u.nome like :nome  and u.idSituacao =:idSituacao order by u.nome ";
 		}
 
 		if (parametro.getLogin().getCargo().equals("Corretor")) {
-			sql = "select u from Cliente u where u.nome like :nome and u.idCorretor =:idCorretor  order by u.nome";
+			sql = "select u from Cliente u where u.nome like :nome and u.idCorretor =:idCorretor  and u.idSituacao =:idSituacao  order by u.nome";
 		}
 
 		Query consulta = this.em.createQuery(sql, Cliente.class);
@@ -114,6 +114,8 @@ public class ClienteDAO {
 		if (parametro.getLogin().getCargo().equals("Corretor")) {
 			consulta.setParameter("idCorretor", parametro.getLogin().getIdCorretor());
 		}
+		
+		consulta.setParameter("idSituacao", parametro.getIdSituacao());
 		
 		List<Cliente> lista = consulta.getResultList();
 		return lista;
@@ -132,8 +134,11 @@ public class ClienteDAO {
 		String sql = "select u from Cliente u where u.id = :id";
 		Query consulta = this.em.createQuery(sql);
 		consulta.setParameter("id", id);
-		Cliente cliente = (Cliente) consulta.getSingleResult();
-		return cliente;
+		List<Cliente> cliente = (List<Cliente>) consulta.getResultList();
+		if(cliente.size() == 0) {
+			cliente.add(new Cliente());
+		}
+		return cliente.get(0);
 	}
 
 	public <T> T delete(T t) throws Exception {

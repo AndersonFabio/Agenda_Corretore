@@ -6,8 +6,7 @@
 </head>
 <div ng-constroller="cadastrarCtrl" id="content-top">
 	<div ng-show="edit==true" class="container-web">
-		<span class="titulo">CADASTRO DE USUÁRIO</span>
-		<br>
+		<span class="titulo">CADASTRO DE USUÁRIO</span> <br>
 		<form novalidate="novalidate">
 			<div class="row">
 				<div class="col-12 col-md-6 ">
@@ -27,18 +26,26 @@
 				ng-show="corretor.cargo == 'Corretor' || corretor.cargo == 'Supervisor'">
 				<div class="row">
 					<div class="col-12 col-md-4 has-warning">
-						<label class="control-label" for="inputNomeCorretor">Nome:</label> <input
-							type="text" id="inputNomeCorretor" ng-model="corretor.nome"
+						<label class="control-label" for="inputNomeCorretor">Nome:</label>
+						<input type="text" id="inputNomeCorretor" ng-model="corretor.nome"
 							class="form-control linhaMobile" />
 					</div>
-					<div class="col-12 col-md-4 ">
+					<div class="col-6 col-md-2 ">
+						<label class="control-label" for="inputCep">Cep:</label> <input
+							type="text" id="Cep" class="form-control linhaMobile" autocomplete="false" name="Cep"
+							ng-model="corretor.cep" ui-mask="99999-999" ng-blur="getCep1(corretor.cep)"/>
+					</div>
+					
+					<div class="col-12 col-md-6 ">
 						<label class="control-label" for="inputEndereco">Endereço:</label>
-						<input type="text" id="inputEndereco" ng-model="corretor.endereco"
+						<input type="text" id="Endereco" ng-model="corretor.endereco"
 							class="form-control linhaMobile " />
 					</div>
-					<div class="col-6 col-md-2 ">
+				</div>
+				<div class="row">
+					<div class="col-6 col-md-1 ">
 						<label class="control-label" for="inputNumero">Número</label> <input
-							type="text" id="inputNumero" ng-model="corretor.numero"
+							type="text" id="Numero" ng-model="corretor.numero"
 							class="form-control linhaMobile " />
 					</div>
 					<div class="col-6 col-md-2 ">
@@ -46,27 +53,19 @@
 						<input type="text" id="inputComplemento"
 							ng-model="corretor.complemento" class="form-control linhaMobile " />
 					</div>
-
-				</div>
-				<div class="row">
 					<div class="col-6 col-md-3 ">
-						<label class="control-label" for="inputCep">Cep:</label> <input
-							type="text" id="inputCep" class="form-control linhaMobile"
-							ng-model="corretor.cep" ui-mask="99999-999" />
-					</div>
-					<div class="col-6 col-md-4 ">
 						<label class="control-label" for="inputCidade">Cidade:</label> <input
-							type="text" id="inputCidade" class="form-control linhaMobile"
+							type="text" id="Cidade" class="form-control linhaMobile"
 							ng-model="corretor.cidade" />
 					</div>
 					<div class="col-6 col-md-1 ">
 						<label class="control-label" for="inputEstado">Estado:</label> <input
-							type="text" id="inputEstado" class="form-control linhaMobile"
+							type="text" id="Estado" class="form-control linhaMobile"
 							ng-model="corretor.estado" />
 					</div>
-					<div class="col-6 col-md-4 ">
+					<div class="col-6 col-md-3 ">
 						<label class="control-label" for="inputBairro">Bairro:</label> <input
-							type="text" id="inputBairro" class="form-control linhaMobile"
+							type="text" id="Bairro" class="form-control linhaMobile"
 							ng-model="corretor.bairro" />
 					</div>
 				</div>
@@ -113,16 +112,15 @@
 				</div>
 				<div class="row">
 					<div class="col-6 col-md-3 ">
-						<label class="control-label" for="inputTipo">Indicação</label> 
-						<select class="form-control linhaMobile linhaMobile"
-							class="selectpicker" title="Selecione..."
-							ng-model="corretor.indicacao">
-								<option ng-repeat="x in indicacoes">{{x}}</option>
+						<label class="control-label" for="inputTipo">Indicação</label> <select
+							class="form-control linhaMobile linhaMobile" class="selectpicker"
+							title="Selecione..." ng-model="corretor.indicacao">
+							<option ng-repeat="x in indicacoes">{{x}}</option>
 						</select>
 					</div>
 					<div class="col-6 col-md-3 ">
-						<label class="control-label" for="inputCelular">Código Promocional</label>
-						<input type="text" id="inputConfirmacaoSenha"
+						<label class="control-label" for="inputPromocao">Código
+							Promocional</label> <input type="text" id="inputPromocao"
 							class="form-control linhaMobile" ng-model="corretor.promocao" />
 					</div>
 
@@ -132,48 +130,47 @@
 			<div ng-show="corretor.cargo=='Imobiliaria'">
 				<br>
 				<div class="row">
-					<div class="col-12 col-md-4">
-						<label class="control-label" for="inputNomeEmpresa">Nome
-							da Imobiliária:</label> <input type="text" id="inputNomeEmpresa"
-							class="form-control linhaMobile" ng-model="empresa.nome" />
-					</div>
-					<div class="col-12 col-md-4">
-						<label class="control-label" for="inputEnderecoEmpresa">Endereço:</label>
-						<input type="text" id="inputEnderecoEmpresa"
-							class="form-control linhaMobile" ng-model="empresa.endereco" />
+					<div class="col-12 col-md-4 has-warning">
+						<label class="control-label" for="inputNomeCorretor2">Nome:</label>
+						<input type="text" id="inputNomeCorretor2" ng-model="empresa.nome"
+							class="form-control linhaMobile" />
 					</div>
 					<div class="col-6 col-md-2 ">
-						<label class="control-label" for="inputNumero">Número</label> <input
-							type="text" id="inputNumero" ng-model="empresa.numero"
+						<label class="control-label" for="inputCep2">Cep:</label> <input
+							type="text" id="Cep2" class="form-control linhaMobile"
+							ng-model="empresa.cep" ui-mask="99999-999" ng-blur="getCep2(empresa.cep)"/>
+					</div>
+					<div class="col-12 col-md-5 ">
+						<label class="control-label" for="inputEndereco">Endereço:</label>
+						<input type="text" id="Endereco2" ng-model="empresa.endereco"
+							class="form-control linhaMobile " />
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-6 col-md-1 ">
+						<label class="control-label" for="inputNumero2">Número</label> <input
+							type="text" id="inputNumero2" ng-model="empresa.numero"
 							class="form-control linhaMobile " />
 					</div>
 					<div class="col-6 col-md-2 ">
-						<label class="control-label" for="inputComplemento">Complemento</label>
-						<input type="text" id="inputComplemento"
+						<label class="control-label" for="inputComplemento2">Complemento</label>
+						<input type="text" id="inputComplemento2"
 							ng-model="empresa.complemento" class="form-control linhaMobile " />
 					</div>
-
-				</div>
-				<div class="row">
-					<div class="col-6 col-md-3">
-						<label class="control-label" for="inputCepEmpresa">Cep:</label> <input
-							type="text" id="inputCepEmpresa" class="form-control linhaMobile"
-							ng-model="empresa.cep" ui-mask="99999-999" />
+					<div class="col-6 col-md-3 ">
+						<label class="control-label" for="inputCidade">Cidade:</label> <input
+							type="text" id="Cidade2" class="form-control linhaMobile"
+							ng-model="empresa.cidade" />
 					</div>
-					<div class="col-6 col-md-4">
-						<label class="control-label" for="inputCidadeEmpresa">Cidade:</label>
-						<input type="text" id="inputCidadeEmpresa"
-							class="form-control linhaMobile" ng-model="empresa.cidade" />
+					<div class="col-6 col-md-1 ">
+						<label class="control-label" for="inputEstado">Estado:</label> <input
+							type="text" id="Estado2" class="form-control linhaMobile"
+							ng-model="empresa.estado" />
 					</div>
-					<div class="col-6 col-md-1">
-						<label class="control-label" for="inputEstadoEmpresa">Estado:</label>
-						<input type="text" id="inputEstadoEmpresa"
-							class="form-control linhaMobile" ng-model="empresa.estado" />
-					</div>
-					<div class="col-6 col-md-4">
-						<label class="control-label" for="inputBairroEmpresa">Bairro:</label>
-						<input type="text" id="inputBairroEmpresa"
-							class="form-control linhaMobile" ng-model="empresa.bairro" />
+					<div class="col-6 col-md-3 ">
+						<label class="control-label" for="inputBairro">Bairro:</label> <input
+							type="text" id="Bairro2" class="form-control linhaMobile"
+							ng-model="empresa.bairro" />
 					</div>
 				</div>
 				<div class="row">
@@ -197,8 +194,8 @@
 				</div>
 				<div class="row">
 					<div class="col-6 col-md-3">
-						<label class="control-label" for="inputCreciEmpresa">Creci da
-							Empresa:</label> <input type="text" id="inputCreciEmpresa"
+						<label class="control-label" for="inputCreciEmpresa">Creci
+							da Empresa:</label> <input type="text" id="inputCreciEmpresa"
 							class="form-control linhaMobile" ng-model="empresa.creci" />
 					</div>
 					<div class="col-6 col-md-3 ">
@@ -220,37 +217,38 @@
 				</div>
 				<div class="row">
 					<div class="col-6 col-md-3 ">
-						<label class="control-label" for="inputTipo">Indicação</label> 
-						<select class="form-control linhaMobile linhaMobile"
-							class="selectpicker" title="Selecione..."
-							ng-model="empresa.indicacao">
-								<option ng-repeat="x in indicacoes">{{x}}</option>
+						<label class="control-label" for="inputTipo">Indicação</label> <select
+							class="form-control linhaMobile linhaMobile" class="selectpicker"
+							title="Selecione..." ng-model="empresa.indicacao">
+							<option ng-repeat="x in indicacoes">{{x}}</option>
 						</select>
 					</div>
 					<div class="col-6 col-md-3 ">
-						<label class="control-label" for="inputCelular">Código Promocional</label>
-						<input type="text" id="inputConfirmacaoSenha"
+						<label class="control-label" for="inputPromocao2">Código
+							Promocional</label> <input type="text" id="inputPromocao2"
 							class="form-control linhaMobile" ng-model="empresa.promocao" />
 					</div>
 
 				</div>
-				
+
 				<br> <br>
 			</div>
 			<div class="row" ng-show="corretor.cargo != 'Selecione...'">
 				<br>
-				<div class="col-md-3 full center">
+				<div class="col-12 col-md-12  center">
 					<a ng-click="cancelar()" class="btn btn-dark paraotopo"
 						style="color: white !important; cursor: pointer;">Voltar</a>
 					&nbsp;&nbsp; <a ng-click="salvar(corretor, empresa)"
 						class="btn btn-dark paraotopo"
-						style="color: white !important; cursor: pointer;">Enviar</a>
+						style="color: white !important; cursor: pointer;">Salvar</a>
 				</div>
+
 			</div>
-			<br>
-			<br>
+
+			<br> <br>
 		</form>
 	</div>
+
 	<div class="section layout_padding">
 		<div class="container">
 			<div class="row">
@@ -280,8 +278,14 @@
 
 				<div class="col-lg-6 col-md-6 col-sm-12 white_fonts">
 					<h3 class="small_heading">TUDO QUE VOCÊ PRECISA EM UMA SOLUÇÃO</h3>
-					<p style="text-align:justify;">EXPERIMENTE A DEMONSTRAÇÂO - NAVEGUE NO SISTEMA SEM SE CADASTRAR</p>
-					<p style="text-align:justify;">Nosso sistema possui as características de um CRM, mas de fácil utilização, é um sistema web que funciona em micros e celulares, possui cadastro de Corretores, Supervisores, Imobiliária, imóveis, clientes, agendamento de clientes com histórico, você pode gerenciar sua equipe distribuindo leads para os corretores na sua equipe.</p>
+					<p style="text-align: justify;">EXPERIMENTE A DEMONSTRAÇÂO -
+						NAVEGUE NO SISTEMA SEM SE CADASTRAR</p>
+					<p style="text-align: justify;">Nosso sistema possui as
+						características de um CRM, mas de fácil utilização, é um sistema
+						web que funciona em micros e celulares, possui cadastro de
+						Corretores, Supervisores, Imobiliária, imóveis, clientes,
+						agendamento de clientes com histórico, você pode gerenciar sua
+						equipe distribuindo leads para os corretores na sua equipe.</p>
 					<div class="full center">
 						<a ng-click="contato();"
 							style="font-weight: bold; cursor: pointer;"
@@ -355,12 +359,18 @@
 				</div>
 
 				<div class="col-lg-12">
-					<p style="font-weight: bold;text-align:justify;">Este sistema esta preparado para reconhecer a Imobiliária sendo a detentora de todos os dados do sistema, o supervisor que controla sua equipe e o corretor que só encherga seus dados. A Imobiliária pode direcionar clientes a determinado corretor, o supervisor pode trocar clientes de corretores dentro da sua equipe.</p>
+					<p style="font-weight: bold; text-align: justify;">Este sistema
+						esta preparado para reconhecer a Imobiliária sendo a detentora de
+						todos os dados do sistema, o supervisor que controla sua equipe e
+						o corretor que só encherga seus dados. A Imobiliária pode
+						direcionar clientes a determinado corretor, o supervisor pode
+						trocar clientes de corretores dentro da sua equipe.</p>
 				</div>
 
 				<div class="col-lg-12">
 					<div class="full center">
-						<a ng-click="led();" class="hvr-radial-out button-theme" style="color:white;background-color:#1c32a1"
+						<a ng-click="led();" class="hvr-radial-out button-theme"
+							style="color: white; background-color: #1c32a1"
 							style="cursor: pointer;">Veja Mais </a>
 					</div>
 				</div>

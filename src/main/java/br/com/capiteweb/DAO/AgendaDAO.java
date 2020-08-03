@@ -1,10 +1,13 @@
 package br.com.capiteweb.DAO;
 
-import br.com.capiteweb.model.Agenda;
-import br.com.capiteweb.model.Parametro;
+import java.util.ArrayList;
 import java.util.List;
+
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
+
+import br.com.capiteweb.model.Agenda;
+import br.com.capiteweb.model.Parametro;
 
 public class AgendaDAO {
 	EntityManager em;
@@ -70,6 +73,39 @@ public class AgendaDAO {
 		List<Agenda> lista = consulta.getResultList();
 		return lista;
 	}
+	
+	public List<Agenda> buscarPorCorretorSituacao(Parametro parametro) {
+		List<Agenda> lista = new ArrayList<Agenda>();
+		if(parametro.getIdSituacao() == null) {
+			lista.add(new Agenda());
+			return lista;
+		} 
+		String sql = null;
+		if (parametro.getLogin().getCargo().equals("Imobiliaria")) {
+			sql = "select u from Agenda u left outer join Situacao sit on u.cliente.idSituacao = sit.id where u.idEmpresa=:idEmpresa and sit.id = :idSituacao and u.cliente.nome like :nome order by data  ";
+		} else if (parametro.getLogin().getCargo().equals("Supervisor")) {
+			sql = "select u from Agenda u left outer join Corretor corr on u.cliente.idCorretor = corr.id left outer join Situacao sit on u.cliente.idSituacao = sit.id  where (corr.idSupervisor = :idCorretor or corr.id=:idCorretor)  and sit.id = :idSituacao and u.cliente.nome like :nome order by data  ";
+		} else {
+			sql = "select u from Agenda u left outer join Situacao sit on u.cliente.idSituacao = sit.id  where u.cliente.idCorretor=:idCorretor and sit.id = :idSituacao and u.cliente.nome like :nome order by data  ";
+		}
+
+		Query consulta = this.em.createQuery(sql);
+		if (parametro.getPesquisar() == null) {
+			parametro.setPesquisar("");
+		}
+
+		if (parametro.getLogin().getCargo().equals("Imobiliaria")) {
+			consulta.setParameter("idEmpresa", parametro.getLogin().getIdEmpresa());
+		} else {
+			consulta.setParameter("idCorretor", parametro.getLogin().getIdCorretor());
+		}
+
+		consulta.setParameter("nome", "%" + parametro.getPesquisar() + "%");
+		consulta.setParameter("idSituacao", parametro.getIdSituacao());
+	    lista = consulta.getResultList();
+		return lista;
+	}
+
 
 	public Agenda carregar(Long id) {
 		String sql = "select u from Agenda u where u.id = :id";

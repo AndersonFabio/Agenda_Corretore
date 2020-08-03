@@ -6,8 +6,7 @@ appAgenda.controller('agendaCtrl', [
 		'$rootScope',
 		'usuarioService',
 		function($scope, $location, $http, $rootScope, usuarioService) {
-			$scope.sistema = 'CapiteWeb';
-			$scope.login = usuarioService.popularLogin();
+	
 			$location.path('/agenda');
 			
 			$scope.agendamentos = function() {
@@ -29,6 +28,38 @@ appAgenda.controller('agendaCtrl', [
 				$location.path('/cliente');
 			}
 			
+			$scope.painel = function() {
+				$location.path('/painel');
+			}
+			
+			$scope.cadastrarSituacao = function() {
+				$location.path('/situacao');
+			}
+			
+			$scope.cadastrarMidia = function() {
+				$location.path('/midia');
+			}
+			
+			$scope.desenvolvimento = function() {
+				alert("Em Desenvolvimento");
+			}
+			
+			$scope.vincularCorretor = function() {
+				$location.path('/vincularCorretor');
+			}
+			
+			$scope.vincularSupervisor = function() {
+				$location.path('/vincularSupervisor');
+			}
+			
+			$scope.resumoPorCorretor = function() {
+				$location.path('/resumoPorCorretor');
+			}
+			
+			$scope.resumoPorSituacao = function() {
+				$location.path('/resumoPorSituacao');
+			}
+			
 			$scope.gestao = function() {
 				$location.path('/gestao');
 			}
@@ -37,57 +68,24 @@ appAgenda.controller('agendaCtrl', [
 
 				window.location.href = CONTEXTO + "index.html";
 			}
-
 			$scope.sistema = 'CapiteWeb';
+			$scope.login = usuarioService.popularLogin();
 			$scope.agenda = {};
 			$scope.agenda.agendado = true;
 			$scope.agendas = [];
 			$scope.index = true;
 			$scope.empresa = {};
 			$scope.clientes = [];
+			$scope.situacoes = [];
 			$scope.empreendimentos = [];
 			$scope.ligacoes = [];
-			$scope.login = usuarioService.popularLogin();
 			$scope.agenda.login = $scope.login;
 			$scope.parametro = usuarioService.popularParametro();
 			$scope.detalhe = false;
-			$scope.situacao = 'Contato';
+			$scope.idSituacao =0;
 			 
 			$scope.tmp = $scope.login.nome.split(" ");
 			$rootScope.usuario = $scope.tmp[0].toUpperCase();
-			
-			$scope.pesquisarLigacoes = function() {
-				$rootScope.isVisible.loading = true;
-				setTimeout(function() {
-					setTimeout(
-					function() {
-						$http(
-						{
-							url : URL
-									+ "ligacoes/getPorIdAgenda",
-							method : "POST",
-							contentType : "application/json",
-							data : $scope.agenda
-						})
-						.success(
-							function(data) {
-								$rootScope.isVisible.loading = false;
-								$scope.ligacoes = data;
-								
-							})
-						.error(
-							function(erro) {
-								$rootScope.isVisible.loading = false;
-								alert("ERRO no envio dos dados ! "
-										+ erro == undefined ? ""
-										: erro);
-							})
-					}, 100);
-
-				})
-			};
-			
-
 			
 			$scope.detalhar = function() {
 				//if($scope.agenda.cliente.renda.substring(0,1) != "R") {
@@ -139,10 +137,7 @@ appAgenda.controller('agendaCtrl', [
 				$scope.agenda = agenda;
 				$scope.agenda.login = $scope.login;
 				$scope.index = false;
-				if($scope.situacao != $scope.agenda.cliente.situacao) {
-					$scope.situacao = $scope.agenda.cliente.situacao;
-					$scope.pesquisarClientes(false, agenda);
-				}
+				$scope.pesquisarClientes();
 				$scope.pesquisarLigacoes();
 				$scope.detalhar();
 			}
@@ -152,14 +147,72 @@ appAgenda.controller('agendaCtrl', [
 				$scope.agenda.cliente = {};
 				$scope.agenda.login = $scope.login;
 				$scope.index = false;
-				$scope.agenda.agendado = 1;
 				$scope.detalhe = false;
-				$scope.agenda.idCliente = "Selecione...";
-				$scope.situacao = 'Contato';
-				$scope.pesquisarClientes();
+				//$scope.pesquisarClientes();
 				$scope.detalhar();
 				$scope.ligacoes = [];
 			}
+			
+			$scope.pesquisarSituacoes = function() {
+				$rootScope.isVisible.loading = true;
+				setTimeout(function() {
+					setTimeout(
+					function() {
+						$http(
+						{
+							url : URL
+									+ "situacao/listPorEmpresa",
+							method : "POST",
+							contentType : "application/json",
+							data : $scope.parametro
+						})
+						.success(
+							function(data) {
+								$rootScope.isVisible.loading = false;
+								$scope.situacoes = data;
+								//$scope.idSituacao = data[0].id;
+								//$scope.pesquisar();
+							})
+						.error(
+							function(erro) {
+								alert("ERRO no envio dos dados ! "
+										+ erro == undefined ? ""
+										: erro);
+							})
+					}, 100);
+
+				})
+			};
+			$scope.pesquisarLigacoes = function() {
+				$rootScope.isVisible.loading = true;
+				setTimeout(function() {
+					setTimeout(
+					function() {
+						$http(
+						{
+							url : URL
+									+ "ligacoes/getPorIdAgenda",
+							method : "POST",
+							contentType : "application/json",
+							data : $scope.agenda
+						})
+						.success(
+							function(data) {
+								$rootScope.isVisible.loading = false;
+								$scope.ligacoes = data;
+								
+							})
+						.error(
+							function(erro) {
+								$rootScope.isVisible.loading = false;
+								alert("ERRO no envio dos dados ! "
+										+ erro == undefined ? ""
+										: erro);
+							})
+					}, 100);
+
+				})
+			};
 
 			$scope.salvar = function(agenda) {
 				if(agenda.data == undefined || agenda.data == "") {
@@ -184,8 +237,8 @@ appAgenda.controller('agendaCtrl', [
 							$rootScope.isVisible.loading = false;
 							$scope.index = true;
 							$scope.pesquisar();
-							$scope.situacao = "Contato";
-							$scope.pesquisarClientes();
+							/*$scope.situacao = "Contato";
+							$scope.pesquisarClientes();*/
 						})
 								.error(
 										function(erro) {
@@ -200,17 +253,21 @@ appAgenda.controller('agendaCtrl', [
 			};
 
 			$scope.pesquisar = function() {
+				if($scope.agenda.cliente != undefined) {
+					$scope.parametro.idSituacao = $scope.agenda.cliente.idSituacao;
+				}
 				$rootScope.isVisible.loading = true;
 				setTimeout(function() {
 					setTimeout(function() {
 						$http({
-							url : URL + "agenda/listPorCorretor",
+							url : URL + "agenda/listPorCorretorSituacao",
 							method : "POST",
 							contentType : "application/json",
 							data : $scope.parametro
 						}).success(function(data) {
 							$rootScope.isVisible.loading = false;
 							$scope.agendas = data;
+							//$scope.pesquisarClientes();
 
 						})
 								.error(
@@ -254,7 +311,7 @@ appAgenda.controller('agendaCtrl', [
 			
 			$scope.carregarPorCliente = function(agenda) {
 				$rootScope.isVisible.loading = true;
-				$scope.parametro.idCliente = agenda.idCliente;
+				$scope.parametro.idCliente = agenda.cliente.id;
 				setTimeout(function() {
 					setTimeout(function() {
 						$http({
@@ -269,6 +326,7 @@ appAgenda.controller('agendaCtrl', [
 								$scope.agenda.idCliente = $scope.parametro.idCliente;
 							}
 							$scope.agenda.login = $scope.login;
+							$scope.pesquisarLigacoes();
 						})
 								.error(
 										function(erro) {
@@ -339,8 +397,8 @@ appAgenda.controller('agendaCtrl', [
 				})
 			};
 			
-			$scope.pesquisarClientes = function(resetAgenda, agenda) {
-				$scope.parametro.situacaoCliente = $scope.situacao;
+			$scope.pesquisarClientes = function(limpar) {
+				$scope.parametro.idSituacao = $scope.agenda.cliente.idSituacao;
 				setTimeout(function() {
 					$rootScope.isVisible.loading = true;
 					setTimeout(
@@ -357,11 +415,8 @@ appAgenda.controller('agendaCtrl', [
 							function(data) {
 								$rootScope.isVisible.loading = false;
 								$scope.clientes = data;
-								if(resetAgenda == undefined) {
-									$scope.agenda = {};
-								} else {
-									$scope.agenda = agenda;
-								}
+								//$scope.agenda.idCliente = data[0].id;
+								//$scope.carregarPorCliente($scope.agenda);
 							})
 						.error(
 							function(erro) {
@@ -410,13 +465,16 @@ appAgenda.controller('agendaCtrl', [
 
 			$scope.cancelar = function() {
 				$scope.index = true;
-				$scope.agenda = {};
-				$scope.situacao = "Contato";
-				$scope.pesquisarClientes();
+				//$scope.agenda = {};
+				//$scope.pesquisarSituacoes();
+				$scope.pesquisar();
+/*				$scope.situacao = "Contato";
+				$scope.pesquisarClientes();*/
 			};
 
-			$scope.pesquisarClientes();
+			/*$scope.pesquisarClientes();*/
 			$scope.pesquisarEmpreendimentos();
+			$scope.pesquisarSituacoes();
 			$scope.pesquisar();
 
 		} ]);

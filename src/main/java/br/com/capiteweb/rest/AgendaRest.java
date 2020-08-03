@@ -91,14 +91,16 @@ public class AgendaRest {
 		if (login.getAcesso().equals("S")) {
 			Cliente cliente = agenda.getCliente();
 			clienteBusiness.salvar(cliente);
+			String historico = agenda.getHistorico();
+			agenda.setHistorico("");
 			agenda = this.agendaBusiness.salvar(agenda);
 			Ligacoes ligacoes = new Ligacoes();
 			ligacoes.setData(new Date());
 			ligacoes.setDataAgendamento(agenda.getData());
-			ligacoes.setHistorico(agenda.getHistorico());
+			ligacoes.setHistorico(historico);
 			ligacoes.setIdAgenda(agenda.getId());
 			this.ligacoesBusiness.salvar(ligacoes);
-			agenda.setHistorico("");
+			
 			
 		}
 
@@ -128,6 +130,22 @@ public class AgendaRest {
 		List<Agenda> lista = new ArrayList();
 		if (login.getAcesso().equals("S")) {
 			lista = this.agendaBusiness.buscaPorCorretor(parametro);
+		}
+
+		this.closeSessions();
+		return (List) lista;
+	}
+	
+	@POST
+	@Consumes({"application/json"})
+	@Path("/listPorCorretorSituacao")
+	@Produces({"application/json"})
+	@JacksonFeatures(serializationDisable = {SerializationFeature.FAIL_ON_EMPTY_BEANS})
+	public List<Agenda> getListPorCorretorSituacao(Parametro parametro) {
+		Login login = this.loginBusiness.checkLogin(parametro);
+		List<Agenda> lista = new ArrayList();
+		if (login.getAcesso().equals("S")) {
+			lista = this.agendaBusiness.buscaPorCorretorSituacao(parametro);
 		}
 
 		this.closeSessions();

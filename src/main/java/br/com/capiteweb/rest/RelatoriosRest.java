@@ -97,4 +97,217 @@ public class RelatoriosRest {
 		
 	 return rb.build();
     }
-}
+    
+    @GET
+ 	@Path("/resumoPorImobiliaria")
+ 	@Produces("application/pdf")
+ 	public Response resumoPorImobiliaria(@QueryParam("idImobiliaria") Integer idImobiliaria) {
+
+     	Connection conexao = null;
+ 		try {
+ 			conexao = Util.getConexao();
+ 		} catch (ClassNotFoundException e) {
+ 			// TODO Auto-generated catch block
+ 			e.printStackTrace();
+ 		} catch (SQLException e) {
+ 			// TODO Auto-generated catch block
+ 			e.printStackTrace();
+ 		}
+ 		File arquivoGerado = null;
+ 		String caminhoArquivoRelatorio = null;
+ 		String path = this.getClass().getClassLoader().getResource("").getPath()+"relatorios";
+ 		try {
+ 		String caminhoRelatorio = path;
+ 		String caminhoArquivoJasper = caminhoRelatorio + File.separator + "resumoPorImobiliaria.jrxml";
+ 		
+ 		//String relatorioJasper = caminhoArquivoJasper.replace("jrxml", "jasper");
+
+ 		Map<String, Object> parametrosRelatorio = new HashMap<String, Object>();
+ 		//Integer idCorretor = 256;
+ 		parametrosRelatorio.put("idEmpresa", idImobiliaria);
+ 		//JasperReport relatorioJasper = (JasperReport) JRLoader.loadObject(caminhoArquivoJasper);
+ 		JasperReport relatorioJasper = JasperCompileManager.compileReport(caminhoArquivoJasper);
+ 		//String relatorioJasper = caminhoArquivoJasper;
+ 		
+         JasperPrint impressoraJasper = JasperFillManager.fillReport(relatorioJasper, parametrosRelatorio, conexao);
+ 		JRExporter tipoArquivoExportado = null;
+ 		String extensaoArquivoExportado = "";
+ 		
+
+ 		tipoArquivoExportado = new JRPdfExporter();
+ 		extensaoArquivoExportado = "pdf";
+ 		
+ 		if(caminhoRelatorio.contains("home")) {
+ 			caminhoArquivoRelatorio = "/home/capiteweb/temp/ResumoDeContatosImobiliaria_" + idImobiliaria+"." + extensaoArquivoExportado;
+ 		} else {
+ 			caminhoArquivoRelatorio = "ResumoDeContatosImobiliaria_" + idImobiliaria+"." + extensaoArquivoExportado;
+ 		}
+ 		arquivoGerado = new java.io.File(caminhoArquivoRelatorio);
+ 		tipoArquivoExportado.setParameter(JRExporterParameter.JASPER_PRINT, impressoraJasper);
+ 		tipoArquivoExportado.setParameter(JRExporterParameter.OUTPUT_FILE, arquivoGerado);
+ 		
+
+ 		tipoArquivoExportado.exportReport() ;
+ 		arquivoGerado.deleteOnExit();		
+ 		
+ 		} catch(Exception e) {
+ 			e.printStackTrace();
+ 		}
+ 		
+ 		
+         
+ 	ResponseBuilder rb = null;
+ 		
+ /*        String filePath = reportService.gerarRelatorio();
+         file = new File(filePath);*/
+
+         rb = Response.ok((Object) arquivoGerado);
+         rb.header("Content-Disposition", "filename="+caminhoArquivoRelatorio);
+ 		
+ 	 return rb.build();
+    }
+    
+    @GET
+ 	@Path("/grafico")
+ 	@Produces("application/pdf")
+ 	public Response grafico(@QueryParam("idEmpresa") Integer idEmpresa) {
+
+     	Connection conexao = null;
+ 		try {
+ 			conexao = Util.getConexao();
+ 		} catch (ClassNotFoundException e) {
+ 			// TODO Auto-generated catch block
+ 			e.printStackTrace();
+ 		} catch (SQLException e) {
+ 			// TODO Auto-generated catch block
+ 			e.printStackTrace();
+ 		}
+ 		File arquivoGerado = null;
+ 		String caminhoArquivoRelatorio = null;
+ 		String path = this.getClass().getClassLoader().getResource("").getPath()+"relatorios";
+ 		try {
+ 		String caminhoRelatorio = path;
+ 		String caminhoArquivoJasper = caminhoRelatorio + File.separator + "grafico.jrxml";
+ 		
+ 		//String relatorioJasper = caminhoArquivoJasper.replace("jrxml", "jasper");
+
+ 		Map<String, Object> parametrosRelatorio = new HashMap<String, Object>();
+ 		//Integer idCorretor = 256;
+ 		parametrosRelatorio.put("idEmpresa", idEmpresa);
+
+ 		
+ 		//JasperReport relatorioJasper = (JasperReport) JRLoader.loadObject(caminhoArquivoJasper);
+ 		JasperReport relatorioJasper = JasperCompileManager.compileReport(caminhoArquivoJasper);
+ 		//String relatorioJasper = caminhoArquivoJasper;
+ 		
+         JasperPrint impressoraJasper = JasperFillManager.fillReport(relatorioJasper, parametrosRelatorio, conexao);
+ 		JRExporter tipoArquivoExportado = null;
+ 		String extensaoArquivoExportado = "";
+ 		
+
+ 		tipoArquivoExportado = new JRPdfExporter();
+ 		extensaoArquivoExportado = "pdf";
+ 		
+ 		if(caminhoRelatorio.contains("home")) {
+ 			caminhoArquivoRelatorio = "/home/capiteweb/temp/grafico_" + idEmpresa+"." + extensaoArquivoExportado;
+ 		} else {
+ 			caminhoArquivoRelatorio = "grafico_" + idEmpresa+"." + extensaoArquivoExportado;
+ 		}
+ 		arquivoGerado = new java.io.File(caminhoArquivoRelatorio);
+ 		tipoArquivoExportado.setParameter(JRExporterParameter.JASPER_PRINT, impressoraJasper);
+ 		tipoArquivoExportado.setParameter(JRExporterParameter.OUTPUT_FILE, arquivoGerado);
+ 		
+
+ 		tipoArquivoExportado.exportReport() ;
+ 		arquivoGerado.deleteOnExit();		
+ 		
+ 		} catch(Exception e) {
+ 			e.printStackTrace();
+ 		}
+ 		
+ 		
+         
+ 	ResponseBuilder rb = null;
+ 		
+ /*        String filePath = reportService.gerarRelatorio();
+         file = new File(filePath);*/
+
+         rb = Response.ok((Object) arquivoGerado);
+         rb.header("Content-Disposition", "filename="+caminhoArquivoRelatorio);
+ 		
+ 	 return rb.build();
+    }
+    
+    @GET
+ 	@Path("/resumoPorSituacao")
+ 	@Produces("application/pdf")
+ 	public Response resumoPorSituacao(@QueryParam("idEmpresa") Integer idEmpresa, @QueryParam("idSituacao") Integer idSituacao) {
+
+     	Connection conexao = null;
+ 		try {
+ 			conexao = Util.getConexao();
+ 		} catch (ClassNotFoundException e) {
+ 			// TODO Auto-generated catch block
+ 			e.printStackTrace();
+ 		} catch (SQLException e) {
+ 			// TODO Auto-generated catch block
+ 			e.printStackTrace();
+ 		}
+ 		File arquivoGerado = null;
+ 		String caminhoArquivoRelatorio = null;
+ 		String path = this.getClass().getClassLoader().getResource("").getPath()+"relatorios";
+ 		try {
+ 		String caminhoRelatorio = path;
+ 		String caminhoArquivoJasper = caminhoRelatorio + File.separator + "resumoPorSituacao.jrxml";
+ 		
+ 		//String relatorioJasper = caminhoArquivoJasper.replace("jrxml", "jasper");
+
+ 		Map<String, Object> parametrosRelatorio = new HashMap<String, Object>();
+ 		//Integer idCorretor = 256;
+ 		parametrosRelatorio.put("idEmpresa", idEmpresa);
+ 		parametrosRelatorio.put("idSituacao", idSituacao);
+ 		
+ 		//JasperReport relatorioJasper = (JasperReport) JRLoader.loadObject(caminhoArquivoJasper);
+ 		JasperReport relatorioJasper = JasperCompileManager.compileReport(caminhoArquivoJasper);
+ 		//String relatorioJasper = caminhoArquivoJasper;
+ 		
+         JasperPrint impressoraJasper = JasperFillManager.fillReport(relatorioJasper, parametrosRelatorio, conexao);
+ 		JRExporter tipoArquivoExportado = null;
+ 		String extensaoArquivoExportado = "";
+ 		
+
+ 		tipoArquivoExportado = new JRPdfExporter();
+ 		extensaoArquivoExportado = "pdf";
+ 		
+ 		if(caminhoRelatorio.contains("home")) {
+ 			caminhoArquivoRelatorio = "/home/capiteweb/temp/ResumoPorSituacao_" + idEmpresa+"." + extensaoArquivoExportado;
+ 		} else {
+ 			caminhoArquivoRelatorio = "ResumoPorSituacao_" + idEmpresa+"." + extensaoArquivoExportado;
+ 		}
+ 		arquivoGerado = new java.io.File(caminhoArquivoRelatorio);
+ 		tipoArquivoExportado.setParameter(JRExporterParameter.JASPER_PRINT, impressoraJasper);
+ 		tipoArquivoExportado.setParameter(JRExporterParameter.OUTPUT_FILE, arquivoGerado);
+ 		
+
+ 		tipoArquivoExportado.exportReport() ;
+ 		arquivoGerado.deleteOnExit();		
+ 		
+ 		} catch(Exception e) {
+ 			e.printStackTrace();
+ 		}
+ 		
+ 		
+         
+ 	ResponseBuilder rb = null;
+ 		
+ /*        String filePath = reportService.gerarRelatorio();
+         file = new File(filePath);*/
+
+         rb = Response.ok((Object) arquivoGerado);
+         rb.header("Content-Disposition", "filename="+caminhoArquivoRelatorio);
+ 		
+ 	 return rb.build();
+    }
+}    
+  
+

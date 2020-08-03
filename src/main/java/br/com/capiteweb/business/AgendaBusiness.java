@@ -36,6 +36,10 @@ public class AgendaBusiness {
 	public List<Agenda> buscaPorCorretor(Parametro parametro) {
 		return this.agendaDAO.buscarPorCorretor(parametro);
 	}
+	
+	public List<Agenda> buscaPorCorretorSituacao(Parametro parametro) {
+		return this.agendaDAO.buscarPorCorretorSituacao(parametro);
+	}
 
 	public boolean excluir(long id) {
 		return this.agendaDAO.excluir(id);

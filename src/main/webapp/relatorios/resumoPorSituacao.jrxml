@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="resumoPorCorretor" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="e3f79aa5-4050-41fe-9747-b55e642d3fdf">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="idEmpresa" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[279]]></defaultValueExpression>
+	</parameter>
+	<parameter name="idSituacao" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[573]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[select coalesce(cor.nome,"") as nomecor, emp.nome nomeemp, cli.nome nomecli,empreend.nome nomeempreend, coalesce(mid.nome,"") as captacao,coalesce(cli.entrada+cli.fgts,"") entrada,sit.nome as situacao,
+(select count(*) from ligacoes where idAgenda = ag.id) as ligacoes
+from agenda ag left outer join cliente cli on ag.idcliente = cli.id
+left outer join empreendimento empreend on ag.idEmpreendimento = empreend.id
+left outer join a01usuario cor on cli.idCorretor = cor.id
+left outer join empresa emp on emp.id = cli.idempresa
+left outer join situacao sit on sit.id = cli.idSituacao
+left outer join midias mid on mid.id = cli.idMidia
+where cli.idEmpresa = $P{idEmpresa} and sit.id =$P{idSituacao}
+order by situacao, nomeempreend, nomecor, ligacoes]]>
+	</queryString>
+	<field name="nomecor" class="java.lang.String"/>
+	<field name="nomeemp" class="java.lang.String"/>
+	<field name="nomecli" class="java.lang.String"/>
+	<field name="nomeempreend" class="java.lang.String"/>
+	<field name="captacao" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="entrada" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="situacao" class="java.lang.String"/>
+	<field name="ligacoes" class="java.lang.Long"/>
+	<group name="nomeemp">
+		<groupExpression><![CDATA[$F{situacao}]]></groupExpression>
+		<groupHeader>
+			<band height="33">
+				<line>
+					<reportElement x="0" y="32" width="555" height="1" forecolor="#666666" uuid="186f06dc-c491-40ce-9bc9-c2a2b329dc97"/>
+				</line>
+				<textField>
+					<reportElement mode="Opaque" x="0" y="0" width="555" height="32" forecolor="#006699" backcolor="#E6E6E6" uuid="706d3f25-d78a-42f3-91e1-537f28f199e8"/>
+					<textElement verticalAlignment="Middle">
+						<font size="16" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA["Situação: "+$F{situacao}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band/>
+		</groupFooter>
+	</group>
+	<group name="situacao">
+		<groupExpression><![CDATA[$F{situacao}]]></groupExpression>
+		<groupHeader>
+			<band height="32">
+				<textField>
+					<reportElement x="0" y="0" width="555" height="32" forecolor="#006699" uuid="6f4971c5-e879-450c-bc45-2fa1ac972cd0"/>
+					<textElement verticalAlignment="Middle">
+						<font size="15" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA["Empreendimento: "+$F{nomeempreend}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band/>
+		</groupFooter>
+	</group>
+	<background>
+		<band/>
+	</background>
+	<title>
+		<band height="72">
+			<frame>
+				<reportElement mode="Opaque" x="0" y="0" width="555" height="72" backcolor="#006699" uuid="ef06d86a-9026-488d-a351-b9f8f9d75689"/>
+				<textField>
+					<reportElement x="20" y="0" width="457" height="24" forecolor="#FFFFFF" uuid="c3223b48-ddb4-49ac-b7fa-e87d79f960bb"/>
+					<textElement>
+						<font size="18"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{nomeemp}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="20" y="19" width="519" height="34" forecolor="#FFFFFF" uuid="58620f93-3152-496a-9334-7b6c08eaaa62"/>
+					<textElement textAlignment="Center">
+						<font size="20" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Resumo dos Contatos]]></text>
+				</staticText>
+			</frame>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="1"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="21">
+			<line>
+				<reportElement x="0" y="20" width="555" height="1" forecolor="#666666" uuid="f40a860f-5259-4419-8ad8-a54711a7c3b3"/>
+			</line>
+			<staticText>
+				<reportElement mode="Opaque" x="428" y="0" width="127" height="20" forecolor="#006699" backcolor="#E6E6E6" uuid="ca762167-3593-4941-a5c3-2fbb098e3d9a"/>
+				<textElement>
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Corretor]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="358" y="0" width="70" height="20" forecolor="#006699" backcolor="#E6E6E6" uuid="6212dbbe-60af-443c-9530-7ebd6e9a4cf7"/>
+				<textElement>
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Ligações]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="0" width="260" height="20" forecolor="#006699" backcolor="#E6E6E6" uuid="cd12d496-634d-47f1-b683-66851de0a276"/>
+				<textElement>
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Cliente]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="260" y="0" width="98" height="20" forecolor="#006699" backcolor="#E6E6E6" uuid="fc6b5e0d-7730-4ec8-97e6-f1720d2e672e"/>
+				<textElement>
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Mídia]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="28">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="25" width="555" height="1" uuid="c86699c4-6de0-4ad4-82f7-bd458b9bc629"/>
+			</line>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="358" y="0" width="70" height="20" uuid="ff454661-c8c9-432c-aac7-a88ce040323a"/>
+				<textElement textAlignment="Center">
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{ligacoes}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="260" y="0" width="98" height="20" uuid="004d3deb-aaeb-4bfd-a0cf-c4787074884d"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{captacao}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="0" y="0" width="260" height="20" uuid="5dbec533-228c-48b2-ad89-cc713b4f07c0"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nomecli}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="¤ #,##0.00">
+				<reportElement x="428" y="0" width="127" height="20" uuid="6c878ca7-eb8d-4691-855d-bb5ef2c076a2"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nomecor}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band/>
+	</columnFooter>
+	<pageFooter>
+		<band height="17">
+			<textField>
+				<reportElement mode="Opaque" x="0" y="4" width="519" height="13" backcolor="#E6E6E6" uuid="1d5f0e11-99b4-441c-ab20-432a043d024d"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement mode="Opaque" x="519" y="4" width="36" height="13" backcolor="#E6E6E6" uuid="227879d2-0d9f-49b5-b61d-40f197210341"/>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement x="0" y="4" width="100" height="13" uuid="5592a046-f3b9-422e-8364-a90d01b07afa"/>
+				<textFieldExpression><![CDATA[new java.text.SimpleDateFormat("dd/MM/yyyy").format(new Date())]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band/>
+	</summary>
+</jasperReport>

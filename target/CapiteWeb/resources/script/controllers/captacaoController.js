@@ -332,6 +332,7 @@ appAgenda.controller(
 							};
 							
 							
+							
 							$scope.carregar();
 							$scope.carregarEmpresa();
 							$scope.pesquisarPorNome();

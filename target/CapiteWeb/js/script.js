@@ -10,6 +10,36 @@ $("body").delegate("a", "click", function() {
    
 });*/
 
+function getEndereco() {
+    // Se o campo CEP não estiver vazio
+	alert("CEP");
+	var cep = $("#Cep").val();
+	if ($.trim(cep) == "") {
+		cep = $.trim($(".Cep").val());
+	}
+	
+    if ($.trim($(cep)) != "") {
+    	
+    	$.getJSON("https://www.capiteweb.com.br/CapiteWeb/rest/cep?cep="+cep, function(data) {
+    			$("#Endereco").val(unescape(data.endereco));
+            	//$("#Endereco").change();
+                $("#Bairro").val(unescape(data.bairro));
+                //$("#Bairro").change();
+                $("#Cidade").val(unescape(data.cidade));
+                $("#Estado").val(unescape(data.uf));
+                $("#Numero").focus();
+    		});
+        
+        
+    }
+    else {
+        alert("Antes, preencha o campo CEP!");
+        //document.getElementById("load”).style.display = ‘none';
+    }
+    return false;
+
+};
+
 jQuery(document).ready(function() {
 	jQuery('.navbar-collapse a').click(function() {
 		jQuery('.navbar-collapse').collapse('toggle');

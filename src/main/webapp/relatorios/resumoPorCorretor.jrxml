@@ -4,17 +4,19 @@
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
 	<parameter name="idCorretor" class="java.lang.Integer">
-		<defaultValueExpression><![CDATA[256]]></defaultValueExpression>
+		<defaultValueExpression><![CDATA[134]]></defaultValueExpression>
 	</parameter>
 	<queryString>
-		<![CDATA[select cor.nome as nomecor, emp.nome nomeemp, cli.nome nomecli,empreend.nome nomeempreend, cli.captacao,cli.entrada+cli.fgts entrada,cli.situacao,
+		<![CDATA[select coalesce(cor.nome,"") as nomecor, emp.nome nomeemp, cli.nome nomecli,empreend.nome nomeempreend, coalesce(mid.nome,"") as captacao,coalesce(cli.entrada+cli.fgts,"") entrada,sit.nome as situacao,
 (select count(*) from ligacoes where idAgenda = ag.id) as ligacoes
 from agenda ag left outer join cliente cli on ag.idcliente = cli.id
 left outer join empreendimento empreend on ag.idEmpreendimento = empreend.id
 left outer join a01usuario cor on cli.idCorretor = cor.id
 left outer join empresa emp on emp.id = cor.idempresa
-where cli.idCorretor = $P{idCorretor}
-order by nomeemp, situacao, ligacoes]]>
+left outer join situacao sit on sit.id = cli.idSituacao
+left outer join midias mid on mid.id = cli.idMidia
+where cli.idCorretor = $P{idCorretor} and ucase(sit.nome) != 'DESCARTADO'
+order by nomeempreend, situacao, ligacoes]]>
 	</queryString>
 	<field name="nomecor" class="java.lang.String"/>
 	<field name="nomeemp" class="java.lang.String"/>
@@ -132,7 +134,7 @@ order by nomeemp, situacao, ligacoes]]>
 				<textElement>
 					<font size="14" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Captação]]></text>
+				<text><![CDATA[Mídia]]></text>
 			</staticText>
 		</band>
 	</columnHeader>

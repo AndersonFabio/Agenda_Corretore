@@ -161,6 +161,7 @@ a {
 	-o-transition: all .3s ease-in-out;
 	transition: all .3s ease-in-out;
 	background: #0e2346;
+	color : white !important;
 }
 
 .btn-custom {
@@ -2207,7 +2208,7 @@ select.form-control:not ([size] ):not ([multiple] ){
 }
 
 .footer-box {
-	background: #072745;
+	background: #232fa9;
 	padding: 50px 0;
 	text-align: center;
 }

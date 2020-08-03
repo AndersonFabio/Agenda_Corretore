@@ -20,6 +20,9 @@
 		<class>br.com.capiteweb.model.CheckoutPagamento</class>
 		<class>br.com.capiteweb.model.Captacao</class>
 		<class>br.com.capiteweb.model.Ligacoes</class>
+		<class>br.com.capiteweb.model.Situacao</class>
+		<class>br.com.capiteweb.model.Midia</class>
+		
 		
 
 		<properties>

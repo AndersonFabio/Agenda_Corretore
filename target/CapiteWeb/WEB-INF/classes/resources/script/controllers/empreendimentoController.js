@@ -30,6 +30,45 @@ appAgenda.controller(
 								$scope.empreendimento.idEmpresa = $scope.empresa.id;
 								$scope.index = false;
 							}
+							
+							  $scope.getCep = function(cep, ind) {
+							    	if(cep.length < 8) {
+							    		return;
+							    	}
+							    	if(cep.length == 8) {
+							    		cep = cep.substring(0,5)+"-"+cep.substring(5,9);
+							    	}
+							    	setTimeout(function() {
+										$http({
+											url: URL+"cep",
+											method: "GET",
+											contentType: "application/json",
+											params : {"cep":cep}
+										}).success(function (data) {
+											if(ind == 1) {
+								    			$("#Endereco").val(unescape(data.endereco));
+								            	//$("#Endereco").change();
+								                $("#Bairro").val(unescape(data.bairro));
+								                //$("#Bairro").change();
+								                $("#Cidade").val(unescape(data.cidade));
+								                $("#Estado").val(unescape(data.uf));
+								                $("#Numero").focus();
+											} else {
+												$("#Endereco2").val(unescape(data.endereco));
+								            	//$("#Endereco").change();
+								                $("#Bairro2").val(unescape(data.bairro));
+								                //$("#Bairro").change();
+								                $("#Cidade2").val(unescape(data.cidade));
+								                $("#Estado2").val(unescape(data.uf));
+								                $("#Numero2").focus();
+											}
+										}).error( function (erro) {
+											$rootScope.isVisible.loading = false;
+											alert("ERRO no envio dos dados ! "+erro == undefined ? "" : erro);
+												})},100);
+									
+								}
+
 
 							$scope.salvar = function(empreendimento) {
 								setTimeout(function() {

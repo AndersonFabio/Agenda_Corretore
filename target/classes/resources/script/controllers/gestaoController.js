@@ -10,6 +10,8 @@ appAgenda.controller(
 							$scope.corretor = {};
 							$scope.corretores = [];
 							$scope.supervisores = [];
+							$scope.situacoes = [];
+							$scope.idSituacao = "";
 							$scope.index = false;
 							$scope.empresa = {};
 							$scope.loginCorretor = {};
@@ -38,7 +40,19 @@ appAgenda.controller(
 								window.open($scope.url,'_blank');
 								
 							}
+
 							
+							$scope.imprimirResumoPorSituacao = function(idSituacao) {
+								if(idSituacao == undefined || idSituacao == null || idSituacao == "") {
+									alert("Selecione uma Situação");
+									return;
+								}
+								$scope.url = URL+"relatorio/resumoPorSituacao?idSituacao="+idSituacao+"&idEmpresa="+$scope.login.idEmpresa;
+								window.open($scope.url,'_blank');
+								
+							}
+							
+
 							$scope.novo = function() {
 								$scope.corretor = {};
 								$scope.corretor.login = $scope.login;
@@ -286,6 +300,36 @@ appAgenda.controller(
 								})
 							};
 
+							$scope.pesquisarSituacoes = function() {
+								$rootScope.isVisible.loading = true;
+								setTimeout(function() {
+									setTimeout(
+									function() {
+										$http(
+										{
+											url : URL
+													+ "situacao/listPorEmpresa",
+											method : "POST",
+											contentType : "application/json",
+											data : $scope.parametro
+										})
+										.success(
+											function(data) {
+												$rootScope.isVisible.loading = false;
+												$scope.situacoes = data;
+												//$scope.idSituacao = data[0].id;
+												//$scope.pesquisar();
+											})
+										.error(
+											function(erro) {
+												alert("ERRO no envio dos dados ! "
+														+ erro == undefined ? ""
+														: erro);
+											})
+									}, 100);
+
+								})
+							};
 
 
 
@@ -293,4 +337,5 @@ appAgenda.controller(
 							$scope.getListCorretorPorIdEmpresa();
 							$scope.getListSupervisorPorIdEmpresa();
 							$scope.getEmpresaPorId();
+							$scope.pesquisarSituacoes();
 						} ]);

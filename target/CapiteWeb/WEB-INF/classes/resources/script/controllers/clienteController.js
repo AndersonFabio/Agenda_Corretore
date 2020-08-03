@@ -15,7 +15,8 @@ appAgenda.controller(
 							$scope.sistema = 'CapiteWeb';
 							$scope.empresa = {};
 							$scope.cliente = {};
-							$scope.cliente.situacao = "Selecione...";
+							$scope.situacoes = [];
+							$scope.midias = [];
 							$scope.cliente.captacao = "Selecione...";
 							$scope.clientes = [];
 							$scope.index = true;
@@ -35,16 +36,60 @@ appAgenda.controller(
 
 							$scope.novo = function() {
 								$scope.cliente = {};
-								$scope.cliente.situacao = "Contato";
 								$scope.cliente.captacao = "Selecione...";
 								$scope.cliente.login = $scope.login;
 								$scope.cliente.idEmpresa = $scope.empresa.id;
 								$scope.index = false;
+								$scope.cliente.idSituacao = "";
+								$scope.cliente.idCorretor = "";
+								$scope.cliente.idCaptador = "";
 							}
+							
+							  $scope.getCep = function(cep, ind) {
+							    	if(cep.length < 8) {
+							    		return;
+							    	}
+							    	if(cep.length == 8) {
+							    		cep = cep.substring(0,5)+"-"+cep.substring(5,9);
+							    	}
+							    	setTimeout(function() {
+										$http({
+											url: URL+"cep",
+											method: "GET",
+											contentType: "application/json",
+											params : {"cep":cep}
+										}).success(function (data) {
+											if(ind == 1) {
+								    			$("#Endereco").val(unescape(data.endereco));
+								            	//$("#Endereco").change();
+								                $("#Bairro").val(unescape(data.bairro));
+								                //$("#Bairro").change();
+								                $("#Cidade").val(unescape(data.cidade));
+								                $("#Estado").val(unescape(data.uf));
+								                $("#Numero").focus();
+											} else {
+												$("#Endereco2").val(unescape(data.endereco));
+								            	//$("#Endereco").change();
+								                $("#Bairro2").val(unescape(data.bairro));
+								                //$("#Bairro").change();
+								                $("#Cidade2").val(unescape(data.cidade));
+								                $("#Estado2").val(unescape(data.uf));
+								                $("#Numero2").focus();
+											}
+										}).error( function (erro) {
+											$rootScope.isVisible.loading = false;
+											alert("ERRO no envio dos dados ! "+erro == undefined ? "" : erro);
+												})},100);
+									
+								}
 
 							$scope.salvar = function(cliente) {
 								if(cliente.dataNascimento != undefined && cliente.dataNascimento.substring(2,3) != "/") {
 									cliente.dataNascimento = cliente.dataNascimento.substring(0,2)+'/'+cliente.dataNascimento.substring(2,4)+'/'+cliente.dataNascimento.substring(4,8);
+								}
+								if(cliente.idSituacao == "") {
+									alert("Selecione uma Situação...");
+									return;
 								}
 								setTimeout(function() {
 									$rootScope.isVisible.loading = true;
@@ -112,6 +157,9 @@ appAgenda.controller(
 								if($scope.parametro.login == undefined || $scope.parametro.login.email == undefined) {
 									alert("Sem Parametros");
 								}
+								if($scope.cliente != undefined) {
+									$scope.parametro.idSituacao = $scope.cliente.idSituacao;
+								}
 								$rootScope.isVisible.loading = true;
 								setTimeout(function() {
 									setTimeout(
@@ -139,6 +187,66 @@ appAgenda.controller(
 
 								})
 							};
+							
+							$scope.pesquisarSituacoes = function() {
+								$rootScope.isVisible.loading = true;
+								setTimeout(function() {
+									setTimeout(
+									function() {
+										$http(
+										{
+											url : URL
+													+ "situacao/listPorEmpresa",
+											method : "POST",
+											contentType : "application/json",
+											data : $scope.parametro
+										})
+										.success(
+											function(data) {
+												$rootScope.isVisible.loading = false;
+												$scope.situacoes = data;
+											})
+										.error(
+											function(erro) {
+												alert("ERRO no envio dos dados ! "
+														+ erro == undefined ? ""
+														: erro);
+											})
+									}, 100);
+
+								})
+							};
+							
+							
+							$scope.pesquisarMidias = function() {
+								$rootScope.isVisible.loading = true;
+								setTimeout(function() {
+									setTimeout(
+									function() {
+										$http(
+										{
+											url : URL
+													+ "midia/listPorEmpresa",
+											method : "POST",
+											contentType : "application/json",
+											data : $scope.parametro
+										})
+										.success(
+											function(data) {
+												$rootScope.isVisible.loading = false;
+												$scope.midias = data;
+											})
+										.error(
+											function(erro) {
+												alert("ERRO no envio dos dados ! "
+														+ erro == undefined ? ""
+														: erro);
+											})
+									}, 100);
+
+								})
+							};
+
 
 							$scope.carregar = function(cliente) {
 								$scope.parametro.idCliente = cliente.id;
@@ -468,7 +576,6 @@ appAgenda.controller(
 							$scope.cancelar = function() {
 								$scope.index = true;
 								$scope.cliente = {};
-								$scope.cliente.situacao = "Selecione...";
 								$scope.cliente.captacao = "Selecione...";
 							};
 							if($scope.login.cargo == "Imobiliaria") {
@@ -488,4 +595,6 @@ appAgenda.controller(
 							}
 							$scope.pesquisarPorNome();
 							$scope.getEmpresaPorId();
+							$scope.pesquisarSituacoes();
+							$scope.pesquisarMidias();
 						} ]);

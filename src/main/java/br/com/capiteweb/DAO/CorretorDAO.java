@@ -17,12 +17,13 @@ public class CorretorDAO {
 		this.em = em;
 	}
 
-	public void salvar(Corretor corretor) {
+	public Corretor salvar(Corretor corretor) {
 		try {
-			this.saveOrUpdate(corretor);
+			corretor = this.saveOrUpdate(corretor);
 		} catch (Exception var3) {
 			var3.printStackTrace();
 		}
+		return corretor;
 
 	}
 
@@ -196,12 +197,13 @@ public class CorretorDAO {
 	}
 
 	public <T> T saveOrUpdate(T t) throws Exception {
+		Corretor corretor = new Corretor();
 		try {
 			this.em.getTransaction().begin();
 			if (((Corretor) t).getId() == null) {
 				this.em.persist(t);
 			} else {
-				this.em.merge(t);
+				corretor = (Corretor) this.em.merge(t);
 			}
 
 			this.em.getTransaction().commit();

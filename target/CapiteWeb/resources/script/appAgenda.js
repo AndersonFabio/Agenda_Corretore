@@ -44,8 +44,16 @@ appAgenda.run(function($rootScope, $timeout) {
 		.when('/conta', {templateUrl: 'views/corretor.html', controller: 'corretorCtrl'})
 		.when('/empreendimento', {templateUrl: 'views/empreendimento.html', controller: 'empreendimentoCtrl'})
 		.when('/cliente', {templateUrl: 'views/cliente.html', controller: 'clienteCtrl'})
-		.when('/gestao', {templateUrl: 'views/gestao.html', controller: 'gestaoCtrl'})
+		.when('/vincularCorretor', {templateUrl: 'views/vincularCorretor.html', controller: 'gestaoCtrl'})
 		.when('/captacao', {templateUrl: 'views/captacao.html', controller: 'captacaoCtrl'})
+		.when('/painel', {templateUrl: 'views/painel.html', controller: 'painelCtrl'})
+		.when('/situacao', {templateUrl: 'views/situacao.html', controller: 'situacaoCtrl'})
+		.when('/vincularSupervisor', {templateUrl: 'views/vincularSupervisor.html', controller: 'gestaoCtrl'})
+		.when('/resumoPorCorretor', {templateUrl: 'views/resumoPorCorretor.html', controller: 'gestaoCtrl'})
+		.when('/midia', {templateUrl: 'views/midia.html', controller: 'midiaCtrl'})
+		.when('/resumoPorSituacao', {templateUrl: 'views/resumoPorSituacao.html', controller: 'gestaoCtrl'})
+		
+		
 		.otherwise({redirectTo: '/', controller: 'agendaCtrl'});
 	}]).controller('fsDialogController', function ($scope) {
 		$scope.isPanelVisible = false;

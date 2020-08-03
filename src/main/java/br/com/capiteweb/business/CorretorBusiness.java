@@ -25,7 +25,7 @@ public class CorretorBusiness {
 		return this.corretorDAO.carregar(idCorretor);
 	}
 
-	public void salvar(Corretor corretor) {
+	public Corretor salvar(Corretor corretor) {
 		if (corretor.getIdEmpresa() == null) {
 			Empresa empresa = new Empresa();
 			empresa.setNome(corretor.getNome());
@@ -34,6 +34,7 @@ public class CorretorBusiness {
 		}
 
 		this.corretorDAO.salvar(corretor);
+		return corretor;
 	}
 
 	public Login checkLogin(Login login) {
