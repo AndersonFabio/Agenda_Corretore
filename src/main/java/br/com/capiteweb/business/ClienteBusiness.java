@@ -39,6 +39,10 @@ public class ClienteBusiness {
 		return this.clienteDAO.buscarPorNome(parametro);
 	}
 	
+	public Long countPorCorretor(Parametro parametro) {
+		return this.clienteDAO.countPorCorretor(parametro);
+	}
+	
 	public List<Cliente> buscaPorNomeSituacao(Parametro parametro) {
 		return this.clienteDAO.buscarPorNomeSituacao(parametro);
 	}

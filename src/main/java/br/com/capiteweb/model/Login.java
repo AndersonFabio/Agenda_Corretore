@@ -19,6 +19,7 @@ public class Login {
 	private Long idAgenda;
 	@JsonProperty
 	private Long idCorretor;
+	private boolean vencido;
 
 	public String getEmail() {
 		return this.email;
@@ -82,5 +83,13 @@ public class Login {
 
 	public void setIdAgenda(Long idAgenda) {
 		this.idAgenda = idAgenda;
+	}
+
+	public boolean isVencido() {
+		return vencido;
+	}
+
+	public void setVencido(boolean vencido) {
+		this.vencido = vencido;
 	}
 }

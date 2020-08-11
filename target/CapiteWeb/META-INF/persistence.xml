@@ -22,6 +22,8 @@
 		<class>br.com.capiteweb.model.Ligacoes</class>
 		<class>br.com.capiteweb.model.Situacao</class>
 		<class>br.com.capiteweb.model.Midia</class>
+		<class>br.com.capiteweb.model.PageLeadgen</class>
+		<class>br.com.capiteweb.model.FormLeadgen</class>
 		
 		
 

@@ -10,6 +10,7 @@ public class Parametro {
 	private String situacaoCliente;
 	private Long idSituacao;
 	private Long idMidia;
+	private Long idFormLeadgen;
 
 	public Long getIdCorretor() {
 		return this.idCorretor;
@@ -82,4 +83,14 @@ public class Parametro {
 	public void setIdMidia(Long idMidia) {
 		this.idMidia = idMidia;
 	}
+
+	public Long getIdFormLeadgen() {
+		return idFormLeadgen;
+	}
+
+	public void setIdFormLeadgen(Long idFormLeadgen) {
+		this.idFormLeadgen = idFormLeadgen;
+	}
+
+
 }

@@ -3,75 +3,149 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport"
 	content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
-	<script>
-window.fbAsyncInit = function() {
-    FB.init({
-      appId      : '283852379531084',
-      xfbml      : true,
-      version    : 'v7.0'
-    });
-  };
+<script>
+	window.fbAsyncInit = function() {
+		FB.init({
+			appId : '283852379531084',
+			xfbml : true,
+			version : 'v7.0'
+		});
+	};
 
-  (function(d, s, id){
-     var js, fjs = d.getElementsByTagName(s)[0];
-     if (d.getElementById(id)) {return;}
-     js = d.createElement(s); js.id = id;
-     js.src = "https://connect.facebook.net/en_US/sdk.js";
-     fjs.parentNode.insertBefore(js, fjs);
-   }(document, 'script', 'facebook-jssdk'));
+	(function(d, s, id) {
+		var js, fjs = d.getElementsByTagName(s)[0];
+		if (d.getElementById(id)) {
+			return;
+		}
+		js = d.createElement(s);
+		js.id = id;
+		js.src = "https://connect.facebook.net/en_US/sdk.js";
+		fjs.parentNode.insertBefore(js, fjs);
+	}(document, 'script', 'facebook-jssdk'));
 
-  function subscribeApp(page_id, page_access_token) {
-    console.log('Subscribing page to app! ' + page_id);
-    FB.api(
-      '/' + page_id + '/subscribed_apps',
-      'post',
-      {access_token: page_access_token, subscribed_fields: ['feed']},
-      function(response) {
-        console.log('Successfully subscribed page', response);
-      }
-    );
-  }
-    
-  // Only works after `FB.init` is called
-  function myFacebookLogin() {
-    FB.login(function(response){
-      console.log('Successfully logged in', response);
-      FB.api('/me/accounts', function(response) {
-        console.log('Successfully retrieved pages', response);
-        var pages = response.data;
-        var ul = document.getElementById('list');
-        for (var i = 0, len = pages.length; i < len; i++) {
-          var page = pages[i];
-          var li = document.createElement('li');
-          var a = document.createElement('a');
-          a.href = "#";
-          a.onclick = subscribeApp.bind(this, page.id, page.access_token);
-          a.innerHTML = page.name;
-          li.appendChild(a);
-          ul.appendChild(li);
-        }
-      });
-    }, {scope: 'pages_show_list'});
-  }
+	function subscribeApp(page_id, page_access_token) {
+		console.log('Subscribing page to app! ' + page_id);
+		FB.api('/' + page_id + '/subscribed_apps', 'post', {
+			access_token : page_access_token,
+			subscribed_fields : [ 'feed', 'leadgen' ]
+		}, function(response) {
+			//var posting = $.post( "https://www.capiteweb.com.br/CapiteWeb/rest/facebookRegister", { "response": response} );
+			//alert(response);
+			console.log('Successfully subscribed page', response);
+		});
+	}
+
+	// Only works after `FB.init` is called
+	function myFacebookLogin() {
+		FB
+				.login(
+						function(response) {
+							console.log('Successfully logged in', response);
+							FB
+									.api(
+											'/me/accounts',
+											function(response) {
+												console.log('id: ',
+														response.data[0].id);
+
+												var jsonStr = JSON
+														.parse('{"data":[]}');
+												var idEmpresa = getCookie("CapiteWebIdEmpresa");
+												for (var i = 0, len = response.data.length; i < len; i++) {
+													var id = {
+														"id" : response.data[i].id,
+														"access_token" : response.data[i].access_token,
+														"idEmpresa" : idEmpresa
+													};
+													jsonStr['data'].push(id);
+												}
+
+												console.log("Json ", JSON
+														.stringify(jsonStr));
+
+												$
+														.ajax({
+															url : "https://www.capiteweb.com.br/CapiteWeb/rest/facebook/register",
+															type : 'post',
+															dataType : 'json',
+															contentType : 'application/json',
+															success : function(
+																	data) {
+																console
+																		.log(
+																				"Response: ",
+																				data.response);
+															},
+															data : JSON
+																	.stringify(jsonStr)
+														});
+
+												//     	var posting = $.post( ,
+												//     			dataType: 'json',
+												//                 contentType: 'application/json',
+												//                 data: JSON.stringify(id);
+												console
+														.log(
+																'Successfully retrieved pages',
+																response);
+												var pages = response.data;
+												var ul = document
+														.getElementById('list');
+												for (var i = 0, len = pages.length; i < len; i++) {
+													var page = pages[i];
+													var li = document
+															.createElement('li');
+													var a = document
+															.createElement('a');
+													a.href = "#";
+													a.onclick = subscribeApp
+															.bind(
+																	this,
+																	page.id,
+																	page.access_token);
+													a.innerHTML = page.name;
+													li.appendChild(a);
+													ul.appendChild(li);
+												}
+											});
+						}, {
+							scope : 'pages_show_list'
+						});
+	}
+
+	function getCookie(cname) {
+		var name = cname + "=";
+		var ca = document.cookie.split(';');
+		for (var i = 0; i < ca.length; i++) {
+			var c = ca[i];
+			while (c.charAt(0) == ' ')
+				c = c.substring(1);
+			if (c.indexOf(name) == 0) {
+				return c.substring(name.length, c.length);
+			}
+		}
+		return "";
+	}
 </script>
-	
+
 </head>
 <div ng-constroller="captacaoCtrl" id="content-top">
-<div class="row container-web">
+	<div class="row container-web">
 		<div class="col-6 col-md-6 titulo">
-			<span><img src="images/facebook.png" class="iconMobile"/>&nbsp;CAPTAR LEADS</span>
+			<span><img src="images/facebook.png" class="iconMobile" />&nbsp;CAPTAR
+				LEADS</span>
 		</div>
 		<div class="col-6 col-md-6 user">
-		<img src="images/user.png" class="iconMobile"/>&nbsp;<span >{{usuario}}</span>
+			<img src="images/user.png" class="iconMobile" />&nbsp;<span>{{usuario}}</span>
 		</div>
 	</div>
 	<br>
 	<button onclick="myFacebookLogin()" class="btn btn-dark "
-					style="color: white !important">Conectar ao FaceBook</button>
-	
-	
+		style="color: white !important">Conectar ao FaceBook</button>
+
+
 	<div ng-show="index==true" class="container-web">
-		
+
 		<br>
 		<div class="row" style="margin-left: 0px; margin-right: 0px;">
 			<div class='col-10 col-md-11 semMargem'>
@@ -196,21 +270,20 @@ window.fbAsyncInit = function() {
 						<form action="rest/arquivo/upload" method="post"
 							enctype="multipart/form-data">
 							<div class="col-12 col-md-12">
-								<input type="file" name="file" size="45" />
-								<input type="hidden" ng-model="captacao.id" value="{{captacao.id}}" name="id">
-								<input type="submit" value="Upload" ng-click="sendImagens()"
-									ng-disabled="captacao.id == null" /> Salve antes de enviar as imagens. Imagens Enviadas: {{imagens}}
+								<input type="file" name="file" size="45" /> <input
+									type="hidden" ng-model="captacao.id" value="{{captacao.id}}"
+									name="id"> <input type="submit" value="Upload"
+									ng-click="sendImagens()" ng-disabled="captacao.id == null" />
+								Salve antes de enviar as imagens. Imagens Enviadas: {{imagens}}
 							</div>
 						</form>
 					</div>
-					<div class="row">
-					&nbsp;
-					</div>
+					<div class="row">&nbsp;</div>
 				</div>
 			</div>
 
 		</div>
-		
+
 		<br>
 		<div class="row">
 			<br>

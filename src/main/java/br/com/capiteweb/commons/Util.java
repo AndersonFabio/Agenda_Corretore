@@ -1,10 +1,17 @@
 package br.com.capiteweb.commons;
 
+import java.io.UnsupportedEncodingException;
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
+import javax.crypto.Mac;
+import javax.crypto.spec.SecretKeySpec;
 import javax.mail.internet.ParseException;
+
+import org.apache.commons.codec.binary.Hex;
 import org.apache.commons.mail.SimpleEmail;
 
 
@@ -42,4 +49,24 @@ public class Util {
 		Connection conn = DriverManager.getConnection(url, username, password);
 		return conn;
 		}
+	
+	public static String encode(String key, String data) {
+	    try {
+
+	        Mac sha256_HMAC = Mac.getInstance("HmacSHA256");
+	        SecretKeySpec secret_key = new SecretKeySpec(key.getBytes("UTF-8"), "HmacSHA256");
+	        sha256_HMAC.init(secret_key);
+
+	        return new String(Hex.encodeHex(sha256_HMAC.doFinal(data.getBytes("UTF-8"))));
+
+	    } catch (NoSuchAlgorithmException e) {
+	        e.printStackTrace();
+	    } catch (InvalidKeyException e) {
+	        e.printStackTrace();
+	    } catch (UnsupportedEncodingException e) {
+	        e.printStackTrace();
+	    }
+
+	    return null;
+	}
 }

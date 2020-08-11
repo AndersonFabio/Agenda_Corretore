@@ -151,6 +151,23 @@ public class AgendaRest {
 		this.closeSessions();
 		return (List) lista;
 	}
+	
+	@POST
+	@Consumes({"application/json"})
+	@Path("/countPorCorretor")
+	@Produces({"application/json"})
+	@JacksonFeatures(serializationDisable = {SerializationFeature.FAIL_ON_EMPTY_BEANS})
+	public Long getCountPorCorretor(Parametro parametro) {
+		Login login = this.loginBusiness.checkLogin(parametro);
+		Long total = 0L;
+		if (login.getAcesso().equals("S")) {
+			total = this.agendaBusiness.countPorCorretor(parametro);
+		}
+
+		this.closeSessions();
+		return total;
+	}
+
 
 	public void closeSessions() {
 		this.agendaBusiness.getEm().close();

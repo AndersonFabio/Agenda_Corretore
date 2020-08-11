@@ -26,8 +26,12 @@ public class LoginBusiness {
 			login.setAcesso("N");
 			if (usuario != null && usuario.getEmail() != null && usuario.getEmail().equals(login.getEmail())) {
 				if ((new Date()).after(usuario.getVencimento())) {
-					login.setAcesso("N");
+					login.setAcesso("S");
+					login.setVencido(true);
+					login.setIdEmpresa(usuario.getId());
+					login.setNome(usuario.getNome());
 				} else {
+					login.setVencido(false);
 					login.setAcesso("S");
 					login.setIdEmpresa(usuario.getId());
 					login.setNome(usuario.getNome());
@@ -46,7 +50,12 @@ public class LoginBusiness {
 					login.setCargo(usuario.getCargo());
 					login.setIdCorretor(usuario.getId());
 				} else {
-					login.setAcesso("N");
+					login.setAcesso("S");
+					login.setIdEmpresa(usuario.getIdEmpresa());
+					login.setNome(usuario.getNome());
+					login.setCargo(usuario.getCargo());
+					login.setIdCorretor(usuario.getId());
+					login.setVencido(true);
 				}
 
 				login.setNome(usuario.getNome());

@@ -45,7 +45,7 @@ appAgenda.run(function($rootScope, $timeout) {
 		.when('/empreendimento', {templateUrl: 'views/empreendimento.html', controller: 'empreendimentoCtrl'})
 		.when('/cliente', {templateUrl: 'views/cliente.html', controller: 'clienteCtrl'})
 		.when('/vincularCorretor', {templateUrl: 'views/vincularCorretor.html', controller: 'gestaoCtrl'})
-		.when('/captacao', {templateUrl: 'views/captacao.html', controller: 'captacaoCtrl'})
+		.when('/formLeadgen', {templateUrl: 'views/formLeadgen.html', controller: 'formLeadgenCtrl'})
 		.when('/painel', {templateUrl: 'views/painel.html', controller: 'painelCtrl'})
 		.when('/situacao', {templateUrl: 'views/situacao.html', controller: 'situacaoCtrl'})
 		.when('/vincularSupervisor', {templateUrl: 'views/vincularSupervisor.html', controller: 'gestaoCtrl'})

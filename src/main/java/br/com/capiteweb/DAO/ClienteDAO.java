@@ -121,6 +121,43 @@ public class ClienteDAO {
 		return lista;
 	}
 
+	public Long countPorCorretor(Parametro parametro) {
+		String sql = null;
+		if (parametro.getLogin().getCargo().equals("Imobiliaria")) {
+			sql = "select count(*) from Cliente u where u.nome like :nome and u.idEmpresa =:idEmpresa order by u.nome";
+		}
+
+		if (parametro.getLogin().getCargo().equals("Supervisor")) {
+			sql = "select count(*) from Cliente u left outer join Corretor corr on u.idCorretor = corr.id where (corr.idSupervisor=:idSupervisor or corr.id=:idSupervisor ) and u.nome like :nome  order by u.nome ";
+		}
+
+		if (parametro.getLogin().getCargo().equals("Corretor")) {
+			sql = "select count(*) from Cliente u where u.nome like :nome and u.idCorretor =:idCorretor   order by u.nome";
+		}
+
+		Query consulta = this.em.createQuery(sql);
+		if (parametro.getPesquisar() == null) {
+			parametro.setPesquisar("");
+		}
+
+		consulta.setParameter("nome", "%" + parametro.getPesquisar() + "%");
+		if (parametro.getLogin().getCargo().equals("Imobiliaria")) {
+			consulta.setParameter("idEmpresa", parametro.getLogin().getIdEmpresa());
+		}
+
+		if (parametro.getLogin().getCargo().equals("Supervisor")) {
+			consulta.setParameter("idSupervisor", parametro.getLogin().getIdCorretor());
+		}
+
+		if (parametro.getLogin().getCargo().equals("Corretor")) {
+			consulta.setParameter("idCorretor", parametro.getLogin().getIdCorretor());
+		}
+		
+				
+		Long total = (Long) consulta.getSingleResult();
+		return total;
+	}
+
 
 	public List<Cliente> getListPorEmpresa(Long id) {
 		String sql = "select u from Cliente u where u.idEmpresa = :id order by nome";

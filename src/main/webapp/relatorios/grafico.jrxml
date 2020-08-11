@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="grafico" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="aacc86af-6c66-4083-8c42-ee2ee9f4a8e6">
-<property name="net.sf.jasperreports.chart.pie.ignore.duplicated.key" value="true"/>
-<property name="ireport.zoom" value="1.0"/>
+	<property name="net.sf.jasperreports.chart.pie.ignore.duplicated.key" value="true"/>
+	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
 	<parameter name="idEmpresa" class="java.lang.Integer">
@@ -12,28 +12,28 @@
 from agenda ag left outer join cliente cli on ag.idcliente = cli.id
 left outer join empreendimento empreend on empreend.id = ag.idempreendimento
 left outer join empresa emp on emp.id = cli.idEmpresa
-where cli.idempresa = $P{idEmpresa}
+where cli.idempresa = $P{idEmpresa} and empreend.nome is not null
 group by ag.idempreendimento
 union all
 select count(*) qtdSit, sit.nome nomeSit, 0 qtdEmpreend, "" nomeEmpreend, 0 qtdCor, "" nomeCor, 0 qtdMid, "" nomeMid, emp.nome nomeEmp
  from agenda ag left outer join cliente cli on ag.idcliente = cli.id
 left outer join situacao sit on sit.id = cli.idSituacao
 left outer join empresa emp on emp.id = cli.idEmpresa
-where cli.idempresa = $P{idEmpresa}
+where cli.idempresa = $P{idEmpresa} and sit.nome is not null
 group by cli.idSituacao
 union all
 select 0 qtdSit, "" nomeSit,0 qtdEmpreend, "" nomeEmpreend, count(*) qtdCor, cor.nome nomeCor, 0 qtdMid, "" nomeMid , emp.nome nomeEmp
  from agenda ag left outer join cliente cli on ag.idcliente = cli.id
 left outer join a01usuario cor on cor.id = cli.idCorretor
 left outer join empresa emp on emp.id = cli.idEmpresa
-where cli.idempresa = $P{idEmpresa}
+where cli.idempresa = $P{idEmpresa} and cor.nome is not null
 group by cli.idCorretor
 union all
 select 0 qtdSit, "" nomeSit,0 qtdEmpreend, "" nomeEmpreend, 0 qtdCor, "" nomeCor, count(*) qtdMid, mid.nome nomeMid, emp.nome nomeEmp
 from agenda ag left outer join cliente cli on ag.idcliente = cli.id
 left outer join midias mid on mid.id = cli.idMidia
 left outer join empresa emp on emp.id = cli.idEmpresa
-where cli.idempresa = $P{idEmpresa}
+where cli.idempresa = $P{idEmpresa} and mid.nome is not null
 group by cli.idMidia]]>
 	</queryString>
 	<field name="qtdSit" class="java.lang.Long"/>

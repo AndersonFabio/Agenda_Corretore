@@ -24,7 +24,10 @@ app.controller('loginCtrl', [ '$scope', '$location','$http','$rootScope','usuari
 						} else {
 							alert("Email ou Senha Incorreta.");
 						}
-						
+						if(data.vencido == true) {
+							alert("Assinatura Vencida, Selecione no Menu Conta e Clique em Renovação.");
+							
+						}
 					}).error( function (erro) {
 						$rootScope.isVisible.loading = false;
 						alert("ERRO no envio dos dados ! "+erro == undefined ? "" : erro);

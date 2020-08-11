@@ -92,6 +92,22 @@ public class ClienteRest {
 	
 	@POST
 	@Consumes({"application/json"})
+	@Path("/countPorCorretor")
+	@Produces({"application/json"})
+	@JacksonFeatures(serializationDisable = {SerializationFeature.FAIL_ON_EMPTY_BEANS})
+	public Long getCountPorCorretor(Parametro parametro) {
+		Login login = this.loginBusiness.checkLogin(parametro);
+		Long total = 0L;
+		if (login.getAcesso().equals("S")) {
+			total = this.clienteBusiness.countPorCorretor(parametro);
+		}
+
+		this.closeSessions();
+		return total;
+	}
+	
+	@POST
+	@Consumes({"application/json"})
 	@Path("/listPorNomeSituacao")
 	@Produces({"application/json"})
 	@JacksonFeatures(serializationDisable = {SerializationFeature.FAIL_ON_EMPTY_BEANS})

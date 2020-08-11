@@ -25,6 +25,7 @@ appAgenda.controller(
 							$scope.corretores = [];
 							$scope.supervisores = [];
 							$scope.captadores = [];
+							$scope.totalRegistros = 0;
 
 							
 							
@@ -153,6 +154,42 @@ appAgenda.controller(
 								})
 							};
 							
+							
+							$scope.countPorCorretor = function() {
+								if($scope.parametro.login == undefined || $scope.parametro.login.email == undefined) {
+									alert("Sem Parametros");
+								}
+								if($scope.cliente != undefined) {
+									$scope.parametro.idSituacao = $scope.cliente.idSituacao;
+								}
+								$rootScope.isVisible.loading = true;
+								setTimeout(function() {
+									setTimeout(
+									function() {
+										$http(
+										{
+											url : URL
+													+ "cliente/countPorCorretor",
+											method : "POST",
+											contentType : "application/json",
+											data : $scope.parametro
+										})
+										.success(
+											function(data) {
+												$rootScope.isVisible.loading = false;
+												$scope.totalRegistros = data;
+											})
+										.error(
+											function(erro) {
+												alert("ERRO no envio dos dados ! "
+														+ erro == undefined ? ""
+														: erro);
+											})
+									}, 100);
+
+								})
+							};
+							
 							$scope.pesquisarPorNome = function() {
 								if($scope.parametro.login == undefined || $scope.parametro.login.email == undefined) {
 									alert("Sem Parametros");
@@ -176,6 +213,7 @@ appAgenda.controller(
 											function(data) {
 												$rootScope.isVisible.loading = false;
 												$scope.clientes = data;
+												$scope.countPorCorretor();
 											})
 										.error(
 											function(erro) {

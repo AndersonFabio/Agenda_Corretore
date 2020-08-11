@@ -77,7 +77,7 @@ public class AgendaDAO {
 	public List<Agenda> buscarPorCorretorSituacao(Parametro parametro) {
 		List<Agenda> lista = new ArrayList<Agenda>();
 		if(parametro.getIdSituacao() == null) {
-			lista.add(new Agenda());
+			//lista.add(new Agenda());
 			return lista;
 		} 
 		String sql = null;
@@ -105,6 +105,35 @@ public class AgendaDAO {
 	    lista = consulta.getResultList();
 		return lista;
 	}
+	
+	public Long countPorCorretor(Parametro parametro) {
+		Long total = 0L;
+		String sql = null;
+		if (parametro.getLogin().getCargo().equals("Imobiliaria")) {
+			sql = "select count(*) from Agenda u left outer join Situacao sit on u.cliente.idSituacao = sit.id where u.idEmpresa=:idEmpresa  and u.cliente.nome like :nome order by data  ";
+		} else if (parametro.getLogin().getCargo().equals("Supervisor")) {
+			sql = "select count(*) from Agenda u left outer join Corretor corr on u.cliente.idCorretor = corr.id left outer join Situacao sit on u.cliente.idSituacao = sit.id  where (corr.idSupervisor = :idCorretor or corr.id=:idCorretor)  and u.cliente.nome like :nome order by data  ";
+		} else {
+			sql = "select count(*) from Agenda u left outer join Situacao sit on u.cliente.idSituacao = sit.id  where u.cliente.idCorretor=:idCorretor and u.cliente.nome like :nome order by data  ";
+		}
+
+		Query consulta = this.em.createQuery(sql);
+		if (parametro.getPesquisar() == null) {
+			parametro.setPesquisar("");
+		}
+
+		if (parametro.getLogin().getCargo().equals("Imobiliaria")) {
+			consulta.setParameter("idEmpresa", parametro.getLogin().getIdEmpresa());
+		} else {
+			consulta.setParameter("idCorretor", parametro.getLogin().getIdCorretor());
+		}
+
+		consulta.setParameter("nome", "%" + parametro.getPesquisar() + "%");
+
+	    total = (Long) consulta.getSingleResult();
+		return total;
+	}
+
 
 
 	public Agenda carregar(Long id) {

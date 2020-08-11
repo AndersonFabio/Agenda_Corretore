@@ -13,8 +13,8 @@ appAgenda.controller('agendaCtrl', [
 				$location.path('/agenda');
 			}
 
-			$scope.captacao = function() {
-				$location.path('/captacao');
+			$scope.formLeadgen = function() {
+				$location.path('/formLeadgen');
 			}
 			
 			$scope.conta = function() {
@@ -83,6 +83,9 @@ appAgenda.controller('agendaCtrl', [
 			$scope.parametro = usuarioService.popularParametro();
 			$scope.detalhe = false;
 			$scope.idSituacao =0;
+			$scope.totalRegistros = 0;
+			$scope.totalSituacao = 0;
+			
 			 
 			$scope.tmp = $scope.login.nome.split(" ");
 			$rootScope.usuario = $scope.tmp[0].toUpperCase();
@@ -267,6 +270,38 @@ appAgenda.controller('agendaCtrl', [
 						}).success(function(data) {
 							$rootScope.isVisible.loading = false;
 							$scope.agendas = data;
+							$scope.countPorCorretor();
+							$scope.totalSituacao = $scope.agendas.length;
+							//$scope.pesquisarClientes();
+
+						})
+								.error(
+										function(erro) {
+											$rootScope.isVisible.loading = false;
+											alert("ERRO no envio dos dados ! "
+													+ erro == undefined ? ""
+													: erro);
+										})
+					}, 100);
+
+				})
+			};
+			
+			$scope.countPorCorretor = function() {
+				if($scope.agenda.cliente != undefined) {
+					$scope.parametro.idSituacao = $scope.agenda.cliente.idSituacao;
+				}
+				$rootScope.isVisible.loading = true;
+				setTimeout(function() {
+					setTimeout(function() {
+						$http({
+							url : URL + "agenda/countPorCorretor",
+							method : "POST",
+							contentType : "application/json",
+							data : $scope.parametro
+						}).success(function(data) {
+							$rootScope.isVisible.loading = false;
+							$scope.totalRegistros = data;
 							//$scope.pesquisarClientes();
 
 						})
@@ -283,6 +318,7 @@ appAgenda.controller('agendaCtrl', [
 			};
 
 
+
 			$scope.carregar = function(agenda) {
 				$rootScope.isVisible.loading = true;
 				$scope.parametro.idAgenda = agenda.id;
@@ -296,6 +332,7 @@ appAgenda.controller('agendaCtrl', [
 						}).success(function(data) {
 							$rootScope.isVisible.loading = false;
 							$scope.agenda = data;
+							
 						})
 								.error(
 										function(erro) {
