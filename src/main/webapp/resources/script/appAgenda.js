@@ -52,6 +52,7 @@ appAgenda.run(function($rootScope, $timeout) {
 		.when('/resumoPorCorretor', {templateUrl: 'views/resumoPorCorretor.html', controller: 'gestaoCtrl'})
 		.when('/midia', {templateUrl: 'views/midia.html', controller: 'midiaCtrl'})
 		.when('/resumoPorSituacao', {templateUrl: 'views/resumoPorSituacao.html', controller: 'gestaoCtrl'})
+		.when('/captacao', {templateUrl: 'views/captacao.html', controller: 'captacaoCtrl'})
 		
 		
 		.otherwise({redirectTo: '/', controller: 'agendaCtrl'});

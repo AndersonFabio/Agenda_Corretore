@@ -40,8 +40,8 @@ appAgenda.controller('agendaCtrl', [
 				$location.path('/midia');
 			}
 			
-			$scope.desenvolvimento = function() {
-				alert("Em Desenvolvimento");
+			$scope.captacao = function() {
+				$location.path("/captacao");
 			}
 			
 			$scope.vincularCorretor = function() {

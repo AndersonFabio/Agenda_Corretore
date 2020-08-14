@@ -36,6 +36,7 @@ import com.facebook.ads.sdk.UserLeadGenFieldData;
 
 import br.com.capiteweb.business.AgendaBusiness;
 import br.com.capiteweb.business.ClienteBusiness;
+import br.com.capiteweb.business.CorretorBusiness;
 import br.com.capiteweb.business.EmpresaBusiness;
 import br.com.capiteweb.business.FormLeadgenBusiness;
 import br.com.capiteweb.business.MidiaBusiness;
@@ -45,6 +46,8 @@ import br.com.capiteweb.commons.HibernateUtil;
 import br.com.capiteweb.commons.Util;
 import br.com.capiteweb.model.Agenda;
 import br.com.capiteweb.model.Cliente;
+import br.com.capiteweb.model.Corretor;
+import br.com.capiteweb.model.Empresa;
 import br.com.capiteweb.model.FormLeadgen;
 import br.com.capiteweb.model.Login;
 import br.com.capiteweb.model.PageLeadgen;
@@ -61,6 +64,7 @@ public class FacebookRest {
 	private PageLeadgenBusiness pageLeadgenBusiness;
 	private ClienteBusiness clienteBusiness;
 	private AgendaBusiness agendaBusiness;
+	private CorretorBusiness corretorBusiness;
 
 	public FacebookRest() {
 		this.empresaBusiness = new EmpresaBusiness(this.em);
@@ -70,6 +74,7 @@ public class FacebookRest {
 		this.pageLeadgenBusiness = new PageLeadgenBusiness(this.em);
 		this.clienteBusiness = new ClienteBusiness(this.em);
 		this.agendaBusiness = new AgendaBusiness(this.em);
+		this.corretorBusiness = new CorretorBusiness(this.em);
 	}
 	
 	
@@ -198,7 +203,11 @@ public class FacebookRest {
 		FormLeadgen formLeadgen = formLeadgenBusiness.buscaPorIdForm(formId);
 		Parametro parametro = new Parametro();
 		Login login = new Login();
-		login.setIdEmpresa(pageLeadgen.getIdEmpresa());
+		if(formLeadgen.getIdEmpresa() == null) {
+			login.setIdEmpresa(pageLeadgen.getIdEmpresa());
+		} else {
+			login.setIdEmpresa(formLeadgen.getIdEmpresa());
+		}
 		parametro.setLogin(login);
 		parametro.setPesquisar("Facebook");
 		if(formLeadgen.getIdEmpresa() == null) {
@@ -264,6 +273,11 @@ public class FacebookRest {
 		agenda.setIdEmpreendimento(formLeadgen.getIdEmpreendimento());
 		agendaBusiness.salvar(agenda);
 		
+		//Empresa empresa = empresaBusiness.buscaPorId(formLeadgen.getIdEmpresa());
+		Corretor corretor = corretorBusiness.buscaPorId(formLeadgen.getIdCorretor());
+		if(formLeadgen.getIdEmpresa() != pageLeadgen.getIdEmpresa()) {
+			Util.EnviarEmail("Você recebeu um leadgen, acesse o CRM para consulta-lo.", corretor.getEmail(), "CapiteWeb CRM - Leadgen");
+		}
 //		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
 //		String retorno = gson.toJson(leadgen);
 //		System.out.println(retorno);
@@ -320,6 +334,7 @@ public class FacebookRest {
 		this.pageLeadgenBusiness.getEm().close();
 		this.clienteBusiness.getEm().close();
 		this.agendaBusiness.getEm().close();
+		this.corretorBusiness.getEm().close();
 	}
 }
 
