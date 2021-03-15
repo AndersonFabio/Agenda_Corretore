@@ -81,7 +81,7 @@ public class FacebookRest {
 	@GET
 	@Path("/teste")
 	public String teste(@QueryParam("input") String input, @QueryParam("id") String id) {
-		String access_token = "EAAECKYhAJ0wBAL1igCbvotMxm4HaPt6N922BNfZCW9zaD8Yp6OZCVl34EpZBRR7v4SQErnVXJs8KZA0aNi9zWTRkHZAVq2XB327Qbzg9buzQl4mB5s6R9ZCZCo6LqIblwiib85AEutdwS5voZASFLIehZBmsQES9WhUKQ9Wn67ta3gZCTHZBIpZAN9LP";
+		String access_token = "";
 		
 		// id = "1609930275842070";
 		/*try {
@@ -182,7 +182,7 @@ public class FacebookRest {
 			@QueryParam("hub.verify_token") String verifyToken, @QueryParam("input") String input) {
 		System.out.println("Verify " + verifyToken);
 		System.out.println("challenge " + challenge);
-		if (verifyToken.equals("4840b6bee2d0aaf7df664bf772ec4fa2")) {
+		if (verifyToken.equals("")) {
 
 			return challenge;
 		}
@@ -220,9 +220,9 @@ public class FacebookRest {
 		}
 		
 		
-		String access_token = "EAAECKYhAJ0wBAL1igCbvotMxm4HaPt6N922BNfZCW9zaD8Yp6OZCVl34EpZBRR7v4SQErnVXJs8KZA0aNi9zWTRkHZAVq2XB327Qbzg9buzQl4mB5s6R9ZCZCo6LqIblwiib85AEutdwS5voZASFLIehZBmsQES9WhUKQ9Wn67ta3gZCTHZBIpZAN9LP";
-		String app_secret = "ab089897f1cdc071027b07bb655a2117";
-		String app_id = "283852379531084";
+		String access_token = "";
+		String app_secret = "";
+		String app_id = "";
 		APIContext context = new APIContext(access_token).enableDebug(true);
 		Lead lead = null;
 		try {
@@ -295,8 +295,8 @@ public class FacebookRest {
 		params.add(
 				new BasicNameValuePair("callback_url", "https://www.capiteweb.com.br/CapiteWeb/rest/facebook/webhook"));
 		params.add(new BasicNameValuePair("fields", "leadgen"));
-		params.add(new BasicNameValuePair("verify_token", "4840b6bee2d0aaf7df664bf772ec4fa2"));
-		params.add(new BasicNameValuePair("access_token", "283852379531084|5Wsba5XWaToFvb9ZXoq9QpXloNI"));
+		params.add(new BasicNameValuePair("verify_token", ""));
+		params.add(new BasicNameValuePair("access_token", ""));
 
 		try {
 			httpPost.setEntity(new UrlEncodedFormEntity(params, "UTF-8"));
