@@ -35,6 +35,10 @@ public class Agenda implements Serializable {
 	@JoinColumn(name = "idCliente", nullable = false, insertable = false, updatable = false)
 	private Cliente cliente;
 
+
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "idEmpreendimento", nullable = false, insertable = false, updatable = false)
+	private Empreendimento empreendimento;
 	public Long getId() {
 		return this.id;
 	}
@@ -113,5 +117,13 @@ public class Agenda implements Serializable {
 
 	public void setIdEmpresa(Long idEmpresa) {
 		this.idEmpresa = idEmpresa;
+	}
+
+	public Empreendimento getEmpreendimento() {
+		return empreendimento;
+	}
+
+	public void setEmpreendimento(Empreendimento empreendimento) {
+		this.empreendimento = empreendimento;
 	}
 }

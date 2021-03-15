@@ -1,6 +1,7 @@
 package br.com.capiteweb.business;
 
 import java.util.List;
+import java.util.Locale;
 
 import javax.persistence.EntityManager;
 
@@ -15,6 +16,7 @@ public class AgendaBusiness {
 	public AgendaBusiness(EntityManager em) {
 		this.em = em;
 		this.agendaDAO = new AgendaDAO(em);
+		Locale locale = new Locale("PT","BR");
 	}
 
 	public Agenda carregar(Long idAgenda) {

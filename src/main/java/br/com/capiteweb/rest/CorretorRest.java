@@ -77,7 +77,7 @@ public class CorretorRest {
 			if (corretor.getPromocao() != null && corretor.getPromocao().equals("XNSSX")) {
 				c.add(5, 90);
 			} else {
-				c.add(5, 30);
+				c.add(5, 365);
 			}
 
 			corretor.setVencimento(c.getTime());

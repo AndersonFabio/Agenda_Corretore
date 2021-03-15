@@ -28,6 +28,22 @@
 	font-weight: bold";
 }
 
+.col-0
+.col-xs-0, 
+.col-sm-0,
+.col-md-0,
+.col-lg-0 {
+  flex: 0 0 0;
+  max-width: 0;
+}
+
+.menu {
+	background-color: #1c56a8;
+	color : white;
+	font-weight:bold;
+	border-radius: 10px;
+}
+
 .user {
 	font-size:14px;
 	font-weight: bold;
@@ -968,6 +984,7 @@ a.navbar-brand {
 		font-size: 20px;
 		color : white;
 	}
+
 }
 
 /* Tablet Portrait size to standard 960 (devices and browsers) */
@@ -982,6 +999,11 @@ a.navbar-brand {
 	.texto {
 		font-size: 16px;
 	}
+	.col-0 {
+	  	flex: 0 0 0 !important;
+  		max-width: 0 !important;
+  		display:none !important;
+	}
 }
 
 /* Mobile Landscape Size to Tablet Portrait (devices and browsers) */
@@ -990,6 +1012,11 @@ a.navbar-brand {
 		font-size: 14px;
 		vertical-align: center;
 	}
+	.col-0 {
+	  	flex: 0 0 0 !important;
+  		max-width: 0 !important;
+  		display:none !important;
+	}
 }
 
 /* Mobile Portrait Size to Mobile Landscape Size (devices and browsers) */
@@ -997,6 +1024,11 @@ a.navbar-brand {
 	.texto {
 		font-size: 12px;
 		vertical-align: center;
+	}
+	.col-0 {
+	  	flex: 0 0 0 !important;
+  		max-width: 0 !important;
+  		display:none !important;
 	}
 }
 
