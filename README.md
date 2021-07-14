@@ -1,5 +1,4 @@
 # Agenda_Corretores
 
-Java e AngularJS url para visitas
+Java API e AngularJS
 
-http://www.capiteweb.com.br
